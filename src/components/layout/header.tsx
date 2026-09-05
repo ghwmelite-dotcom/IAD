@@ -10,9 +10,13 @@ import { NAV_ITEMS } from '@/lib/constants';
 import { MegaMenu } from '@/components/layout/mega-menu';
 import { MobileNav } from '@/components/layout/mobile-nav';
 import { AnimatedLogo } from '@/components/layout/animated-logo';
+import { SearchOverlay } from '@/components/layout/search-overlay';
+import { useLanguage } from '@/components/layout/language-context';
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const { lang, setLang, dict } = useLanguage();
 
   useEffect(() => {
     function handleScroll() {
@@ -22,6 +26,28 @@ export function Header() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // "/" opens site search unless the user is typing in a field.
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      e.preventDefault();
+      setSearchOpen(true);
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   return (
@@ -74,7 +100,7 @@ export function Header() {
                 />
               </div>
               <span className="text-xs font-medium text-white/80 hidden sm:inline tracking-wide">
-                Republic of Ghana
+                {dict.header.republic}
               </span>
             </div>
 
@@ -84,29 +110,37 @@ export function Header() {
                 href="/contact"
                 className="text-xs text-white/60 hover:text-white transition-colors hidden sm:inline"
               >
-                Contact Us
+                {dict.header.contactUs}
               </Link>
               <span className="text-white/20 text-xs hidden sm:inline" aria-hidden="true">|</span>
               <div className="flex items-center gap-0.5">
                 <button
                   type="button"
-                  aria-label="English language"
+                  onClick={() => setLang('en')}
+                  aria-label={dict.header.english}
+                  aria-pressed={lang === 'en'}
                   className={cn(
-                    'text-xs font-semibold text-white/90 px-2 py-0.5 rounded',
-                    'bg-white/15',
+                    'text-xs px-2 py-0.5 rounded transition-colors',
+                    lang === 'en'
+                      ? 'font-semibold text-white/90 bg-white/15'
+                      : 'font-medium text-white/50 hover:text-white/80 hover:bg-white/10',
                   )}
                 >
                   EN
                 </button>
                 <button
                   type="button"
-                  aria-label="Twi language"
+                  onClick={() => setLang('fr')}
+                  aria-label={dict.header.french}
+                  aria-pressed={lang === 'fr'}
                   className={cn(
-                    'text-xs font-medium text-white/50 px-2 py-0.5 rounded',
-                    'hover:text-white/80 hover:bg-white/10 transition-colors',
+                    'text-xs px-2 py-0.5 rounded transition-colors',
+                    lang === 'fr'
+                      ? 'font-semibold text-white/90 bg-white/15'
+                      : 'font-medium text-white/50 hover:text-white/80 hover:bg-white/10',
                   )}
                 >
-                  TW
+                  FR
                 </button>
               </div>
             </div>
@@ -144,7 +178,8 @@ export function Header() {
             {/* Search button */}
             <button
               type="button"
-              aria-label="Search"
+              onClick={() => setSearchOpen(true)}
+              aria-label={dict.header.search}
               className={cn(
                 'flex items-center justify-center w-10 h-10 rounded-xl',
                 'text-text-muted hover:text-primary hover:bg-primary/5 transition-all duration-200',
@@ -155,10 +190,12 @@ export function Header() {
             </button>
 
             {/* Mobile nav (hamburger + panel) */}
-            <MobileNav />
+            <MobileNav onOpenSearch={() => setSearchOpen(true)} />
           </div>
         </div>
       </div>
+
+      {searchOpen && <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />}
     </header>
   );
 }

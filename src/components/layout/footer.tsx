@@ -1,8 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AnimatedLogo } from '@/components/layout/animated-logo';
+import { useLanguage } from '@/components/layout/language-context';
+import type { Dictionary } from '@/lib/i18n';
 
 const currentYear = new Date().getFullYear();
 
@@ -45,24 +49,26 @@ const socialLinks = [
   { label: 'YouTube', href: 'https://youtube.com/@OHCSGhana', Icon: YouTubeIcon },
 ];
 
-const quickLinks = [
-  { label: 'About IAD', href: '/about' },
-  { label: 'Audit Units', href: '/audit-units' },
-  { label: 'Publications', href: '/publications' },
-  { label: 'News & Events', href: '/news' },
-  { label: 'Right to Information', href: '/services/rti' },
-  { label: 'Contact Us', href: '/contact' },
+const quickLinks: { key: keyof Dictionary['footer']['links']; href: string }[] = [
+  { key: 'aboutIad', href: '/about' },
+  { key: 'auditUnits', href: '/audit-units' },
+  { key: 'publications', href: '/publications' },
+  { key: 'newsEvents', href: '/news' },
+  { key: 'rti', href: '/services/rti' },
+  { key: 'contactUs', href: '/contact' },
 ];
 
-const serviceLinks = [
-  { label: 'Special Audit Requests', href: '/services/special-audit' },
-  { label: 'Consultancy', href: '/services/consultancy' },
-  { label: 'Report Fraud / Whistleblowing', href: '/services/report-fraud' },
-  { label: 'Feedback', href: '/services/feedback' },
-  { label: 'Track Submission', href: '/track' },
+const serviceLinks: { key: keyof Dictionary['footer']['serviceLinks']; href: string }[] = [
+  { key: 'specialAudit', href: '/services/special-audit' },
+  { key: 'consultancy', href: '/services/consultancy' },
+  { key: 'reportFraud', href: '/services/report-fraud' },
+  { key: 'feedback', href: '/services/feedback' },
+  { key: 'track', href: '/track' },
 ];
 
 export function Footer({ className }: { className?: string }) {
+  const { dict } = useLanguage();
+
   return (
     <footer className={cn('w-full', className)}>
       {/* ── Thick Kente band at top ── */}
@@ -102,9 +108,7 @@ export function Footer({ className }: { className?: string }) {
 
               {/* Description */}
               <p className="text-white/60 text-base leading-relaxed mb-6">
-                The Internal Audit Department provides independent assurance, audit
-                coordination, and advisory services that strengthen accountability,
-                risk management, and compliance across Ghana&apos;s Civil Service.
+                {dict.footer.description}
               </p>
 
               {/* Social links — larger, with hover glow */}
@@ -134,8 +138,8 @@ export function Footer({ className }: { className?: string }) {
               <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-5 py-4">
                 <Clock className="h-5 w-5 text-accent" aria-hidden="true" />
                 <div>
-                  <p className="text-sm font-semibold text-white">Office Hours</p>
-                  <p className="text-sm text-white/50">Mon – Fri, 8:00 AM – 5:00 PM</p>
+                  <p className="text-sm font-semibold text-white">{dict.footer.officeHours}</p>
+                  <p className="text-sm text-white/50">{dict.footer.officeHoursValue}</p>
                 </div>
               </div>
             </div>
@@ -151,16 +155,16 @@ export function Footer({ className }: { className?: string }) {
             {/* Quick Links */}
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
-                Quick Links
+                {dict.footer.quickLinks}
               </h3>
               <ul className="space-y-3">
-                {quickLinks.map(({ label, href }) => (
-                  <li key={label}>
+                {quickLinks.map(({ key, href }) => (
+                  <li key={key}>
                     <Link
                       href={href}
                       className="text-base text-text-muted hover:text-primary hover:translate-x-1 inline-block transition-all duration-200"
                     >
-                      {label}
+                      {dict.footer.links[key]}
                     </Link>
                   </li>
                 ))}
@@ -170,16 +174,16 @@ export function Footer({ className }: { className?: string }) {
             {/* Services */}
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
-                Services
+                {dict.footer.services}
               </h3>
               <ul className="space-y-3">
-                {serviceLinks.map((link) => (
-                  <li key={link.label}>
+                {serviceLinks.map(({ key, href }) => (
+                  <li key={key}>
                     <Link
-                      href={link.href}
+                      href={href}
                       className="text-base text-text-muted hover:text-primary hover:translate-x-1 inline-block transition-all duration-200"
                     >
-                      {link.label}
+                      {dict.footer.serviceLinks[key]}
                     </Link>
                   </li>
                 ))}
@@ -189,7 +193,7 @@ export function Footer({ className }: { className?: string }) {
             {/* Contact */}
             <div className="sm:col-span-2 lg:col-span-2">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
-                Get in Touch
+                {dict.footer.getInTouch}
               </h3>
               <ul className="space-y-5">
                 <li className="flex items-start gap-4">
@@ -197,11 +201,11 @@ export function Footer({ className }: { className?: string }) {
                     <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary-dark mb-0.5">Address</p>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.addressLabel}</p>
                     <p className="text-base text-text-muted leading-relaxed">
-                      Internal Audit Department,<br />
-                      Office of the Head of Civil Service,<br />
-                      P.O. Box M.49, Accra, Ghana
+                      {dict.footer.addressLine1}<br />
+                      {dict.footer.addressLine2}<br />
+                      {dict.footer.addressLine3}
                     </p>
                   </div>
                 </li>
@@ -210,7 +214,7 @@ export function Footer({ className }: { className?: string }) {
                     <Phone className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary-dark mb-0.5">Phone</p>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.phone}</p>
                     <a
                       href="tel:+233302665421"
                       className="text-base text-text-muted hover:text-primary transition-colors duration-200"
@@ -224,7 +228,7 @@ export function Footer({ className }: { className?: string }) {
                     <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-primary-dark mb-0.5">Email</p>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.email}</p>
                     <a
                       href="mailto:info@ohcs.gov.gh"
                       className="text-base text-text-muted hover:text-primary transition-colors duration-200"
@@ -274,9 +278,9 @@ export function Footer({ className }: { className?: string }) {
               </div>
               <div>
                 <p className="text-sm font-semibold text-primary-dark">
-                  &copy; {currentYear} Internal Audit Department — Office of the Head of Civil Service
+                  &copy; {currentYear} {dict.footer.copyright}
                 </p>
-                <p className="text-xs text-text-muted/60">Republic of Ghana &bull; All rights reserved</p>
+                <p className="text-xs text-text-muted/60">{dict.footer.rights}</p>
               </div>
             </div>
 
@@ -284,9 +288,9 @@ export function Footer({ className }: { className?: string }) {
             <nav aria-label="Policy links">
               <ul className="flex items-center gap-2">
                 {[
-                  { label: 'Privacy Policy', href: '/privacy' },
-                  { label: 'Accessibility', href: '/accessibility' },
-                  { label: 'Sitemap', href: '/sitemap.xml' },
+                  { label: dict.footer.privacy, href: '/privacy' },
+                  { label: dict.footer.accessibility, href: '/accessibility' },
+                  { label: dict.footer.sitemap, href: '/sitemap.xml' },
                 ].map(({ label, href }) => (
                   <li key={label}>
                     <Link

@@ -5,12 +5,21 @@ import { FileSearch, ShieldAlert, FileText, Download, ArrowRight } from 'lucide-
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { cn } from '@/lib/utils';
 import { FloatingShapes } from '@/components/home/floating-shapes';
+import { useLanguage } from '@/components/layout/language-context';
+import type { Dictionary } from '@/lib/i18n';
 
-const services = [
+const services: {
+  icon: typeof FileSearch;
+  key: keyof Dictionary['quickServices']['cards'];
+  href: string;
+  gradient: string;
+  bg: string;
+  border: string;
+  number: string;
+}[] = [
   {
     icon: FileSearch,
-    title: 'Special Audit Requests',
-    description: 'Request a special audit, risk assessment, or controls review.',
+    key: 'specialAudit',
     href: '/services/special-audit',
     gradient: 'from-emerald-400 to-green-500',
     bg: 'bg-green-50/70',
@@ -19,8 +28,7 @@ const services = [
   },
   {
     icon: ShieldAlert,
-    title: 'Report Fraud or Waste',
-    description: 'Blow the whistle on fraud, abuse, or waste — anonymously if you wish.',
+    key: 'reportFraud',
     href: '/services/report-fraud',
     gradient: 'from-amber-400 to-yellow-500',
     bg: 'bg-amber-50/70',
@@ -29,8 +37,7 @@ const services = [
   },
   {
     icon: FileText,
-    title: 'Right to Information',
-    description: 'Submit RTI requests for public records and data.',
+    key: 'rti',
     href: '/services/rti',
     gradient: 'from-rose-400 to-red-500',
     bg: 'bg-rose-50/70',
@@ -39,8 +46,7 @@ const services = [
   },
   {
     icon: Download,
-    title: 'Publications & Downloads',
-    description: 'Access audit reports, annual plans, policies, and manuals.',
+    key: 'publications',
     href: '/publications',
     gradient: 'from-sky-400 to-blue-500',
     bg: 'bg-sky-50/70',
@@ -51,6 +57,7 @@ const services = [
 
 export function QuickServices() {
   const { ref, isVisible } = useScrollReveal();
+  const { dict } = useLanguage();
 
   return (
     <section
@@ -64,21 +71,21 @@ export function QuickServices() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-            <span className="text-sm font-semibold text-primary tracking-wide">Our Services</span>
+            <span className="text-sm font-semibold text-primary tracking-wide">{dict.quickServices.eyebrow}</span>
           </div>
           <h2
             id="services-heading"
             className="font-display text-4xl lg:text-5xl font-bold text-primary-dark mb-5"
           >
-            How Can We{' '}
+            {dict.quickServices.titleA}{' '}
             <span className="relative inline-block">
-              Help You
+              {dict.quickServices.titleAccent}
               <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/20 rounded-sm -z-10" />
             </span>
             ?
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-            Request audit and advisory services, report fraud or waste, and access official publications online.
+            {dict.quickServices.subtitle}
           </p>
         </div>
 
@@ -111,12 +118,12 @@ export function QuickServices() {
               </div>
 
               <h3 className="font-semibold text-xl text-primary-dark mb-3 tracking-tight group-hover/card:text-primary transition-colors">
-                {service.title}
+                {dict.quickServices.cards[service.key].title}
               </h3>
-              <p className="text-base text-text-muted leading-relaxed mb-6">{service.description}</p>
+              <p className="text-base text-text-muted leading-relaxed mb-6">{dict.quickServices.cards[service.key].description}</p>
 
               <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 group-hover/card:opacity-100 transition-all duration-300 translate-y-2 group-hover/card:translate-y-0">
-                Get started <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                {dict.quickServices.getStarted} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </span>
             </Link>
           ))}

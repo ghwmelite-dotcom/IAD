@@ -19,6 +19,8 @@ import {
   Calendar,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { navLabel } from '@/lib/i18n';
+import { useLanguage } from '@/components/layout/language-context';
 import type { NavItem } from '@/types';
 import type { LucideIcon } from 'lucide-react';
 
@@ -45,6 +47,8 @@ interface MegaMenuProps {
 export function MegaMenu({ item }: MegaMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { dict } = useLanguage();
+  const label = navLabel(item.label, dict);
 
   // Simple link — no children
   if (!item.children || item.children.length === 0) {
@@ -59,7 +63,7 @@ export function MegaMenu({ item }: MegaMenuProps) {
           'after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left',
         )}
       >
-        {item.label}
+        {label}
       </Link>
     );
   }
@@ -92,7 +96,7 @@ export function MegaMenu({ item }: MegaMenuProps) {
           isOpen ? 'text-primary bg-primary/5' : 'text-text-muted hover:text-primary',
         )}
       >
-        {item.label}
+        {label}
         <ChevronDown
           aria-hidden="true"
           className={cn(
@@ -126,7 +130,7 @@ export function MegaMenu({ item }: MegaMenuProps) {
           {/* Category label */}
           <div className="px-4 pt-3 pb-2">
             <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">
-              {item.label}
+              {label}
             </span>
           </div>
 
@@ -158,7 +162,7 @@ export function MegaMenu({ item }: MegaMenuProps) {
                 )}
                 <div className="flex-1 min-w-0">
                   <span className="font-semibold text-text group-hover/item:text-primary transition-colors duration-150 block">
-                    {child.label}
+                    {navLabel(child.label, dict)}
                   </span>
                   {child.description && (
                     <span className="text-xs text-text-muted leading-relaxed mt-0.5 block">
@@ -177,7 +181,7 @@ export function MegaMenu({ item }: MegaMenuProps) {
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-semibold text-primary rounded-lg hover:bg-primary/5 transition-colors"
             >
-              View all {item.label.toLowerCase()}
+              {dict.header.viewAll} {label.toLowerCase()}
               <ChevronDown className="w-3 h-3 -rotate-90" aria-hidden="true" />
             </Link>
           </div>

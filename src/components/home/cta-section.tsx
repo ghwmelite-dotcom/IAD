@@ -12,26 +12,45 @@ import {
   ShieldAlert,
   Search,
   BookOpen,
+  AlertCircle,
 } from 'lucide-react';
+import { useLanguage } from '@/components/layout/language-context';
+import type { Dictionary } from '@/lib/i18n';
 
-const QUICK_ACTIONS = [
-  { icon: ShieldAlert, label: 'Report Fraud or Waste', href: '/services/report-fraud', gradient: 'from-green-500 to-emerald-600' },
-  { icon: Search, label: 'Track Submission', href: '/track', gradient: 'from-amber-500 to-yellow-600' },
-  { icon: BookOpen, label: 'Browse Publications', href: '/publications', gradient: 'from-blue-500 to-indigo-600' },
+const QUICK_ACTIONS: {
+  icon: typeof ShieldAlert;
+  key: keyof Dictionary['cta']['quickActions'];
+  href: string;
+  gradient: string;
+}[] = [
+  { icon: ShieldAlert, key: 'reportFraud', href: '/services/report-fraud', gradient: 'from-green-500 to-emerald-600' },
+  { icon: Search, key: 'track', href: '/track', gradient: 'from-amber-500 to-yellow-600' },
+  { icon: BookOpen, key: 'publications', href: '/publications', gradient: 'from-blue-500 to-indigo-600' },
 ];
+
+type SubscribeState = 'idle' | 'loading' | 'success' | 'already' | 'error';
 
 export function CtaSection() {
   const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [subscribing, setSubscribing] = useState(false);
+  const [state, setState] = useState<SubscribeState>('idle');
+  const { dict } = useLanguage();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSubscribing(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setSubscribed(true);
-    setSubscribing(false);
+    setState('loading');
+    try {
+      const res = await fetch('/api/v1/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error(`subscribe failed: ${res.status}`);
+      const body = (await res.json()) as { data?: { subscribed?: boolean; already?: boolean } };
+      setState(body?.data?.already ? 'already' : 'success');
+    } catch {
+      setState('error');
+    }
   };
 
   return (
@@ -50,7 +69,7 @@ export function CtaSection() {
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shadow-sm`}>
                   <action.icon className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
-                <span className="font-semibold text-base text-primary-dark group-hover:text-primary transition-colors">{action.label}</span>
+                <span className="font-semibold text-base text-primary-dark group-hover:text-primary transition-colors">{dict.cta.quickActions[action.key]}</span>
                 <ArrowRight className="h-4 w-4 text-text-muted/30 group-hover:text-primary group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
               </Link>
             ))}
@@ -96,19 +115,18 @@ export function CtaSection() {
         <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 mb-6">
             <Bell className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-            <span className="text-sm font-semibold text-accent tracking-wide">Stay Connected</span>
+            <span className="text-sm font-semibold text-accent tracking-wide">{dict.cta.stayConnected}</span>
           </div>
 
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-5">
-            Seen Fraud or{' '}
+            {dict.cta.headlineA}{' '}
             <span className="relative inline-block">
-              Waste?
+              {dict.cta.headlineAccent}
               <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/30 rounded-sm -z-10" />
             </span>
           </h2>
           <p className="text-lg text-white/55 leading-relaxed mb-10 max-w-lg mx-auto">
-            Help us protect public resources. Report fraud, abuse, or waste — you can remain
-            anonymous, and no identifying details are stored unless you choose to share them.
+            {dict.cta.body}
           </p>
 
           <div className="mb-12">
@@ -117,17 +135,26 @@ export function CtaSection() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-primary-dark font-semibold text-base rounded-xl hover:bg-accent-light hover:shadow-lg transition-all duration-200"
             >
               <ShieldAlert className="h-5 w-5" aria-hidden="true" />
-              Report Fraud or Waste
+              {dict.cta.reportButton}
             </Link>
           </div>
 
-          <p className="text-sm font-semibold text-white/70 mb-4">Stay Connected — subscribe for departmental updates:</p>
-          {subscribed ? (
+          <p className="text-sm font-semibold text-white/70 mb-4">{dict.cta.subscribePrompt}</p>
+          {state === 'success' || state === 'already' ? (
             <div className="bg-white/[0.08] backdrop-blur-sm border border-white/15 rounded-2xl p-8 max-w-md mx-auto">
               <CheckCircle className="h-10 w-10 text-accent mx-auto mb-4" />
-              <h3 className="font-display text-xl font-bold text-white mb-2">You&apos;re Subscribed!</h3>
+              <h3 className="font-display text-xl font-bold text-white mb-2">
+                {state === 'already' ? dict.cta.alreadyTitle : dict.cta.successTitle}
+              </h3>
               <p className="text-base text-white/60">
-                We&apos;ll send updates to <span className="font-semibold text-accent">{email}</span>
+                {state === 'already' ? (
+                  dict.cta.alreadyBody
+                ) : (
+                  <>
+                    {dict.cta.successDetail}{' '}
+                    <span className="font-semibold text-accent">{email}</span>. {dict.cta.successBody}.
+                  </>
+                )}
               </p>
             </div>
           ) : (
@@ -139,16 +166,32 @@ export function CtaSection() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={dict.cta.emailPlaceholder}
                     required
+                    aria-label={dict.cta.emailPlaceholder}
                     className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.08] border-2 border-white/15 text-white text-base placeholder:text-white/30 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                   />
                 </div>
-                <Button type="submit" variant="accent" size="lg" loading={subscribing} className="shrink-0">
-                  Subscribe
+                <Button type="submit" variant="accent" size="lg" loading={state === 'loading'} className="shrink-0">
+                  {dict.cta.subscribe}
                 </Button>
               </div>
-              <p className="text-xs text-white/30 mt-3">No spam. Official IAD updates only. Unsubscribe anytime.</p>
+              {state === 'error' && (
+                <div
+                  role="alert"
+                  className="mt-4 flex items-center justify-center gap-2 text-sm text-red-300"
+                >
+                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{dict.cta.errorBody}</span>
+                  <button
+                    type="submit"
+                    className="font-semibold text-accent underline underline-offset-2 hover:text-accent-light transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+                  >
+                    {dict.cta.retry}
+                  </button>
+                </div>
+              )}
+              <p className="text-xs text-white/30 mt-3">{dict.cta.finePrint}</p>
             </form>
           )}
 

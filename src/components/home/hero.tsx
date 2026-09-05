@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -11,6 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GoldParticles } from '@/components/home/hero-particles';
+import { useLanguage } from '@/components/layout/language-context';
 
 const REVEAL = 'hero-reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards';
 
@@ -20,6 +23,8 @@ const REVEAL = 'hero-reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards';
  * (report card, risk gauge, findings chart) built in pure CSS/SVG.
  */
 export function Hero() {
+  const { dict } = useLanguage();
+
   return (
     <section
       aria-label="Hero"
@@ -94,7 +99,7 @@ export function Hero() {
           <div className="flex items-center gap-3.5 opacity-0" style={{ animation: REVEAL }}>
             <span className="w-9 h-0.5 bg-accent" aria-hidden="true" />
             <span className="text-xs uppercase tracking-[3.5px] text-accent font-semibold">
-              Republic of Ghana — Office of the Head of Civil Service
+              {dict.hero.eyebrow}
             </span>
           </div>
 
@@ -102,23 +107,20 @@ export function Hero() {
             className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] font-bold text-white leading-[1.08] mt-6 opacity-0"
             style={{ animation: REVEAL, animationDelay: '0.1s' }}
           >
-            Independent{' '}
+            {dict.hero.headlineA}{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-accent">Assurance.</span>
+              <span className="relative z-10 text-accent">{dict.hero.headlineAccent}</span>
               <span aria-hidden="true" className="absolute bottom-1 left-0 right-0 h-3 bg-accent/25 rounded-sm" />
             </span>
             <br />
-            Accountable Governance.
+            {dict.hero.headlineB}
           </h1>
 
           <p
             className="text-white/70 text-lg leading-relaxed mt-6 max-w-xl opacity-0"
             style={{ animation: REVEAL, animationDelay: '0.2s' }}
           >
-            The Internal Audit Department is the headquarters of internal audit in the
-            Ghana Civil Service — safeguarding public resources, strengthening controls,
-            and coordinating the Internal Audit Units of every Ministry, Department
-            and Agency.
+            {dict.hero.subtitle}
           </p>
 
           <div
@@ -137,7 +139,7 @@ export function Hero() {
               )}
             >
               <AlertTriangle className="w-[18px] h-[18px]" aria-hidden="true" />
-              Report Fraud or Waste
+              {dict.hero.ctaFraud}
             </Link>
             <Link
               href="/audit-units"
@@ -151,7 +153,7 @@ export function Hero() {
               )}
             >
               <SearchCheck className="w-[18px] h-[18px]" aria-hidden="true" />
-              Explore Audit Units
+              {dict.hero.ctaUnits}
             </Link>
           </div>
 
@@ -161,8 +163,8 @@ export function Hero() {
             style={{ animation: REVEAL, animationDelay: '0.45s' }}
           >
             {[
-              { icon: ShieldCheck, label: 'Whistleblower Act, 2006 (Act 720)' },
-              { icon: Stamp, label: 'Internal Audit Class of the Civil Service' },
+              { icon: ShieldCheck, label: dict.hero.chipWhistleblower },
+              { icon: Stamp, label: dict.hero.chipClass },
             ].map((chip) => (
               <div key={chip.label} className="flex items-center gap-2.5">
                 <chip.icon className="w-4 h-4 text-accent/80" aria-hidden="true" />
@@ -278,7 +280,7 @@ export function Hero() {
         style={{ animation: REVEAL, animationDelay: '0.7s' }}
         aria-hidden="true"
       >
-        <span className="text-[10px] uppercase tracking-[2.5px] text-white/40">Scroll</span>
+        <span className="text-[10px] uppercase tracking-[2.5px] text-white/40">{dict.hero.scroll}</span>
         <ArrowRight className="w-4 h-4 text-accent/70 rotate-90" style={{ animation: 'float-soft 2s ease-in-out infinite' }} />
       </div>
     </section>

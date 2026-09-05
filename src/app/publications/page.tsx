@@ -13,7 +13,6 @@ import {
   Scale,
   ClipboardList,
   FolderOpen,
-  ExternalLink,
   Calendar,
   FileIcon,
 } from 'lucide-react';
@@ -110,16 +109,6 @@ export default function PublicationsPage() {
             <Download className="h-4 w-4 text-accent" aria-hidden="true" />
             <span className="text-sm text-white/60">Free to download</span>
           </div>
-          <a
-            href="https://ohcselibrary.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-2 hover:bg-accent/30 transition-colors"
-          >
-            <BookOpen className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/80 font-medium">Visit the E-Library</span>
-            <ExternalLink className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-          </a>
         </div>
       </PageHero>
 
@@ -311,46 +300,6 @@ export default function PublicationsPage() {
                 </p>
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      <KenteSectionDivider />
-
-      {/* ── E-Library CTA ── */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="relative bg-primary-dark rounded-2xl p-10 lg:p-14 overflow-hidden">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage: [
-                  'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                  'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                ].join(', '),
-              }}
-            />
-            <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent-light flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <BookOpen className="h-8 w-8 text-primary-dark" aria-hidden="true" />
-              </div>
-              <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">
-                Need More Resources?
-              </h2>
-              <p className="text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
-                The OHCS E-Library offers AI-powered search, career development tools, training resources, and a comprehensive document management system.
-              </p>
-              <a
-                href="https://ohcselibrary.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-primary-dark font-semibold text-base rounded-xl hover:bg-accent-light hover:shadow-lg transition-all duration-200"
-              >
-                Explore the E-Library
-                <ExternalLink className="h-5 w-5" aria-hidden="true" />
-              </a>
-            </div>
           </div>
         </div>
       </section>

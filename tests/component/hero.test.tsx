@@ -2,15 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Hero } from '@/components/home/hero';
 
-// Mock next/image to render a plain img
-vi.mock('next/image', () => ({
-  default: (props: Record<string, unknown>) => {
-    const { fill: _fill, priority: _priority, alt, ...rest } = props;
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img alt={typeof alt === 'string' ? alt : ''} {...rest} />;
-  },
-}));
-
 // Mock next/link to render a plain anchor
 vi.mock('next/link', () => ({
   default: ({ children, href, ...props }: Record<string, unknown>) => (
@@ -19,35 +10,31 @@ vi.mock('next/link', () => ({
 }));
 
 describe('Hero', () => {
-
   it('renders the eyebrow text', () => {
     render(<Hero />);
-    expect(screen.getByText('Republic of Ghana')).toBeDefined();
+    expect(screen.getByText(/Republic of Ghana/)).toBeDefined();
+  });
+
+  it('renders the assurance headline', () => {
+    render(<Hero />);
+    expect(screen.getByRole('heading', { level: 1, name: /Independent Assurance/i })).toBeDefined();
   });
 
   it('renders both CTA buttons', () => {
     render(<Hero />);
-    expect(screen.getByRole('link', { name: /Find a Service/ })).toBeDefined();
-    expect(screen.getByRole('link', { name: /Track Submission/ })).toBeDefined();
+    expect(screen.getByRole('link', { name: /Report Fraud or Waste/ })).toBeDefined();
+    expect(screen.getByRole('link', { name: /Explore Audit Units/ })).toBeDefined();
   });
 
-  it('renders 3 slide indicators', () => {
+  it('links the fraud CTA to the whistleblowing form', () => {
     render(<Hero />);
-    const tabs = screen.getAllByRole('tab');
-    expect(tabs).toHaveLength(3);
+    const link = screen.getByRole('link', { name: /Report Fraud or Waste/ });
+    expect(link.getAttribute('href')).toBe('/services/report-fraud');
   });
 
-  it('marks the first indicator as selected', () => {
+  it('states the HQ-of-audit-units mandate', () => {
     render(<Hero />);
-    const tabs = screen.getAllByRole('tab');
-    expect(tabs[0]?.getAttribute('aria-selected')).toBe('true');
-    expect(tabs[1]?.getAttribute('aria-selected')).toBe('false');
-  });
-
-  it('has a polite aria-live region', () => {
-    render(<Hero />);
-    const region = screen.getByRole('region', { name: /Hero/i });
-    expect(region.getAttribute('aria-live')).toBe('polite');
+    expect(screen.getByText(/headquarters of internal audit/i)).toBeDefined();
   });
 
   it('renders decorative elements as aria-hidden', () => {

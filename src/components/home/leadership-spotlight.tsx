@@ -15,7 +15,7 @@ const LEADERS = [
     title: 'Director, Internal Audit Department',
     bio: 'Director of the Internal Audit Department since April 2025, coordinating the work of Internal Audit Units across all MDAs of the Civil Service. A Fellow of the Association of Chartered Certified Accountants (FCCA) with over 30 years in public and private sector audit and finance, including more than a decade as Director of Internal Audit & Inspectorate at the Ministry of Foreign Affairs and Regional Integration.',
     photoUrl: '/images/leadership/solomon-wemegah.jpg',
-    imagePosition: '50% 30%',
+    imagePosition: '50% 20%',
     imageScale: 'scale-100',
   },
 ];
@@ -82,7 +82,7 @@ export function LeadershipSpotlight() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2">
                 {/* Portrait — cropped to the person, or monogram placeholder */}
-                <div className="relative h-56 sm:h-64 overflow-hidden">
+                <div className="relative h-72 sm:h-auto sm:min-h-[320px] overflow-hidden">
                   {leader.photoUrl ? (
                     <Image
                       src={leader.photoUrl}

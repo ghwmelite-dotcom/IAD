@@ -12,7 +12,6 @@ import {
   ShieldAlert,
   Search,
   BookOpen,
-  ExternalLink,
 } from 'lucide-react';
 
 const QUICK_ACTIONS = [
@@ -153,20 +152,6 @@ export function CtaSection() {
             </form>
           )}
 
-          {/* E-Library promo */}
-          <div className="mt-14 pt-10 border-t border-white/10">
-            <p className="text-sm text-white/40 mb-4">Looking for research tools and career development?</p>
-            <a
-              href="https://ohcselibrary.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent/15 border border-accent/25 text-base font-semibold text-accent hover:bg-accent/25 transition-all"
-            >
-              <BookOpen className="h-5 w-5" aria-hidden="true" />
-              Explore the OHCS E-Library
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-            </a>
-          </div>
         </div>
       </section>
     </>

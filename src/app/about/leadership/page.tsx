@@ -26,13 +26,13 @@ export default function LeadershipPage() {
           {LEADERS.map((leader) => (
             <div key={leader.title} className="bg-white rounded-2xl border-2 border-border/40 overflow-hidden shadow-sm">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-                <div className="relative h-64 md:h-auto md:min-h-[300px]">
+                <div className="relative h-80 md:h-auto md:min-h-[340px]">
                   {leader.photoUrl ? (
                     <Image
                       src={leader.photoUrl}
                       alt={leader.name}
                       fill
-                      className="object-cover object-center"
+                      className="object-cover object-[50%_20%]"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (

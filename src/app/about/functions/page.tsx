@@ -1,4 +1,5 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { Sidebar } from '@/components/layout/sidebar';
 import {
   GraduationCap,
@@ -54,6 +55,18 @@ const FUNCTIONS = [
     description: 'Offer counselling and consultancy services on issues affecting Internal Auditors in the MDAs.',
   },
 ];
+
+
+export const metadata: Metadata = {
+  title: 'Our Functions',
+  description:
+    "The department's core responsibilities for the Internal Audit Class of the Civil Service.",
+  openGraph: {
+    title: 'Our Functions',
+    description:
+      "The department's core responsibilities for the Internal Audit Class of the Civil Service.",
+  },
+};
 
 export default function FunctionsPage() {
   return (

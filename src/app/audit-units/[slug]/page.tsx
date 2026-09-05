@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { AUDIT_UNITS } from '@/lib/constants';
 
@@ -8,6 +9,17 @@ interface PageProps {
 
 export function generateStaticParams() {
   return AUDIT_UNITS.map((unit) => ({ slug: unit.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const unit = AUDIT_UNITS.find((u) => u.slug === slug);
+  if (!unit) return {};
+  return {
+    title: unit.name,
+    description: unit.description,
+    openGraph: { title: unit.name, description: unit.description },
+  };
 }
 
 export default async function AuditUnitDetailPage({ params }: PageProps) {

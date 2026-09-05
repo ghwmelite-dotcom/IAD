@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { formatDateShort } from '@/lib/utils';
 import { SAMPLE_NEWS } from '@/lib/sample-content';
@@ -9,6 +10,22 @@ interface PageProps {
 
 export function generateStaticParams() {
   return SAMPLE_NEWS.map((article) => ({ slug: article.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = SAMPLE_NEWS.find((a) => a.slug === slug);
+  if (!article) return {};
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: 'article',
+      publishedTime: article.publishedAt ?? undefined,
+    },
+  };
 }
 
 export default async function NewsDetailPage({ params }: PageProps) {

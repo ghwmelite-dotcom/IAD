@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { MapPin, Calendar } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
@@ -10,6 +11,20 @@ interface PageProps {
 
 export function generateStaticParams() {
   return SAMPLE_EVENTS.map((event) => ({ slug: event.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const event = SAMPLE_EVENTS.find((e) => e.slug === slug);
+  if (!event) return {};
+  const description =
+    event.description ||
+    `${event.title} — ${event.location}. An Internal Audit Department event.`;
+  return {
+    title: event.title,
+    description,
+    openGraph: { title: event.title, description },
+  };
 }
 
 export default async function EventDetailPage({ params }: PageProps) {

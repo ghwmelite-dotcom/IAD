@@ -1,4 +1,5 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import Link from 'next/link';
@@ -40,6 +41,18 @@ const QUICK_LINKS = [
   { label: 'Our Leadership', href: '/about/leadership', desc: 'The Director and senior leadership of the department', icon: Users },
   { label: 'Organisational Structure', href: '/about/structure', desc: 'How the Internal Audit Department is organised', icon: GitBranch },
 ];
+
+
+export const metadata: Metadata = {
+  title: 'About the Department',
+  description:
+    'Providing independent assurance, advisory, and audit coordination services within the Office of the Head of the Civil Service.',
+  openGraph: {
+    title: 'About the Department',
+    description:
+      'Providing independent assurance, advisory, and audit coordination services within the Office of the Head of the Civil Service.',
+  },
+};
 
 export default function AboutPage() {
   return (

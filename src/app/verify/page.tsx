@@ -1,16 +1,52 @@
-'use client';
-
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { Award, FileSearch, ShieldCheck, Stamp } from 'lucide-react';
 import { PageHero } from '@/components/layout/page-hero';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CertificateVerifier } from '@/components/registry/certificate-verifier';
+import { FaqSection } from '@/components/seo/faq-section';
+import { JsonLd } from '@/components/seo/json-ld';
+import { faqPageSchema, type FaqItem } from '@/lib/json-ld';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Verify a Certificate',
+  description:
+    'Confirm that a certificate presented as issued by the Internal Audit Department is genuine. Enter the verify code printed on the certificate for an instant check against official records.',
+  openGraph: {
+    title: 'Verify a Certificate',
+    description:
+      'Confirm that a certificate presented as issued by the Internal Audit Department is genuine.',
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
+
+// Visible FAQ copy MUST stay in sync with the FAQPage JSON-LD below.
+const VERIFY_FAQS: FaqItem[] = [
+  {
+    question: 'How do I verify an IAD certificate?',
+    answer:
+      'Enter the verify code printed on the certificate — usually in the format IAD-CERT-YYYY-NNNN — into the checker above and press "Verify Certificate". The code is checked against the department\'s records and the result appears instantly.',
+  },
+  {
+    question: 'What does a valid result mean?',
+    answer:
+      'A valid result confirms the certificate was genuinely issued by the Internal Audit Department. The certificate title, serial number, issue date, and the officer it was awarded to all match the official record.',
+  },
+  {
+    question: 'What should I do if a code comes back "not found"?',
+    answer:
+      'First check the code for typing errors and try again. If the code is correct and still returns "not found", the certificate may not have been issued by this department — treat it as a red flag and report it to the Internal Audit Department through the contact page.',
+  },
+];
 
 export default function VerifyPage() {
   return (
     <>
+      <JsonLd data={faqPageSchema(VERIFY_FAQS)} />
+
       <PageHero
         title="Verify a Certificate"
         subtitle="Confirm that a certificate presented as issued by the Internal Audit Department is genuine."
@@ -118,6 +154,11 @@ export default function VerifyPage() {
           </div>
         </div>
       </section>
+
+      <KenteSectionDivider />
+
+      {/* ── FAQ (visible content mirrors the FAQPage JSON-LD) ── */}
+      <FaqSection faqs={VERIFY_FAQS} heading="Common Questions" pill="Certificate Verification" />
     </>
   );
 }

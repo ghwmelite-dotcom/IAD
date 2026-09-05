@@ -15,7 +15,7 @@ const ENTRY: RegistryEntry = {
   mda_name: 'Ministry of Finance',
   public_slug: 'yaw-osei-frimpong',
   verified: true,
-  credentials: [{ body: 'FCCA' }, { body: 'CITG' }],
+  credentials: ['FCCA', 'CITG'],
 };
 
 describe('RegistryCard', () => {

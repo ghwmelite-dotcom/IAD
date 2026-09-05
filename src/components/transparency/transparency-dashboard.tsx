@@ -22,10 +22,19 @@ import { PublishingSoon } from '@/components/transparency/publishing-soon';
 
 type Status = 'loading' | 'ready' | 'unavailable';
 
-export function TransparencyDashboard() {
-  const [status, setStatus] = useState<Status>('loading');
-  const [summary, setSummary] = useState<TransparencySummary | null>(null);
-  const [mdas, setMdas] = useState<MdaTransparency[]>([]);
+interface TransparencyDashboardProps {
+  /** Build-time snapshot baked into the static HTML; null when the build fetch failed. */
+  initialSummary?: TransparencySummary | null;
+  initialMdas?: MdaTransparency[] | null;
+}
+
+export function TransparencyDashboard({
+  initialSummary = null,
+  initialMdas = null,
+}: TransparencyDashboardProps) {
+  const [status, setStatus] = useState<Status>(initialSummary ? 'ready' : 'loading');
+  const [summary, setSummary] = useState<TransparencySummary | null>(initialSummary);
+  const [mdas, setMdas] = useState<MdaTransparency[]>(initialMdas ?? []);
   const { ref: kpisRef, isVisible: kpisVisible } = useScrollReveal();
   const { ref: chartsRef, isVisible: chartsVisible } = useScrollReveal();
   const { ref: tableRef, isVisible: tableVisible } = useScrollReveal();
@@ -40,7 +49,9 @@ export function TransparencyDashboard() {
       setMdas(mdaData);
       setStatus('ready');
     } catch {
-      setStatus('unavailable');
+      // Keep the prerendered snapshot if there is one; only degrade to the
+      // "publishing soon" state when there is nothing at all to show.
+      setStatus((prev) => (prev === 'ready' ? prev : 'unavailable'));
     }
   }, []);
 

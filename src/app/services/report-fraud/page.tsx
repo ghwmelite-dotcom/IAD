@@ -5,6 +5,9 @@ import { PageHero } from '@/components/layout/page-hero';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { SubmissionForm } from '@/components/forms/submission-form';
+import { FaqSection } from '@/components/seo/faq-section';
+import { JsonLd } from '@/components/seo/json-ld';
+import { faqPageSchema, type FaqItem } from '@/lib/json-ld';
 import { fraudReportFormSchema, type FraudReportFormData } from '@/lib/validations';
 import type { Path } from 'react-hook-form';
 import {
@@ -36,11 +39,32 @@ const ASSURANCES = [
   { icon: FileWarning, title: 'Every Report Reviewed', desc: 'Each report is assessed and, where warranted, investigated through a special audit or referral.' },
 ];
 
+// Visible FAQ copy MUST stay in sync with the FAQPage JSON-LD.
+const FAQS: FaqItem[] = [
+  {
+    question: 'Can I report fraud or waste anonymously?',
+    answer:
+      'Yes. All identity fields on the report form are optional — leave them blank to remain completely anonymous. No identifying details are stored unless you choose to provide them.',
+  },
+  {
+    question: 'What happens after I submit a report?',
+    answer:
+      'Every report is assessed by authorised officers of the Internal Audit Department and, where warranted, investigated through a special audit or referred to the appropriate body. If you provide contact details you receive a reference number, which you can use on the Track Submission page to follow progress.',
+  },
+  {
+    question: 'Am I protected as a whistleblower?',
+    answer:
+      'Yes. Whistleblowers are protected under the Whistleblower Act, 2006 (Act 720). Reports are handled with strict confidentiality and accessed only by authorised officers.',
+  },
+];
+
 export default function ReportFraudPage() {
   const [showForm, setShowForm] = useState(false);
 
   return (
     <>
+      <JsonLd data={faqPageSchema(FAQS)} />
+
       <PageHero
         title="Report Fraud or Waste"
         subtitle="Help us safeguard public resources. Report suspected fraud, abuse, or waste — you can remain completely anonymous."
@@ -149,6 +173,11 @@ export default function ReportFraudPage() {
           )}
         </div>
       </section>
+
+      <KenteSectionDivider />
+
+      {/* ── FAQ (visible content mirrors the FAQPage JSON-LD) ── */}
+      <FaqSection faqs={FAQS} heading="Common Questions" pill="Whistleblowing" />
     </>
   );
 }

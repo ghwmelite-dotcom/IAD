@@ -1,4 +1,5 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { Sidebar } from '@/components/layout/sidebar';
 import Link from 'next/link';
 import { AUDIT_UNITS } from '@/lib/constants';
@@ -39,6 +40,18 @@ const TIERS = [
       'Every Ministry, Department and Agency has its own Internal Audit Unit with its own Head of Unit. All Heads of Units answer to the Director of Internal Audit; the department co-ordinates and monitors their work and manages equitable staff distribution through postings, secondment, and conversion.',
   },
 ];
+
+
+export const metadata: Metadata = {
+  title: 'Organisational Structure',
+  description:
+    "How the Internal Audit Department is organised — the headquarters of internal audit in the Civil Service, coordinating every MDA's Internal Audit Unit.",
+  openGraph: {
+    title: 'Organisational Structure',
+    description:
+      "How the Internal Audit Department is organised — the headquarters of internal audit in the Civil Service, coordinating every MDA's Internal Audit Unit.",
+  },
+};
 
 export default function StructurePage() {
   return (

@@ -1,7 +1,20 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { NewsCard } from '@/components/news/news-card';
 import { SAMPLE_NEWS } from '@/lib/sample-content';
+
+
+export const metadata: Metadata = {
+  title: 'News',
+  description:
+    'Announcements, updates, and stories from the Internal Audit Department.',
+  openGraph: {
+    title: 'News',
+    description:
+      'Announcements, updates, and stories from the Internal Audit Department.',
+  },
+};
 
 export default function NewsPage() {
   return (

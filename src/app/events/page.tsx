@@ -1,7 +1,20 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { EventCard } from '@/components/events/event-card';
 import { SAMPLE_EVENTS } from '@/lib/sample-content';
+
+
+export const metadata: Metadata = {
+  title: 'Events',
+  description:
+    'Upcoming training programmes, coordination meetings, and awareness events from the Internal Audit Department.',
+  openGraph: {
+    title: 'Events',
+    description:
+      'Upcoming training programmes, coordination meetings, and awareness events from the Internal Audit Department.',
+  },
+};
 
 export default function EventsPage() {
   return (

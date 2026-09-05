@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { FileSearch, MessageSquare, ShieldAlert, FileText, Send, Search } from 'lucide-react';
 
@@ -46,6 +47,18 @@ const services = [
     gradient: 'from-purple-500 to-violet-600',
   },
 ] as const;
+
+
+export const metadata: Metadata = {
+  title: 'Our Services',
+  description:
+    'Audit, advisory, and reporting channels provided by the Internal Audit Department to MDAs, public officers, and citizens.',
+  openGraph: {
+    title: 'Our Services',
+    description:
+      'Audit, advisory, and reporting channels provided by the Internal Audit Department to MDAs, public officers, and citizens.',
+  },
+};
 
 export default function ServicesPage() {
   return (

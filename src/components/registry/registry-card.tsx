@@ -6,12 +6,14 @@ import type { RegistryEntry } from '@/lib/public-api';
 
 interface RegistryCardProps {
   entry: RegistryEntry;
+  /** Resolved profile URL (static /registry/[slug]/ or runtime fallback). */
+  profileHref?: string;
 }
 
-export function RegistryCard({ entry }: RegistryCardProps) {
+export function RegistryCard({ entry, profileHref }: RegistryCardProps) {
   return (
     <Link
-      href={`/registry/profile?s=${encodeURIComponent(entry.public_slug)}`}
+      href={profileHref ?? `/registry/profile?s=${encodeURIComponent(entry.public_slug)}`}
       className="group flex flex-col bg-white rounded-2xl border-2 border-border/40 p-6 hover:border-primary/25 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
@@ -45,12 +47,12 @@ export function RegistryCard({ entry }: RegistryCardProps) {
 
       {entry.credentials && entry.credentials.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {entry.credentials.map((cred) => (
+          {entry.credentials.map((body) => (
             <span
-              key={cred.body}
+              key={body}
               className="px-2 py-0.5 rounded-md bg-primary/5 border border-primary/10 text-[11px] font-bold text-primary"
             >
-              {cred.body}
+              {body}
             </span>
           ))}
         </div>

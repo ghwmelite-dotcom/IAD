@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 import { AUDIT_UNITS } from '@/lib/constants';
@@ -47,6 +48,18 @@ const BORDERS = [
 ];
 
 const BGS = ['bg-green-50', 'bg-blue-50', 'bg-amber-50', 'bg-rose-50', 'bg-purple-50'];
+
+
+export const metadata: Metadata = {
+  title: 'Internal Audit Units in MDAs',
+  description:
+    'Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit, coordinated by the Internal Audit Department.',
+  openGraph: {
+    title: 'Internal Audit Units in MDAs',
+    description:
+      'Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit, coordinated by the Internal Audit Department.',
+  },
+};
 
 export default function AuditUnitsPage() {
   return (

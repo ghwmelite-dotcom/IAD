@@ -66,8 +66,8 @@ export interface RegistryEntry {
   mda_name: string | null;
   public_slug: string;
   verified: boolean;
-  /** Not yet returned by GET /api/public/registry — rendered when available. */
-  credentials?: { body: string }[];
+  /** Credential bodies (e.g. 'FCCA') — returned by GET /api/public/registry. */
+  credentials?: string[];
 }
 
 export interface RegistryCredential {

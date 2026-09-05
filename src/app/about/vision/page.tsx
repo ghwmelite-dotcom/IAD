@@ -1,4 +1,5 @@
 import { PageHero } from '@/components/layout/page-hero';
+import type { Metadata } from 'next';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Eye } from 'lucide-react';
 
@@ -14,6 +15,18 @@ const ABOUT_SIDEBAR = [
     ],
   },
 ];
+
+
+export const metadata: Metadata = {
+  title: 'Our Vision',
+  description:
+    'The guiding aspiration of the Internal Audit Department within the Office of the Head of the Civil Service.',
+  openGraph: {
+    title: 'Our Vision',
+    description:
+      'The guiding aspiration of the Internal Audit Department within the Office of the Head of the Civil Service.',
+  },
+};
 
 export default function VisionPage() {
   return (

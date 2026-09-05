@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 
 // TODO(content): add the Director's official portrait when available
@@ -17,6 +18,18 @@ const LEADERS = [
     photoUrl: '/images/leadership/nicholas-adjetey.jpg',
   },
 ];
+
+
+export const metadata: Metadata = {
+  title: 'Our Leadership',
+  description:
+    'The Director and senior leadership of the Internal Audit Department, Office of the Head of Civil Service.',
+  openGraph: {
+    title: 'Our Leadership',
+    description:
+      'The Director and senior leadership of the Internal Audit Department, Office of the Head of Civil Service.',
+  },
+};
 
 export default function LeadershipPage() {
   return (

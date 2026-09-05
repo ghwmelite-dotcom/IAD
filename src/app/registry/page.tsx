@@ -1,11 +1,28 @@
-'use client';
-
 import { BadgeCheck, ShieldCheck } from 'lucide-react';
+import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { RegistryDirectory } from '@/components/registry/registry-directory';
+import { fetchRegistryAtBuild } from '@/lib/public-api-build';
+import { pageCount } from '@/lib/registry-pagination';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo';
 
-export default function RegistryPage() {
+export const metadata: Metadata = {
+  title: 'Internal Audit Class Registry',
+  description:
+    "The public register of verified Internal Audit Class officers serving across Ghana's Civil Service — search by name or MDA and view verified credentials, CPD standing, and certificates.",
+  openGraph: {
+    title: 'Internal Audit Class Registry',
+    description:
+      "The public register of verified Internal Audit Class officers serving across Ghana's Civil Service.",
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
+
+export default async function RegistryPage() {
+  const entries = await fetchRegistryAtBuild();
+  const staticPageCount = pageCount(entries?.length ?? 0);
+
   return (
     <>
       <PageHero
@@ -28,7 +45,12 @@ export default function RegistryPage() {
 
       <KenteSectionDivider />
 
-      <RegistryDirectory />
+      <RegistryDirectory
+        initialEntries={entries}
+        page={1}
+        staticPageCount={staticPageCount}
+        staticSlugs={(entries ?? []).map((e) => e.public_slug)}
+      />
     </>
   );
 }

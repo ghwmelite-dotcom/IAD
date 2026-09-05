@@ -11,14 +11,18 @@ const LEADERS = [
   {
     name: 'Solomon Wemegah',
     title: 'Director, Internal Audit Department',
-    bio: 'Director of the Internal Audit Department since April 2025, coordinating the work of Internal Audit Units across all MDAs of the Civil Service. A Fellow of the Association of Chartered Certified Accountants (FCCA) with over 30 years in public and private sector audit and finance, including more than a decade as Director of Internal Audit & Inspectorate at the Ministry of Foreign Affairs and Regional Integration.',
+    summary:
+      'Leads the headquarters of internal audit in the Civil Service, coordinating the Internal Audit Units of every MDA.',
+    credentials: ['FCCA', '30+ Years', 'Ex-Foreign Affairs IA&I Director'],
     photoUrl: '/images/leadership/solomon-wemegah.jpg',
     imagePosition: '50% 20%',
   },
   {
     name: 'Nicholas Adjetey',
     title: 'Head, Internal Audit Unit (OHCS)',
-    bio: 'Head of the Internal Audit Unit of OHCS with 25 years of experience spanning accountancy and auditing practice, private sector commerce and manufacturing, and the public service — including the Ministry of Health (2011–2022) before joining OHCS in 2022. He holds an MBA in Accounting & Finance and ACCA Level 1.',
+    summary:
+      'Heads the OHCS Internal Audit Unit, delivering assurance and advisory work across the Office\u2019s programmes.',
+    credentials: ['MBA (Acct & Finance)', '25 Years', 'Ex-Ministry of Health'],
     photoUrl: '/images/leadership/nicholas-adjetey.jpg',
     imagePosition: '50% 25%',
   },
@@ -75,16 +79,15 @@ export function LeadershipSpotlight() {
                 }}
               />
 
-              {/* Portrait left, text right — ratios matched so faces aren't cropped */}
+              {/* Portrait left, details right — ratios matched so faces aren't cropped */}
               <div className="grid grid-cols-1 sm:grid-cols-[42%_58%]">
-                {/* Portrait — cropped to the person, or monogram placeholder */}
-                <div className="relative h-72 sm:h-auto sm:min-h-[300px] overflow-hidden">
+                <div className="relative h-72 sm:h-auto sm:min-h-[280px] overflow-hidden">
                   {leader.photoUrl ? (
                     <Image
                       src={leader.photoUrl}
                       alt={leader.name}
                       fill
-                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
                       style={{ objectPosition: leader.imagePosition }}
                       sizes="(max-width: 640px) 100vw, 260px"
                     />
@@ -114,53 +117,60 @@ export function LeadershipSpotlight() {
                   />
                 </div>
 
-              {/* Text panel */}
-              <div className="p-6 lg:p-8 relative">
-                {/* Subtle Kente pattern in the background */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 opacity-[0.04]"
-                  style={{
-                    backgroundImage: [
-                      'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                      'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                    ].join(', '),
-                  }}
-                />
+                {/* Details panel */}
+                <div className="p-6 lg:p-7 relative flex flex-col">
+                  {/* Subtle Kente pattern */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 opacity-[0.04]"
+                    style={{
+                      backgroundImage: [
+                        'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
+                        'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
+                      ].join(', '),
+                    }}
+                  />
 
-                {/* Gold accent bar */}
-                <div
-                  aria-hidden="true"
-                  className="w-12 h-1 rounded-full mb-5"
-                  style={{
-                    background: 'linear-gradient(90deg, #D4A017, #E8C547)',
-                  }}
-                />
+                  {/* Gold accent bar */}
+                  <div
+                    aria-hidden="true"
+                    className="w-10 h-1 rounded-full mb-4"
+                    style={{
+                      background: 'linear-gradient(90deg, #D4A017, #E8C547)',
+                    }}
+                  />
 
-                {/* Title label */}
-                <p className="text-accent text-xs font-semibold uppercase tracking-[0.15em] mb-2">
-                  {leader.title}
-                </p>
+                  <p className="text-accent text-[11px] font-semibold uppercase tracking-[0.15em] mb-1.5">
+                    {leader.title}
+                  </p>
 
-                {/* Name */}
-                <h3 className="font-display text-xl lg:text-2xl font-bold text-white mb-3 leading-tight">
-                  {leader.name}
-                </h3>
+                  <h3 className="font-display text-xl lg:text-2xl font-bold text-white mb-3 leading-tight">
+                    {leader.name}
+                  </h3>
 
-                {/* Thin gold divider */}
-                <div
-                  aria-hidden="true"
-                  className="w-full h-px mb-5"
-                  style={{
-                    background: 'linear-gradient(90deg, rgba(212,160,23,0.4), transparent 70%)',
-                  }}
-                />
+                  <p className="text-white/65 text-sm leading-relaxed mb-5">
+                    {leader.summary}
+                  </p>
 
-                {/* Bio */}
-                <p className="text-white/75 text-base leading-relaxed">
-                  {leader.bio}
-                </p>
-              </div>
+                  {/* Credential chips */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {leader.credentials.map((c) => (
+                      <span
+                        key={c}
+                        className="text-[10.5px] font-semibold uppercase tracking-wider text-accent/90 border border-accent/30 rounded-full px-2.5 py-1 bg-accent/[0.07]"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="/about/leadership"
+                    className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-3 transition-all w-fit"
+                  >
+                    Full profile <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
               </div>
 
               {/* Gold bottom accent line */}

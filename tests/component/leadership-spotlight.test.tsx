@@ -47,8 +47,8 @@ describe('LeadershipSpotlight', () => {
     expect(link.getAttribute('href')).toBe('/about/leadership');
   });
 
-  it('renders the monogram placeholder when no portrait is set', () => {
+  it('renders the Director portrait', () => {
     render(<LeadershipSpotlight />);
-    expect(screen.getByText('IAD')).toBeDefined();
+    expect(screen.getByAltText('Solomon Wemegah')).toBeDefined();
   });
 });

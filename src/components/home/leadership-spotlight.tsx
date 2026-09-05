@@ -14,9 +14,9 @@ const LEADERS = [
     name: 'Solomon Wemegah',
     title: 'Director, Internal Audit Department',
     bio: 'Director of the Internal Audit Department since April 2025, coordinating the work of Internal Audit Units across all MDAs of the Civil Service. A Fellow of the Association of Chartered Certified Accountants (FCCA) with over 30 years in public and private sector audit and finance, including more than a decade as Director of Internal Audit & Inspectorate at the Ministry of Foreign Affairs and Regional Integration.',
-    photoUrl: null as string | null,
-    imagePosition: '85% 18%',
-    imageScale: 'scale-[1.2] sm:scale-[1.1]',
+    photoUrl: '/images/leadership/solomon-wemegah.jpg',
+    imagePosition: '50% 30%',
+    imageScale: 'scale-100',
   },
 ];
 

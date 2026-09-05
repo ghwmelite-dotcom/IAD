@@ -256,7 +256,7 @@ export function Hero() {
 
           {/* Seal emblem */}
           <div
-            className="absolute top-[210px] right-[330px] opacity-0"
+            className="absolute top-[110px] right-[350px] opacity-0"
             style={{ animation: `${REVEAL}, float-soft 9s ease-in-out 2s infinite`, animationDelay: '0.9s, 0s' }}
           >
             <div className="relative w-24 h-24">

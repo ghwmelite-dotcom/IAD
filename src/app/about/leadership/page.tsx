@@ -10,6 +10,12 @@ const LEADERS = [
     bio: 'Solomon Wemegah is the Director of the Internal Audit Department at the Office of the Head of Civil Service, a position he has held since April 2025. As head of the department, he leads and coordinates the work of Internal Audit Units across all Ministries, Departments and Agencies of the Civil Service — every MDA’s Internal Audit Unit, though led by its own head, answers to the Director of Internal Audit. A Fellow of the Association of Chartered Certified Accountants (FCCA), he previously served for over a decade as Director of Internal Audit & Inspectorate at the Ministry of Foreign Affairs and Regional Integration. His career spans more than three decades across public and private sector audit and finance — including audit practice with Price Waterhouse Coopers, finance leadership at Pontil Minerex and TIC International, and strategic consulting as Director of Elitrust Finecon. He holds a BA from the University of Ghana and professional training from the Institute of Professional Studies.',
     photoUrl: '/images/leadership/solomon-wemegah.jpg',
   },
+  {
+    name: 'Nicholas Adjetey',
+    title: 'Head, Internal Audit Unit (OHCS)',
+    bio: 'Nicholas Adjetey is the Head of the Internal Audit Unit of the Office of the Head of Civil Service, leading the unit’s assurance and advisory work within the Office. He brings 25 years of experience spanning accountancy and auditing practice firms, private sector organisations in commerce and manufacturing, and the public service — serving at the Ministry of Health from 2011 to 2022 before joining OHCS in 2022. He holds an MBA in Accounting & Finance and ACCA Level 1.',
+    photoUrl: '/images/leadership/nicholas-adjetey.jpg',
+  },
 ];
 
 export default function LeadershipPage() {

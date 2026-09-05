@@ -7,8 +7,6 @@ import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { cn } from '@/lib/utils';
 import { FloatingShapes } from '@/components/home/floating-shapes';
 
-// TODO(content): add the Director's official portrait when available
-// (set photoUrl — the monogram placeholder shows until then).
 const LEADERS = [
   {
     name: 'Solomon Wemegah',
@@ -16,7 +14,13 @@ const LEADERS = [
     bio: 'Director of the Internal Audit Department since April 2025, coordinating the work of Internal Audit Units across all MDAs of the Civil Service. A Fellow of the Association of Chartered Certified Accountants (FCCA) with over 30 years in public and private sector audit and finance, including more than a decade as Director of Internal Audit & Inspectorate at the Ministry of Foreign Affairs and Regional Integration.',
     photoUrl: '/images/leadership/solomon-wemegah.jpg',
     imagePosition: '50% 20%',
-    imageScale: 'scale-100',
+  },
+  {
+    name: 'Nicholas Adjetey',
+    title: 'Head, Internal Audit Unit (OHCS)',
+    bio: 'Head of the Internal Audit Unit of OHCS with 25 years of experience spanning accountancy and auditing practice, private sector commerce and manufacturing, and the public service — including the Ministry of Health (2011–2022) before joining OHCS in 2022. He holds an MBA in Accounting & Finance and ACCA Level 1.',
+    photoUrl: '/images/leadership/nicholas-adjetey.jpg',
+    imagePosition: '50% 25%',
   },
 ];
 
@@ -50,26 +54,17 @@ export function LeadershipSpotlight() {
           </h2>
         </div>
 
-        <div className="flex justify-center mb-14">
-          <Link
-            href="/about/leadership"
-            className="text-sm font-medium text-primary flex items-center gap-1.5 hover:gap-2.5 transition-all px-4 py-2 rounded-full bg-primary/5 border border-primary/10 hover:border-primary/30"
-          >
-            View all leadership <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div
-          className={cn(
-            'max-w-3xl mx-auto',
-            isVisible && 'animate-[reveal_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]',
-            !isVisible && 'opacity-0',
-          )}
-        >
-          {LEADERS.map((leader) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-14">
+          {LEADERS.map((leader, i) => (
             <div
               key={leader.name}
-              className="group relative rounded-2xl overflow-hidden bg-primary-dark shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+              className={cn(
+                'group relative rounded-2xl overflow-hidden bg-primary-dark shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
+                'hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.18),0_0_0_1px_rgba(212,160,23,0.25)] transition-all duration-300',
+                isVisible && 'animate-[reveal_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]',
+                !isVisible && 'opacity-0',
+              )}
+              style={{ animationDelay: `${i * 140}ms` }}
             >
               {/* Gold top accent line */}
               <div
@@ -80,17 +75,18 @@ export function LeadershipSpotlight() {
                 }}
               />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2">
+              {/* Portrait left, text right — ratios matched so faces aren't cropped */}
+              <div className="grid grid-cols-1 sm:grid-cols-[42%_58%]">
                 {/* Portrait — cropped to the person, or monogram placeholder */}
-                <div className="relative h-72 sm:h-auto sm:min-h-[320px] overflow-hidden">
+                <div className="relative h-72 sm:h-auto sm:min-h-[300px] overflow-hidden">
                   {leader.photoUrl ? (
                     <Image
                       src={leader.photoUrl}
                       alt={leader.name}
                       fill
-                      className={cn('object-cover', leader.imageScale)}
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                       style={{ objectPosition: leader.imagePosition }}
-                      sizes="(max-width: 640px) 100vw, 300px"
+                      sizes="(max-width: 640px) 100vw, 260px"
                     />
                   ) : (
                     <div
@@ -106,65 +102,65 @@ export function LeadershipSpotlight() {
                     aria-hidden="true"
                     className="absolute inset-0 hidden sm:block"
                     style={{
-                      background: 'linear-gradient(to right, transparent 50%, rgba(13,59,19,1) 100%)',
+                      background: 'linear-gradient(to right, transparent 55%, rgba(13,59,19,1) 100%)',
                     }}
                   />
                   <div
                     aria-hidden="true"
                     className="absolute inset-0 sm:hidden"
                     style={{
-                      background: 'linear-gradient(to bottom, transparent 40%, rgba(13,59,19,1) 100%)',
+                      background: 'linear-gradient(to bottom, transparent 55%, rgba(13,59,19,1) 100%)',
                     }}
                   />
                 </div>
 
-                {/* Text panel */}
-                <div className="p-6 lg:p-8 flex flex-col justify-center relative">
-                  {/* Subtle Kente pattern in the background */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 opacity-[0.04]"
-                    style={{
-                      backgroundImage: [
-                        'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                        'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
-                      ].join(', '),
-                    }}
-                  />
+              {/* Text panel */}
+              <div className="p-6 lg:p-8 relative">
+                {/* Subtle Kente pattern in the background */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-[0.04]"
+                  style={{
+                    backgroundImage: [
+                      'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
+                      'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)',
+                    ].join(', '),
+                  }}
+                />
 
-                  {/* Gold accent bar */}
-                  <div
-                    aria-hidden="true"
-                    className="w-12 h-1 rounded-full mb-5"
-                    style={{
-                      background: 'linear-gradient(90deg, #D4A017, #E8C547)',
-                    }}
-                  />
+                {/* Gold accent bar */}
+                <div
+                  aria-hidden="true"
+                  className="w-12 h-1 rounded-full mb-5"
+                  style={{
+                    background: 'linear-gradient(90deg, #D4A017, #E8C547)',
+                  }}
+                />
 
-                  {/* Title label */}
-                  <p className="text-accent text-xs font-semibold uppercase tracking-[0.15em] mb-2">
-                    {leader.title}
-                  </p>
+                {/* Title label */}
+                <p className="text-accent text-xs font-semibold uppercase tracking-[0.15em] mb-2">
+                  {leader.title}
+                </p>
 
-                  {/* Name */}
-                  <h3 className="font-display text-xl lg:text-2xl font-bold text-white mb-3 leading-tight">
-                    {leader.name}
-                  </h3>
+                {/* Name */}
+                <h3 className="font-display text-xl lg:text-2xl font-bold text-white mb-3 leading-tight">
+                  {leader.name}
+                </h3>
 
-                  {/* Thin gold divider */}
-                  <div
-                    aria-hidden="true"
-                    className="w-full h-px mb-5"
-                    style={{
-                      background: 'linear-gradient(90deg, rgba(212,160,23,0.4), transparent 70%)',
-                    }}
-                  />
+                {/* Thin gold divider */}
+                <div
+                  aria-hidden="true"
+                  className="w-full h-px mb-5"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(212,160,23,0.4), transparent 70%)',
+                  }}
+                />
 
-                  {/* Bio */}
-                  <p className="text-white/75 text-base leading-relaxed">
-                    {leader.bio}
-                  </p>
-                </div>
+                {/* Bio */}
+                <p className="text-white/75 text-base leading-relaxed">
+                  {leader.bio}
+                </p>
+              </div>
               </div>
 
               {/* Gold bottom accent line */}
@@ -177,6 +173,15 @@ export function LeadershipSpotlight() {
               />
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Link
+            href="/about/leadership"
+            className="text-sm font-medium text-primary flex items-center gap-1.5 hover:gap-2.5 transition-all px-4 py-2 rounded-full bg-primary/5 border border-primary/10 hover:border-primary/30"
+          >
+            View all leadership <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

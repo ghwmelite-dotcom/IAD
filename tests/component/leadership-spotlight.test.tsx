@@ -51,4 +51,10 @@ describe('LeadershipSpotlight', () => {
     render(<LeadershipSpotlight />);
     expect(screen.getByAltText('Solomon Wemegah')).toBeDefined();
   });
+
+  it('renders the Internal Audit Unit head alongside the Director', () => {
+    render(<LeadershipSpotlight />);
+    expect(screen.getByText('Nicholas Adjetey')).toBeDefined();
+    expect(screen.getByText(/Head, Internal Audit Unit/i)).toBeDefined();
+  });
 });

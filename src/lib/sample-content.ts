@@ -1,0 +1,81 @@
+import type { NewsArticle, Event } from '@/types';
+
+// TODO(rebrand): replace with real news articles and events (or wire to the API).
+
+export const SAMPLE_NEWS: NewsArticle[] = [
+  {
+    id: 1,
+    title: 'IAD Concludes Risk-Based Audit Planning Workshop for MDA Internal Audit Units',
+    slug: 'risk-based-audit-planning-workshop',
+    excerpt: 'Internal Audit Units from across MDAs participated in a workshop on risk-based audit planning and the annual audit planning cycle.',
+    content: '',
+    thumbnailUrl: null,
+    publishedAt: '2026-04-15T10:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-15T10:00:00Z',
+    updatedAt: '2026-04-15T10:00:00Z',
+  },
+  {
+    id: 2,
+    title: 'Internal Audit Department Commences 2026 Compliance Review Programme',
+    slug: 'compliance-review-2026',
+    excerpt: 'The department has begun its annual programme of compliance reviews covering financial, managerial, and operational activities in MDAs.',
+    content: '',
+    thumbnailUrl: null,
+    publishedAt: '2026-04-10T09:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-10T09:00:00Z',
+    updatedAt: '2026-04-10T09:00:00Z',
+  },
+  {
+    id: 3,
+    title: 'IAD and Internal Audit Agency Align on Staffing Policies for MDAs',
+    slug: 'iaa-staffing-alignment',
+    excerpt: 'The department met with the Internal Audit Agency to plan and implement staffing policies for Internal Audit Units across MDAs.',
+    content: '',
+    thumbnailUrl: null,
+    publishedAt: '2026-04-05T14:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-05T14:00:00Z',
+    updatedAt: '2026-04-05T14:00:00Z',
+  },
+];
+
+export const SAMPLE_EVENTS: Event[] = [
+  {
+    id: 1,
+    title: 'Internal Audit Class Induction Training — Cohort 2026A',
+    slug: 'ia-induction-2026a',
+    description: '',
+    location: 'Civil Service Training Centre, Accra',
+    startDate: '2026-05-05T09:00:00Z',
+    endDate: '2026-05-09T17:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-01T00:00:00Z',
+    updatedAt: '2026-04-01T00:00:00Z',
+  },
+  {
+    id: 2,
+    title: 'Quarterly Coordination Meeting of MDA Internal Audit Units',
+    slug: 'iau-coordination-q2',
+    description: '',
+    location: 'OHCS Headquarters, Accra',
+    startDate: '2026-05-12T10:00:00Z',
+    endDate: '2026-05-12T16:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-01T00:00:00Z',
+    updatedAt: '2026-04-01T00:00:00Z',
+  },
+  {
+    id: 3,
+    title: 'Fraud Prevention & Whistleblowing Awareness Seminar',
+    slug: 'fraud-awareness-seminar',
+    description: '',
+    location: 'GIMPA Campus, Accra',
+    startDate: '2026-05-20T09:00:00Z',
+    endDate: '2026-05-20T15:00:00Z',
+    isPublished: true,
+    createdAt: '2026-04-01T00:00:00Z',
+    updatedAt: '2026-04-01T00:00:00Z',
+  },
+];

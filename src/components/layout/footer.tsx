@@ -230,10 +230,10 @@ export function Footer({ className }: { className?: string }) {
                   <div>
                     <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.email}</p>
                     <a
-                      href="mailto:info@ohcs.gov.gh"
+                      href="mailto:iad@ohcs.gov.gh"
                       className="text-base text-text-muted hover:text-primary transition-colors duration-200"
                     >
-                      info@ohcs.gov.gh
+                      iad@ohcs.gov.gh
                     </a>
                   </div>
                 </li>

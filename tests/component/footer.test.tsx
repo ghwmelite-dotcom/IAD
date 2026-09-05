@@ -34,7 +34,7 @@ describe('Footer', () => {
 
   it('renders contact details', () => {
     render(<Footer />);
-    expect(screen.getByText(/info@ohcs\.gov\.gh/)).toBeDefined();
+    expect(screen.getByText(/iad@ohcs.gov.gh/)).toBeDefined();
     expect(screen.getByText(/\+233/)).toBeDefined();
   });
 

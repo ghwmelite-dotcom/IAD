@@ -40,9 +40,9 @@ const CONTACT_CARDS = [
   {
     icon: Mail,
     label: 'Email Us',
-    value: 'info@ohcs.gov.gh',
+    value: 'iad@ohcs.gov.gh',
     detail: 'We respond within 2 business days',
-    href: 'mailto:info@ohcs.gov.gh',
+    href: 'mailto:iad@ohcs.gov.gh',
     gradient: 'from-amber-500 to-yellow-600',
     bg: 'bg-amber-50',
     border: 'border-amber-200 hover:border-amber-400',

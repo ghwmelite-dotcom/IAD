@@ -1,30 +1,38 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
+/**
+ * Callback-ref scroll reveal: the observer attaches whenever the target node
+ * mounts — including when it mounts *after* the component (e.g. behind a
+ * loading state), which a plain useRef + useEffect observer misses.
+ */
 export function useScrollReveal(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry?.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold },
-    );
-
-    const node = ref.current;
-    if (node) {
+  const ref = useCallback(
+    (node: HTMLElement | null) => {
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+      if (!node) return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry?.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        },
+        { threshold },
+      );
       observer.observe(node);
-    }
+      observerRef.current = observer;
+    },
+    [threshold],
+  );
 
-    return () => observer.disconnect();
-  }, [threshold]);
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   return { ref, isVisible };
 }

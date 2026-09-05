@@ -198,7 +198,7 @@ export default function AdminLoginPage() {
             <div className="h-full" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 100%)', backgroundSize: '200% 100%', animation: 'kente-shimmer 4s ease-in-out infinite' }} />
           </div>
           <p className="text-[10px] text-white/20 mt-4 tracking-wider">
-            &copy; {new Date().getFullYear()} Internal Audit Department &bull; Office of the Head of Civil Service, Ghana
+            &copy; {new Date().getFullYear()} Internal Audit Department &bull; Office of the Head of the Civil Service, Ghana
           </p>
         </div>
       </div>

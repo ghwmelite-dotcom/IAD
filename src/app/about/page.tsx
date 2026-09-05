@@ -46,7 +46,7 @@ export default function AboutPage() {
     <>
       <PageHero
         title="About the Internal Audit Department"
-        subtitle="Providing independent assurance, advisory, and audit coordination services within the Office of the Head of Civil Service."
+        subtitle="Providing independent assurance, advisory, and audit coordination services within the Office of the Head of the Civil Service."
         breadcrumbs={[{ label: 'About' }]}
         accent="green"
       >
@@ -82,7 +82,7 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="text-lg text-text-muted leading-relaxed mb-6">
-              The Internal Audit Department (IAD) of the Office of the Head of Civil Service
+              The Internal Audit Department (IAD) of the Office of the Head of the Civil Service
               exists to provide support for the development and establishment of an efficient
               and well-functioning internal audit system and processes at the OHCS.
             </p>
@@ -192,7 +192,7 @@ export default function AboutPage() {
             <p className="text-sm text-text-muted">
               <BadgeCheck className="inline h-4 w-4 text-primary mr-1 -mt-0.5" aria-hidden="true" />
               The Internal Audit Department is a department of the{' '}
-              <span className="font-semibold text-primary-dark">Office of the Head of Civil Service</span>.
+              <span className="font-semibold text-primary-dark">Office of the Head of the Civil Service</span>.
             </p>
           </div>
         </div>

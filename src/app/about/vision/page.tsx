@@ -20,7 +20,7 @@ export default function VisionPage() {
     <>
       <PageHero
         title="Our Vision"
-        subtitle="The guiding aspiration of the Internal Audit Department within the Office of the Head of Civil Service."
+        subtitle="The guiding aspiration of the Internal Audit Department within the Office of the Head of the Civil Service."
         breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Vision' }]}
         accent="gold"
       />

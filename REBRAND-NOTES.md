@@ -2,7 +2,7 @@
 
 This project was rebranded from a verbatim copy of the OHCS website
 (`ohcs-website`) into the public website for the **Internal Audit Department
-(IAD), Office of the Head of Civil Service (OHCS), Ghana**.
+(IAD), Office of the Head of the Civil Service (OHCS), Ghana**.
 
 ## What changed
 
@@ -66,7 +66,7 @@ This project was rebranded from a verbatim copy of the OHCS website
 - New `news/` and `events/` listing + `[slug]` detail pages (cards already
   linked to these routes; previously 404).
 - Header/footer/animated-logo/page-loader: "OHCS" wordmark → "IAD"; footer
-  keeps "Office of the Head of Civil Service" attribution; contact details
+  keeps "Office of the Head of the Civil Service" attribution; contact details
   kept (IAD sits within OHCS).
 - Tests updated for rebranded content (`tests/component/*`: audit-units-grid
   replaces directorates-grid; quick-services, leadership-spotlight,

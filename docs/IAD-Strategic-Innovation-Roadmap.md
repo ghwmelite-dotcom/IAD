@@ -1,7 +1,7 @@
 # Internal Audit Department — Strategic Innovation Roadmap
 ### Elevating the IAD platform and brand to global recognition
 
-**Prepared for:** Internal Audit Department, Office of the Head of Civil Service — Ghana
+**Prepared for:** Internal Audit Department, Office of the Head of the Civil Service — Ghana
 **Platform:** iad-ohcs (iad.ohcsghana.org) · Next.js + Cloudflare Pages/D1/R2
 **Date:** September 2026
 **Status:** Approved direction — Tier 1 in active implementation

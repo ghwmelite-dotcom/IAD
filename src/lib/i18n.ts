@@ -46,7 +46,7 @@ export const en = {
     french: 'French language',
   },
   hero: {
-    eyebrow: 'Republic of Ghana — Office of the Head of Civil Service',
+    eyebrow: 'Republic of Ghana — Office of the Head of the Civil Service',
     headlineA: 'Independent',
     headlineAccent: 'Assurance.',
     headlineB: 'Accountable Governance.',
@@ -118,11 +118,11 @@ export const en = {
     getInTouch: 'Get in Touch',
     addressLabel: 'Address',
     addressLine1: 'Internal Audit Department,',
-    addressLine2: 'Office of the Head of Civil Service,',
+    addressLine2: 'Office of the Head of the Civil Service,',
     addressLine3: 'P.O. Box M.49, Accra, Ghana',
     phone: 'Phone',
     email: 'Email',
-    copyright: 'Internal Audit Department — Office of the Head of Civil Service',
+    copyright: 'Internal Audit Department — Office of the Head of the Civil Service',
     rights: 'Republic of Ghana • All rights reserved',
     links: {
       aboutIad: 'About IAD',

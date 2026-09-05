@@ -6,7 +6,7 @@ export const SITE_NAME = 'Internal Audit Department';
 export const SITE_SHORT_NAME = 'IAD';
 export const SITE_URL = 'https://iad.ohcs.gov.gh';
 export const SITE_DESCRIPTION =
-  'The Internal Audit Department of the Office of the Head of Civil Service provides independent assurance, audit coordination, and advisory services that strengthen accountability, risk management, and compliance across Ghana\'s Civil Service.';
+  'The Internal Audit Department of the Office of the Head of the Civil Service provides independent assurance, audit coordination, and advisory services that strengthen accountability, risk management, and compliance across Ghana\'s Civil Service.';
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 

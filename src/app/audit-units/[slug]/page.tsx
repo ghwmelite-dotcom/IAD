@@ -40,7 +40,7 @@ export default async function AuditUnitDetailPage({ params }: PageProps) {
             <p>{unit.description}</p>
             <p>
               This Internal Audit Unit is co-ordinated and monitored by the Internal Audit
-              Department of the Office of the Head of Civil Service, which also manages
+              Department of the Office of the Head of the Civil Service, which also manages
               postings, secondment, and training for its officers.
             </p>
             {/* TODO(rebrand): add unit head, contact details, and recent reports. */}

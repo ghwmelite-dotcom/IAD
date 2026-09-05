@@ -1,8 +1,8 @@
 import type { Env } from './types';
 import { first, run } from './db';
 
-export const ADMIN_SESSION_TTL_MS = 4 * 60 * 60 * 1000; // 4h sliding
-export const ADMIN_SESSION_HARD_CAP_MS = 7 * 24 * 60 * 60 * 1000; // 7d total
+export const ADMIN_SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30d sliding
+export const ADMIN_SESSION_HARD_CAP_MS = 30 * 24 * 60 * 60 * 1000; // 30d total
 
 export interface AdminSessionRow {
   sessionId: string;
@@ -74,13 +74,13 @@ export async function readAdminSession(
   }
   if (!row) return null;
 
-  // Hard cap: if more than 7 days since creation, force re-login.
+  // Hard cap: if more than 30 days since creation, force re-login.
   if (now - row.created_at > ADMIN_SESSION_HARD_CAP_MS) {
     await run(env, 'DELETE FROM admin_sessions WHERE session_id = ?', sessionId);
     return null;
   }
 
-  // Slide: extend expires_at by 4h from now, update last_used_at.
+  // Slide: extend expires_at by 30 days from now, update last_used_at.
   const newExpires = now + ADMIN_SESSION_TTL_MS;
   await run(
     env,

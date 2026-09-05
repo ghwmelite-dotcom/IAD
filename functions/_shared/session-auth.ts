@@ -56,7 +56,7 @@ async function readPortalSession(
   );
   if (!row) return null;
 
-  // Hard cap: force re-login after 7 days regardless of activity.
+  // Hard cap: force re-login 30 days after creation regardless of activity.
   if (now - row.created_at > ADMIN_SESSION_HARD_CAP_MS) {
     await run(env, 'DELETE FROM admin_sessions WHERE session_id = ?', sessionId);
     return null;

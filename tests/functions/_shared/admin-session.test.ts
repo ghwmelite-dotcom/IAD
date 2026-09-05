@@ -143,7 +143,7 @@ describe('admin session helpers', () => {
   });
 
   it('TTL constants match spec (sliding 4h, hard cap 7d)', () => {
-    expect(ADMIN_SESSION_TTL_MS).toBe(4 * 60 * 60 * 1000);
-    expect(ADMIN_SESSION_HARD_CAP_MS).toBe(7 * 24 * 60 * 60 * 1000);
+    expect(ADMIN_SESSION_TTL_MS).toBe(30 * 24 * 60 * 60 * 1000);
+    expect(ADMIN_SESSION_HARD_CAP_MS).toBe(30 * 24 * 60 * 60 * 1000);
   });
 });

@@ -38,6 +38,17 @@ export const onRequestGet: PagesFunction<Env, 'slug'> = async ({ env, params }) 
     auditor.id,
   );
 
+  const certificates = await all<{
+    title: string;
+    serial: string;
+    verify_code: string;
+    issued_at: string;
+  }>(
+    env,
+    'SELECT title, serial, verify_code, issued_at FROM certificates WHERE auditor_id = ? ORDER BY issued_at DESC',
+    auditor.id,
+  );
+
   return json(
     {
       data: {
@@ -48,6 +59,7 @@ export const onRequestGet: PagesFunction<Env, 'slug'> = async ({ env, params }) 
         credentials,
         cpdPoints: cpd?.points ?? 0,
         memberSince: auditor.created_at,
+        certificates,
       },
     },
     { headers: { 'cache-control': 'public, max-age=300' } },

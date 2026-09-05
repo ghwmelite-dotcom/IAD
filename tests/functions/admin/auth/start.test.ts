@@ -51,10 +51,38 @@ describe('POST /api/admin/auth/start', () => {
       {
         sql: 'SELECT email FROM admin_users WHERE email = ? AND is_active = 1',
       },
+      {
+        sql: 'SELECT email FROM users WHERE email = ? AND active = 1',
+      },
     ]);
     const res = await onRequestPost(ctx(startReq({ email: 'attacker@example.com' }), db));
     expect(res.status).toBe(200);
     expect(globalThis.fetch).not.toHaveBeenCalled();
+  });
+
+  it('issues a token when the email is only in the audit-ops users table', async () => {
+    const db = makeD1([
+      {
+        sql: 'SELECT email FROM admin_users WHERE email = ? AND is_active = 1',
+      },
+      {
+        sql: 'SELECT email FROM users WHERE email = ? AND active = 1',
+        first: { email: 'admin@iad.gov.gh' },
+      },
+      {
+        sql:
+          'SELECT COUNT(*) AS n FROM admin_magic_tokens WHERE email = ? AND created_at > ?',
+        first: { n: 0 },
+      },
+      {
+        sql:
+          'INSERT INTO admin_magic_tokens (token, email, created_at, expires_at, ip_address) VALUES (?, ?, ?, ?, ?)',
+        run: {},
+      },
+    ]);
+    const res = await onRequestPost(ctx(startReq({ email: 'admin@iad.gov.gh' }), db));
+    expect(res.status).toBe(200);
+    expect(globalThis.fetch).toHaveBeenCalledOnce();
   });
 
   it('returns 429 when rate limit exceeded (3 in 15 minutes)', async () => {

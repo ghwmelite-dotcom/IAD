@@ -72,6 +72,24 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
     ...scope.binds,
   );
 
+  // 12-month raised vs closed trend, scoped to what the caller may see.
+  const trend = await all<{ month: string; raised: number; closed: number }>(
+    env,
+    `WITH RECURSIVE months(m, n) AS (
+       SELECT strftime('%Y-%m', 'now'), 1
+       UNION ALL
+       SELECT strftime('%Y-%m', 'now', '-' || n || ' months'), n + 1
+       FROM months WHERE n < 12
+     )
+     SELECT m AS month,
+       (SELECT COUNT(*) FROM findings f WHERE substr(f.created_at, 1, 7) = m AND ${scope.where}) AS raised,
+       (SELECT COUNT(*) FROM findings f WHERE f.closed_at IS NOT NULL AND substr(f.closed_at, 1, 7) = m AND ${scope.where}) AS closed
+     FROM months
+     ORDER BY m`,
+    ...scope.binds,
+    ...scope.binds,
+  );
+
   const overdue = await first<{ n: number }>(
     env,
     `SELECT COUNT(*) AS n FROM recommendations r
@@ -121,6 +139,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
       },
       bySeverity,
       byStatus,
+      trend,
       recentActivity,
     },
   });

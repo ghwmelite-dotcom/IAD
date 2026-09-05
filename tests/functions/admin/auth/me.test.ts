@@ -43,4 +43,39 @@ describe('GET /api/admin/auth/me', () => {
     expect(body.data.email).toBe('admin@ohcs.gov.gh');
     expect(body.data.role).toBe('super_admin');
   });
+
+  it('resolves the role from the users store for audit-ops accounts', async () => {
+    const now = Date.now();
+    const db = makeD1([
+      {
+        sql:
+          'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN admin_users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.is_active = 1',
+      },
+      {
+        sql:
+          'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.active = 1',
+        first: {
+          session_id: 'sess-iad',
+          email: 'admin@iad.gov.gh',
+          created_at: now - 1000,
+          expires_at: now + 60_000,
+          last_used_at: now - 500,
+          role: 'admin',
+        },
+      },
+      {
+        sql:
+          'UPDATE admin_sessions SET last_used_at = ?, expires_at = ? WHERE session_id = ?',
+        run: {},
+      },
+    ]);
+    const req = new Request('https://x/api/admin/auth/me', {
+      headers: { Cookie: 'admin_session=sess-iad' },
+    });
+    const res = await onRequestGet(ctx(req, db));
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { data: { email: string; role: string } };
+    expect(body.data.email).toBe('admin@iad.gov.gh');
+    expect(body.data.role).toBe('admin');
+  });
 });

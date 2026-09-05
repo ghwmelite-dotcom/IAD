@@ -41,7 +41,7 @@ export function MagicLinkForm() {
         <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto mb-3" aria-hidden="true" />
         <h3 className="text-lg font-bold text-primary-dark mb-2">Check your inbox</h3>
         <p className="text-sm text-text-muted">
-          If <strong>{email}</strong> is registered as an OHCS admin, a sign-in link has been sent.
+          If <strong>{email}</strong> is registered as an IAD admin, a sign-in link has been sent.
           The link expires in 15 minutes and can be used once.
         </p>
         <p className="text-xs text-text-muted mt-4">
@@ -65,7 +65,7 @@ export function MagicLinkForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <label htmlFor="admin-email" className="block text-sm font-semibold text-primary-dark">
-        OHCS admin email
+        IAD admin email
       </label>
       <div className="relative">
         <Mail
@@ -79,7 +79,7 @@ export function MagicLinkForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@ohcs.gov.gh"
+          placeholder="you@iad.gov.gh"
           className="w-full pl-10 pr-3 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary"
         />
       </div>

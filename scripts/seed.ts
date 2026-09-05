@@ -15,7 +15,7 @@ import { execSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..');
-const DB_NAME = 'ohcs-recruitment';
+const DB_NAME = 'iad-platform';
 const remote = process.argv.includes('--remote');
 const flag = remote ? '--remote' : '--local';
 

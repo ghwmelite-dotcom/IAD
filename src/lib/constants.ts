@@ -25,6 +25,15 @@ export const NAV_ITEMS: NavItem[] = [
   },
   { label: 'Audit Units', href: '/audit-units' },
   {
+    label: 'Transparency',
+    href: '/transparency',
+    children: [
+      { label: 'Audit Findings Tracker', href: '/transparency', icon: 'FileSearch', description: 'Live public dashboard of audit findings and resolution rates across MDAs' },
+      { label: 'IAC Registry', href: '/registry', icon: 'Users', description: 'Verified Internal Audit Class officers and their credentials' },
+      { label: 'Verify Certificate', href: '/verify', icon: 'Shield', description: 'Check the authenticity of an IAD-issued certificate' },
+    ],
+  },
+  {
     label: 'Services',
     href: '/services',
     children: [
@@ -36,13 +45,13 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Track Submission', href: '/track', icon: 'Search', description: 'Check the status of your submission' },
     ],
   },
-  { label: 'Publications', href: '/publications' },
   {
     label: 'News & Events',
     href: '/news',
     children: [
       { label: 'News', href: '/news', icon: 'Newspaper', description: 'Latest announcements and updates from the department' },
       { label: 'Events', href: '/events', icon: 'Calendar', description: 'Upcoming workshops, training, and ceremonies' },
+      { label: 'Publications', href: '/publications', icon: 'FileText', description: 'Audit reports, annual plans, policies, and manuals' },
     ],
   },
   { label: 'Contact', href: '/contact' },

@@ -12,7 +12,7 @@ import {
   Calendar,
   FileText,
   Users,
-  UserPlus,
+  BadgeCheck,
   ClipboardList,
   LogOut,
   Shield,
@@ -35,23 +35,23 @@ const NAV_SECTIONS = [
   {
     title: null,
     items: [
-      { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, roles: ['super_admin', 'content_manager', 'recruitment_admin', 'viewer'] },
+      { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, roles: ['super_admin', 'content_manager', 'recruitment_admin', 'viewer', 'admin', 'director', 'manager', 'auditor', 'mda_liaison'] },
     ],
   },
   {
     title: 'Content',
     items: [
-      { label: 'News', href: '/admin/news', icon: Newspaper, roles: ['super_admin', 'content_manager'] },
-      { label: 'Events', href: '/admin/events', icon: Calendar, roles: ['super_admin', 'content_manager'] },
-      { label: 'Publications', href: '/admin/publications', icon: FileText, roles: ['super_admin', 'content_manager'] },
-      { label: 'Leadership', href: '/admin/leadership', icon: Users, roles: ['super_admin', 'content_manager'] },
+      { label: 'News', href: '/admin/news', icon: Newspaper, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+      { label: 'Events', href: '/admin/events', icon: Calendar, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+      { label: 'Publications', href: '/admin/publications', icon: FileText, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+      { label: 'Leadership', href: '/admin/leadership', icon: Users, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
     ],
   },
   {
     title: 'Operations',
     items: [
-      { label: 'Recruitment', href: '/admin/recruitment', icon: UserPlus, roles: ['super_admin', 'recruitment_admin'] },
-      { label: 'Submissions', href: '/admin/submissions', icon: ClipboardList, roles: ['super_admin', 'recruitment_admin', 'viewer'] },
+      { label: 'IAC Registry', href: '/admin/registry', icon: BadgeCheck, roles: ['super_admin', 'admin', 'director'] },
+      { label: 'Submissions', href: '/admin/submissions', icon: ClipboardList, roles: ['super_admin', 'recruitment_admin', 'viewer', 'admin', 'director'] },
     ],
   },
   {
@@ -94,7 +94,7 @@ export function AdminSidebar({ user, onLogout, collapsed, onToggle }: AdminSideb
       <div className="relative p-4 pb-3">
         <Link href="/admin" className="flex items-center gap-3 overflow-hidden">
           <div className="shrink-0">
-            <Image src="/images/ohcs-crest.png" alt="OHCS" width={36} height={36} className="object-contain" style={{ width: 'auto', height: 36 }} />
+            <Image src="/images/coat-of-arms.png" alt="IAD" width={36} height={36} className="object-contain" style={{ width: 'auto', height: 36 }} />
           </div>
           <div
             className={cn(
@@ -104,7 +104,7 @@ export function AdminSidebar({ user, onLogout, collapsed, onToggle }: AdminSideb
           >
             <div className="w-[2px] h-7 rounded-full shrink-0" style={{ background: 'linear-gradient(to bottom, transparent, #D4A017, transparent)' }} />
             <div className="whitespace-nowrap">
-              <span className="text-base font-bold text-white block leading-tight tracking-wide">OHCS</span>
+              <span className="text-base font-bold text-white block leading-tight tracking-wide">IAD</span>
               <span className="text-[10px] text-accent font-semibold tracking-wider uppercase">Admin Portal</span>
             </div>
           </div>

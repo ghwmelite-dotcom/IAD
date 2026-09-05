@@ -16,13 +16,13 @@ interface AdminUserItem {
   lastLogin: string;
 }
 
-const ALL_ROLES: AdminRole[] = ['super_admin', 'content_manager', 'recruitment_admin', 'viewer'];
+const ALL_ROLES: AdminRole[] = ['super_admin', 'content_manager', 'viewer'];
 
 const INITIAL_USERS: AdminUserItem[] = [
   {
     id: 'u-001',
     name: 'System Administrator',
-    email: 'admin@ohcs.gov.gh',
+    email: 'admin@iad.gov.gh',
     role: 'super_admin',
     isActive: true,
     lastLogin: '2 hours ago',
@@ -30,23 +30,15 @@ const INITIAL_USERS: AdminUserItem[] = [
   {
     id: 'u-002',
     name: 'Content Manager',
-    email: 'content@ohcs.gov.gh',
+    email: 'content@iad.gov.gh',
     role: 'content_manager',
     isActive: true,
     lastLogin: '1 day ago',
   },
   {
     id: 'u-003',
-    name: 'Recruitment Officer',
-    email: 'recruitment@ohcs.gov.gh',
-    role: 'recruitment_admin',
-    isActive: true,
-    lastLogin: '3 days ago',
-  },
-  {
-    id: 'u-004',
     name: 'Senior Reviewer',
-    email: 'viewer@ohcs.gov.gh',
+    email: 'viewer@iad.gov.gh',
     role: 'viewer',
     isActive: true,
     lastLogin: '1 week ago',
@@ -110,8 +102,8 @@ export default function AdminUsersPage() {
       setCreateError('Email is required.');
       return;
     }
-    if (!createEmail.toLowerCase().endsWith('@ohcs.gov.gh')) {
-      setCreateError('Email must end with @ohcs.gov.gh.');
+    if (!createEmail.toLowerCase().endsWith('@iad.gov.gh')) {
+      setCreateError('Email must end with @iad.gov.gh.');
       return;
     }
     if (users.some((u) => u.email.toLowerCase() === createEmail.toLowerCase())) {
@@ -216,7 +208,7 @@ export default function AdminUsersPage() {
         <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
         <p className="text-sm text-blue-800">
           All users must have{' '}
-          <span className="font-mono font-semibold">@ohcs.gov.gh</span> email addresses.
+          <span className="font-mono font-semibold">@iad.gov.gh</span> email addresses.
         </p>
       </div>
 
@@ -400,11 +392,11 @@ export default function AdminUsersPage() {
                   type="email"
                   value={createEmail}
                   onChange={(e) => setCreateEmail(e.target.value)}
-                  placeholder="name@ohcs.gov.gh"
+                  placeholder="name@iad.gov.gh"
                   className="w-full px-4 py-3 rounded-xl border-2 border-border/60 text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none"
                 />
                 <p className="text-xs text-text-muted mt-1.5">
-                  Must be an <span className="font-mono font-semibold">@ohcs.gov.gh</span> address.
+                  Must be an <span className="font-mono font-semibold">@iad.gov.gh</span> address.
                 </p>
               </div>
               <div>

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Plus, Search, Edit, Trash2, CheckCircle, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { audit } from '@/lib/audit-logger';
+import { DemoBanner } from '@/components/admin/demo-banner';
 
 interface NewsItem {
   id: string;
@@ -28,39 +29,39 @@ const INITIAL_NEWS: NewsItem[] = [
     id: '1',
     title: "Nigeria's Federal Civil Service Pays Courtesy Call",
     slug: "nigerias-federal-civil-service-pays-courtesy-call",
-    excerpt: "A high-level delegation from Nigeria's Federal Civil Service Commission visited OHCS headquarters to strengthen bilateral cooperation.",
+    excerpt: "A high-level delegation from Nigeria's Federal Civil Service Commission visited the IAD to exchange experience on public sector internal audit reforms.",
     status: 'published',
     publishedAt: '15 Apr 2026',
   },
   {
     id: '2',
-    title: 'OHCS Launches 2026 Training Programme',
-    slug: 'ohcs-launches-2026-training-programme',
-    excerpt: 'The Office of the Head of Civil Service has officially launched its comprehensive training and capacity building programme for 2026.',
+    title: 'IAD Launches 2026 Risk-Based Audit Planning Workshop',
+    slug: 'iad-launches-2026-audit-planning-workshop',
+    excerpt: 'The Internal Audit Department has opened its annual risk-based audit planning workshop for Internal Audit Units across MDAs.',
     status: 'published',
     publishedAt: '10 Apr 2026',
   },
   {
     id: '3',
-    title: 'Head of Civil Service Addresses Staff on Reforms',
-    slug: 'head-of-civil-service-addresses-staff-on-reforms',
-    excerpt: 'The Head of Civil Service delivered a keynote address outlining key reform agenda items and performance improvement plans.',
+    title: 'Director of Internal Audit Addresses IAC Members on Standards',
+    slug: 'director-addresses-iac-members-on-standards',
+    excerpt: 'The Director of Internal Audit delivered a keynote on the IIA Global Internal Audit Standards and what they mean for MDAs.',
     status: 'published',
     publishedAt: '5 Apr 2026',
   },
   {
     id: '4',
-    title: 'Civil Service Week 2026 Preparations Underway',
-    slug: 'civil-service-week-2026-preparations-underway',
-    excerpt: 'Committees have been constituted and preparations are in full swing for the annual Civil Service Week celebrations.',
+    title: 'Fraud Awareness Seminar Series Begins in MDAs',
+    slug: 'fraud-awareness-seminar-series-begins',
+    excerpt: 'The IAD has begun a seminar series on fraud prevention, red flags, and confidential reporting channels for MDA staff.',
     status: 'draft',
     publishedAt: '1 Apr 2026',
   },
   {
     id: '5',
-    title: 'OHCS Quarterly Newsletter Published',
-    slug: 'ohcs-quarterly-newsletter-published',
-    excerpt: 'The latest edition of the OHCS quarterly newsletter is now available, covering highlights from Q1 2026.',
+    title: 'IAD Quarterly Bulletin Published',
+    slug: 'iad-quarterly-bulletin-published',
+    excerpt: 'The latest edition of the IAD quarterly bulletin is now available, covering audit highlights from Q1 2026.',
     status: 'published',
     publishedAt: '25 Mar 2026',
   },
@@ -179,6 +180,7 @@ export default function AdminNewsPage() {
 
   return (
     <div>
+      <DemoBanner message="Sample articles — news has no backend yet, so changes here are not saved to a server." />
       {/* Success toast */}
       {successMsg && (
         <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-green-700 text-sm mb-6 flex items-center gap-2">

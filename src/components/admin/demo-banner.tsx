@@ -1,8 +1,9 @@
 import { AlertTriangle } from 'lucide-react';
 
 // Marks an admin page that still renders mock/sample data so testers
-// don't mistake the figures for real applicants. Sub-projects B/C/D
-// will replace each tagged page with live data and remove the banner.
+// don't mistake the figures for live data. Pages with a working backend
+// (e.g. /admin/registry, Settings → Users) are live-wired instead and
+// do not carry this banner.
 
 export function DemoBanner({ message }: { message?: string }) {
   return (

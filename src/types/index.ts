@@ -154,7 +154,14 @@ export type AdminRole =
   | 'super_admin'
   | 'content_manager'
   | 'recruitment_admin'
-  | 'viewer';
+  | 'viewer'
+  // Audit-ops users store (migration 0012) roles, resolved from the same
+  // session cookie when the email lives in `users` rather than `admin_users`.
+  | 'admin'
+  | 'director'
+  | 'manager'
+  | 'auditor'
+  | 'mda_liaison';
 
 export interface AdminUser {
   id: string;

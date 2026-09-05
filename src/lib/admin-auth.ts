@@ -1,7 +1,7 @@
 import type { AdminSession, AdminUser } from '@/types';
 import { audit } from '@/lib/audit-logger';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8787';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
 const TOKEN_KEY = 'ohcs_admin_token';
 const USER_KEY = 'ohcs_admin_user';
 
@@ -13,21 +13,21 @@ function isDemoMode(): boolean {
 }
 
 const DEMO_USERS: Record<string, { password: string; user: AdminUser }> = {
-  'admin@ohcs.gov.gh': {
+  'admin@iad.gov.gh': {
     password: 'changeme123',
-    user: { id: 'demo-001', email: 'admin@ohcs.gov.gh', name: 'Kwame Mensah', role: 'super_admin' },
+    user: { id: 'demo-001', email: 'admin@iad.gov.gh', name: 'Efua Owusu-Ansah', role: 'super_admin' },
   },
-  'content@ohcs.gov.gh': {
+  'director@iad.gov.gh': {
+    password: 'director123',
+    user: { id: 'demo-002', email: 'director@iad.gov.gh', name: 'Yaw Boateng', role: 'director' },
+  },
+  'content@iad.gov.gh': {
     password: 'content123',
-    user: { id: 'demo-002', email: 'content@ohcs.gov.gh', name: 'Abena Osei', role: 'content_manager' },
+    user: { id: 'demo-003', email: 'content@iad.gov.gh', name: 'Abena Osei', role: 'content_manager' },
   },
-  'recruitment@ohcs.gov.gh': {
-    password: 'recruit123',
-    user: { id: 'demo-003', email: 'recruitment@ohcs.gov.gh', name: 'Kofi Adjei', role: 'recruitment_admin' },
-  },
-  'viewer@ohcs.gov.gh': {
+  'viewer@iad.gov.gh': {
     password: 'viewer123',
-    user: { id: 'demo-004', email: 'viewer@ohcs.gov.gh', name: 'Ama Darko', role: 'viewer' },
+    user: { id: 'demo-004', email: 'viewer@iad.gov.gh', name: 'Ama Darko', role: 'viewer' },
   },
 };
 
@@ -35,9 +35,9 @@ export async function adminLogin(
   email: string,
   password: string,
 ): Promise<AdminSession> {
-  // Enforce @ohcs.gov.gh
-  if (!email.endsWith('@ohcs.gov.gh')) {
-    throw new Error('Only @ohcs.gov.gh email addresses are permitted.');
+  // Enforce @iad.gov.gh
+  if (!email.endsWith('@iad.gov.gh')) {
+    throw new Error('Only @iad.gov.gh email addresses are permitted.');
   }
 
   if (isDemoMode()) {
@@ -100,7 +100,17 @@ export async function getAdminUser(): Promise<AdminUser | null> {
     if (res.ok) {
       const body = (await res.json()) as { data: { email: string; role: string } };
       const rawRole = body.data.role;
-      const validRoles: AdminUser['role'][] = ['super_admin', 'content_manager', 'recruitment_admin', 'viewer'];
+      const validRoles: AdminUser['role'][] = [
+        'super_admin',
+        'content_manager',
+        'recruitment_admin',
+        'viewer',
+        'admin',
+        'director',
+        'manager',
+        'auditor',
+        'mda_liaison',
+      ];
       const role = validRoles.includes(rawRole as AdminUser['role'])
         ? (rawRole as AdminUser['role'])
         : 'viewer';
@@ -146,6 +156,11 @@ export const ROLE_LABELS: Record<string, string> = {
   content_manager: 'Content Manager',
   recruitment_admin: 'Recruitment Admin',
   viewer: 'Viewer',
+  admin: 'Administrator',
+  director: 'Director',
+  manager: 'Audit Manager',
+  auditor: 'Auditor',
+  mda_liaison: 'MDA Liaison',
 };
 
 export const ROLE_COLORS: Record<string, string> = {
@@ -153,4 +168,9 @@ export const ROLE_COLORS: Record<string, string> = {
   content_manager: 'bg-blue-100 text-blue-800',
   recruitment_admin: 'bg-amber-100 text-amber-800',
   viewer: 'bg-gray-100 text-gray-700',
+  admin: 'bg-red-100 text-red-800',
+  director: 'bg-emerald-100 text-emerald-800',
+  manager: 'bg-teal-100 text-teal-800',
+  auditor: 'bg-indigo-100 text-indigo-800',
+  mda_liaison: 'bg-purple-100 text-purple-800',
 };

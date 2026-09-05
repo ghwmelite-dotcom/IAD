@@ -4,6 +4,7 @@ import { useState, useId } from 'react';
 import { Plus, Search, Edit, Trash2, CheckCircle, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { audit } from '@/lib/audit-logger';
+import { DemoBanner } from '@/components/admin/demo-banner';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -379,6 +380,7 @@ export default function AdminPublicationsPage() {
 
   return (
     <div>
+      <DemoBanner message="Sample publications — publications have no backend yet, so changes here are not saved to a server." />
       {/* Success banner */}
       {successMsg && (
         <div

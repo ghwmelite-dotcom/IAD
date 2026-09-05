@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Plus, Search, Edit, Trash2, CheckCircle, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { audit } from '@/lib/audit-logger';
+import { DemoBanner } from '@/components/admin/demo-banner';
 
 interface EventItem {
   id: string;
@@ -32,7 +33,7 @@ const INITIAL_EVENTS: EventItem[] = [
     id: '3',
     title: 'Quarterly Council Meeting',
     date: '20 May 2026',
-    location: 'OHCS HQ',
+    location: 'IAD HQ, Accra',
     status: 'published',
   },
   {
@@ -147,6 +148,7 @@ export default function AdminEventsPage() {
 
   return (
     <div>
+      <DemoBanner message="Sample events — events have no backend yet, so changes here are not saved to a server." />
       {/* Success toast */}
       {successMsg && (
         <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-green-700 text-sm mb-6 flex items-center gap-2">

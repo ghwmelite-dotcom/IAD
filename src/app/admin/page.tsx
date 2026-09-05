@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getAdminUser } from '@/lib/admin-auth';
 import { getAuditLog } from '@/lib/audit-logger';
 import type { AuditEntry } from '@/lib/audit-logger';
+import { DemoBanner } from '@/components/admin/demo-banner';
 import Link from 'next/link';
 import type { AdminUser } from '@/types';
 import {
@@ -11,7 +12,7 @@ import {
   Calendar,
   FileText,
   Users,
-  UserPlus,
+  BadgeCheck,
   ClipboardList,
   Clock,
   ArrowRight,
@@ -23,19 +24,20 @@ import {
 import { cn } from '@/lib/utils';
 
 const STATS = [
-  { label: 'News Articles', value: '12', change: '+3 this month', icon: Newspaper, href: '/admin/news', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50', border: 'border-green-200', roles: ['super_admin', 'content_manager'] },
-  { label: 'Events', value: '5', change: '2 upcoming', icon: Calendar, href: '/admin/events', gradient: 'from-blue-500 to-indigo-600', bg: 'bg-blue-50', border: 'border-blue-200', roles: ['super_admin', 'content_manager'] },
-  { label: 'Publications', value: '25', change: '+5 this quarter', icon: FileText, href: '/admin/publications', gradient: 'from-amber-500 to-yellow-600', bg: 'bg-amber-50', border: 'border-amber-200', roles: ['super_admin', 'content_manager'] },
-  { label: 'Submissions', value: '48', change: '12 pending review', icon: ClipboardList, href: '/admin/submissions', gradient: 'from-purple-500 to-violet-600', bg: 'bg-purple-50', border: 'border-purple-200', roles: ['super_admin', 'recruitment_admin', 'viewer'] },
-  { label: 'Applications', value: '0', change: 'Window closed', icon: UserPlus, href: '/admin/recruitment', gradient: 'from-rose-500 to-pink-600', bg: 'bg-rose-50', border: 'border-rose-200', roles: ['super_admin', 'recruitment_admin'] },
+  { label: 'News Articles', value: '12', change: '+3 this month', icon: Newspaper, href: '/admin/news', gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50', border: 'border-green-200', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'Events', value: '5', change: '2 upcoming', icon: Calendar, href: '/admin/events', gradient: 'from-blue-500 to-indigo-600', bg: 'bg-blue-50', border: 'border-blue-200', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'Publications', value: '25', change: '+5 this quarter', icon: FileText, href: '/admin/publications', gradient: 'from-amber-500 to-yellow-600', bg: 'bg-amber-50', border: 'border-amber-200', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'Submissions', value: '48', change: '12 pending review', icon: ClipboardList, href: '/admin/submissions', gradient: 'from-purple-500 to-violet-600', bg: 'bg-purple-50', border: 'border-purple-200', roles: ['super_admin', 'recruitment_admin', 'viewer', 'admin', 'director'] },
+  { label: 'Registered Auditors', value: 'live', change: 'IAC registry — live data', icon: BadgeCheck, href: '/admin/registry', gradient: 'from-emerald-500 to-green-600', bg: 'bg-emerald-50', border: 'border-emerald-200', roles: ['super_admin', 'admin', 'director'] },
   { label: 'Admin Users', value: '4', change: 'All active', icon: Users, href: '/admin/users', gradient: 'from-teal-500 to-cyan-600', bg: 'bg-teal-50', border: 'border-teal-200', roles: ['super_admin'] },
 ];
 
 const QUICK_ACTIONS = [
-  { label: 'New Article', href: '/admin/news/new', icon: Newspaper, gradient: 'from-green-500 to-emerald-600', roles: ['super_admin', 'content_manager'] },
-  { label: 'New Event', href: '/admin/events/new', icon: Calendar, gradient: 'from-blue-500 to-indigo-600', roles: ['super_admin', 'content_manager'] },
-  { label: 'Upload Doc', href: '/admin/publications/new', icon: FileText, gradient: 'from-amber-500 to-yellow-600', roles: ['super_admin', 'content_manager'] },
-  { label: 'Submissions', href: '/admin/submissions', icon: ClipboardList, gradient: 'from-purple-500 to-violet-600', roles: ['super_admin', 'recruitment_admin', 'viewer'] },
+  { label: 'New Article', href: '/admin/news/new', icon: Newspaper, gradient: 'from-green-500 to-emerald-600', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'New Event', href: '/admin/events/new', icon: Calendar, gradient: 'from-blue-500 to-indigo-600', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'Upload Doc', href: '/admin/publications/new', icon: FileText, gradient: 'from-amber-500 to-yellow-600', roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+  { label: 'Register Auditor', href: '/admin/registry', icon: BadgeCheck, gradient: 'from-emerald-500 to-green-600', roles: ['super_admin', 'admin', 'director'] },
+  { label: 'Submissions', href: '/admin/submissions', icon: ClipboardList, gradient: 'from-purple-500 to-violet-600', roles: ['super_admin', 'recruitment_admin', 'viewer', 'admin', 'director'] },
 ];
 
 const ACTION_COLORS: Record<string, string> = {
@@ -82,12 +84,20 @@ function timeAgo(timestamp: string): string {
 export default function AdminDashboardPage() {
   const [user, setUser] = useState<AdminUser | null>(null);
   const [recentActivity, setRecentActivity] = useState<AuditEntry[]>([]);
+  const [auditorCount, setAuditorCount] = useState<string>('—');
 
   useEffect(() => {
     getAdminUser().then(setUser);
     // Reads localStorage on mount; lazy useState() init would crash SSR.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecentActivity(getAuditLog().slice(0, 5));
+    // Live count from the IAC registry — the only stat backed by a real endpoint.
+    fetch('/api/admin/registry', { credentials: 'include' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((b) => {
+        if (b) setAuditorCount(String((b as { data: unknown[] }).data.length));
+      })
+      .catch(() => {});
   }, []);
 
   if (!user) return null;
@@ -97,6 +107,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
+      <DemoBanner message="Only the IAC Registry count is live. All other figures on this dashboard are sample data." />
       {/* ── Welcome Banner ── */}
       <div className="relative bg-gradient-to-br from-primary-dark via-primary-dark to-primary rounded-2xl p-8 lg:p-10 text-white overflow-hidden">
         {/* Kente threads */}
@@ -114,7 +125,7 @@ export default function AdminDashboardPage() {
               <span className="text-white">{user.name || 'Administrator'}</span>
             </h2>
             <p className="text-white/45 text-base max-w-md">
-              Manage content, monitor submissions, and oversee operations across Ghana&apos;s Civil Service.
+              Manage content, the Internal Audit Class registry, and submissions across Ghana&apos;s MDAs.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -154,7 +165,7 @@ export default function AdminDashboardPage() {
               </div>
               <ChevronRight className="h-4 w-4 text-text-muted/20 group-hover:text-primary group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
             </div>
-            <p className="text-3xl font-bold text-primary-dark mb-1 font-display">{stat.value}</p>
+            <p className="text-3xl font-bold text-primary-dark mb-1 font-display">{stat.value === 'live' ? auditorCount : stat.value}</p>
             <p className="text-sm font-semibold text-primary-dark mb-1">{stat.label}</p>
             <p className="text-xs text-text-muted flex items-center gap-1">
               <TrendingUp className="h-3 w-3" aria-hidden="true" />

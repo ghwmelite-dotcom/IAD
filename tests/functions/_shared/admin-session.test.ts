@@ -60,9 +60,45 @@ describe('admin session helpers', () => {
         sql:
           'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN admin_users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.is_active = 1',
       },
+      {
+        sql:
+          'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.active = 1',
+      },
     ]);
     const result = await readAdminSession(mockEnv({ db }), 'sess-ghost');
     expect(result).toBeNull();
+  });
+
+  it('readAdminSession falls back to the audit-ops users store', async () => {
+    const now = Date.now();
+    const created = now - 60_000;
+    const db = makeD1([
+      {
+        sql:
+          'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN admin_users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.is_active = 1',
+      },
+      {
+        sql:
+          'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.active = 1',
+        first: {
+          session_id: 'sess-iad',
+          email: 'admin@iad.gov.gh',
+          created_at: created,
+          expires_at: now + 60_000,
+          last_used_at: created,
+          role: 'admin',
+        },
+      },
+      {
+        sql:
+          'UPDATE admin_sessions SET last_used_at = ?, expires_at = ? WHERE session_id = ?',
+        run: {},
+      },
+    ]);
+    const result = await readAdminSession(mockEnv({ db }), 'sess-iad');
+    expect(result).not.toBeNull();
+    expect(result?.email).toBe('admin@iad.gov.gh');
+    expect(result?.role).toBe('admin');
   });
 
   it('readAdminSession does NOT slide past the hard cap (7d from created_at)', async () => {

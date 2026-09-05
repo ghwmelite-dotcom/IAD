@@ -30,17 +30,17 @@ const AVATAR_COLORS = [
 const INITIAL_LEADERS: LeaderItem[] = [
   {
     id: '1',
-    name: 'Evans Aggrey-Darkoh',
-    title: 'Head of Civil Service',
-    bio: 'Evans Aggrey-Darkoh serves as the Head of the Office of the Head of Civil Service (OHCS), providing strategic leadership and oversight across all Civil Service institutions in Ghana.',
+    name: 'Efua Owusu-Ansah',
+    title: 'Director of Internal Audit',
+    bio: 'Efua Owusu-Ansah leads the Internal Audit Department, directing audit coordination, assurance, and advisory services across Ghana\'s MDAs.',
     isFeatured: true,
     order: 1,
   },
   {
     id: '2',
-    name: 'Sylvanus Kofi Adzornu',
-    title: 'Chief Director',
-    bio: 'Sylvanus Kofi Adzornu is the Chief Director of the Office of the Head of Civil Service, responsible for coordinating the administrative and operational functions of the OHCS.',
+    name: 'Yaw Boateng',
+    title: 'Deputy Director, Audit Operations',
+    bio: 'Yaw Boateng coordinates the department\'s engagement portfolio, annual audit planning, and follow-up on audit recommendations across MDAs.',
     isFeatured: false,
     order: 2,
   },

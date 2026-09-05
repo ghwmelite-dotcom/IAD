@@ -3,6 +3,10 @@
 // Issues a magic-link admin sign-in. SHA-256 hashed tokens, 15-min TTL,
 // per-email rate limit (3 in rolling 15 min). Returns 200 even when the
 // email is not in the allowlist — prevents enumeration.
+//
+// Allowlist = legacy `admin_users` (0010) OR audit-ops `users` (0012).
+// Sessions are keyed by email, so one magic link serves both stores;
+// role resolution happens per-store at session read time.
 
 import type { PagesFunction } from '../../../_shared/types';
 import { json } from '../../../_shared/json';
@@ -37,11 +41,20 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
   const { email } = parsed.value;
   const now = Date.now();
 
-  const admin = await first<{ email: string }>(
+  let admin = await first<{ email: string }>(
     env,
     'SELECT email FROM admin_users WHERE email = ? AND is_active = 1',
     email,
   );
+  if (!admin) {
+    // Fall back to the audit-ops users store (migration 0012) so seeded
+    // admin/director accounts can sign in to /admin via the same flow.
+    admin = await first<{ email: string }>(
+      env,
+      'SELECT email FROM users WHERE email = ? AND active = 1',
+      email,
+    );
+  }
   if (!admin) {
     return json({ data: { sent: true } });
   }

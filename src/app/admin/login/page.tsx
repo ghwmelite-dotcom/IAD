@@ -31,23 +31,23 @@ type Tab = 'magic' | 'demo';
 // disappears the moment Settings → Auth Mode toggles demo mode off.
 const DEMO_QUICK_ACCOUNTS = [
   {
-    email: 'admin@ohcs.gov.gh',
+    email: 'admin@iad.gov.gh',
     password: 'changeme123',
     label: 'Super Admin',
-    name: 'Kwame Mensah',
+    name: 'Efua Owusu-Ansah',
     icon: Crown,
     accent: 'bg-primary text-white hover:bg-primary-light border-primary',
   },
   {
-    email: 'recruitment@ohcs.gov.gh',
-    password: 'recruit123',
-    label: 'Recruitment Admin',
-    name: 'Kofi Adjei',
+    email: 'director@iad.gov.gh',
+    password: 'director123',
+    label: 'Director',
+    name: 'Yaw Boateng',
     icon: Briefcase,
-    accent: 'bg-amber-100 text-amber-900 hover:bg-amber-200 border-amber-300',
+    accent: 'bg-emerald-100 text-emerald-900 hover:bg-emerald-200 border-emerald-300',
   },
   {
-    email: 'content@ohcs.gov.gh',
+    email: 'content@iad.gov.gh',
     password: 'content123',
     label: 'Content Manager',
     name: 'Abena Osei',
@@ -55,7 +55,7 @@ const DEMO_QUICK_ACCOUNTS = [
     accent: 'bg-blue-100 text-blue-900 hover:bg-blue-200 border-blue-300',
   },
   {
-    email: 'viewer@ohcs.gov.gh',
+    email: 'viewer@iad.gov.gh',
     password: 'viewer123',
     label: 'Viewer',
     name: 'Ama Darko',
@@ -161,9 +161,9 @@ export default function AdminLoginPage() {
         {/* Content */}
         <div className="relative">
           <div className="flex items-center gap-3 opacity-0" style={{ animation: 'hero-reveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards' }}>
-            <Image src="/images/ohcs-crest.png" alt="OHCS" width={48} height={48} className="object-contain" style={{ width: 'auto', height: 48 }} />
+            <Image src="/images/coat-of-arms.png" alt="IAD" width={48} height={48} className="object-contain" style={{ width: 'auto', height: 48 }} />
             <div className="w-[2px] h-8 rounded-full" style={{ background: 'linear-gradient(to bottom, transparent, #D4A017, transparent)' }} />
-            <span className="font-display text-lg font-bold text-white tracking-[2px]">OHCS</span>
+            <span className="font-display text-lg font-bold text-white tracking-[2px]">IAD</span>
           </div>
         </div>
 
@@ -177,7 +177,7 @@ export default function AdminLoginPage() {
               </span>
             </h2>
             <p className="text-lg text-white/50 leading-relaxed max-w-md">
-              Securely manage content, monitor submissions, and oversee operations across Ghana&apos;s Civil Service.
+              Securely manage content, the Internal Audit Class registry, and monitor submissions across Ghana&apos;s MDAs.
             </p>
           </div>
 
@@ -198,7 +198,7 @@ export default function AdminLoginPage() {
             <div className="h-full" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 100%)', backgroundSize: '200% 100%', animation: 'kente-shimmer 4s ease-in-out infinite' }} />
           </div>
           <p className="text-[10px] text-white/20 mt-4 tracking-wider">
-            &copy; {new Date().getFullYear()} Office of the Head of the Civil Service &bull; Republic of Ghana
+            &copy; {new Date().getFullYear()} Internal Audit Department &bull; Office of the Head of Civil Service, Ghana
           </p>
         </div>
       </div>
@@ -222,9 +222,9 @@ export default function AdminLoginPage() {
         <div className="w-full max-w-sm relative">
           {/* Mobile logo — only shown on small screens */}
           <div className="lg:hidden text-center mb-10">
-            <Image src="/images/ohcs-crest.png" alt="OHCS" width={56} height={56} className="object-contain mx-auto mb-4" style={{ width: 'auto', height: 56 }} />
+            <Image src="/images/coat-of-arms.png" alt="IAD" width={56} height={56} className="object-contain mx-auto mb-4" style={{ width: 'auto', height: 56 }} />
             <h1 className="font-display text-2xl font-bold text-primary-dark">Admin Portal</h1>
-            <p className="text-sm text-text-muted mt-1">Office of the Head of the Civil Service</p>
+            <p className="text-sm text-text-muted mt-1">Internal Audit Department</p>
           </div>
 
           {/* Welcome text — desktop */}
@@ -346,7 +346,7 @@ export default function AdminLoginPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@ohcs.gov.gh"
+                        placeholder="you@iad.gov.gh"
                         autoComplete="email"
                         className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-border/50 bg-white text-base focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10 transition-all"
                       />
@@ -399,7 +399,7 @@ export default function AdminLoginPage() {
             <div className="h-px bg-border/40 mb-6" />
             <div className="flex items-center justify-center gap-2 text-xs text-text-muted/50">
               <Lock className="h-3 w-3" aria-hidden="true" />
-              <span>Restricted to <strong className="text-text-muted/70">@ohcs.gov.gh</strong> accounts</span>
+              <span>Restricted to <strong className="text-text-muted/70">@iad.gov.gh</strong> accounts</span>
             </div>
           </div>
 

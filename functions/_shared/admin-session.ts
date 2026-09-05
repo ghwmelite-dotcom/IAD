@@ -55,12 +55,23 @@ export async function readAdminSession(
   sessionId: string,
 ): Promise<AdminSessionRow | null> {
   const now = Date.now();
-  const row = await first<JoinedSessionRow>(
+  let row = await first<JoinedSessionRow>(
     env,
     'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN admin_users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.is_active = 1',
     sessionId,
     now,
   );
+  if (!row) {
+    // Fallback: sessions are keyed by email, so a magic link issued to an
+    // audit-ops `users` account (0012, roles admin/director/…) lands here
+    // too. Resolve its role from the users store instead.
+    row = await first<JoinedSessionRow>(
+      env,
+      'SELECT s.session_id, s.email, s.created_at, s.expires_at, s.last_used_at, u.role FROM admin_sessions s JOIN users u ON u.email = s.email WHERE s.session_id = ? AND s.expires_at > ? AND u.active = 1',
+      sessionId,
+      now,
+    );
+  }
   if (!row) return null;
 
   // Hard cap: if more than 7 days since creation, force re-login.

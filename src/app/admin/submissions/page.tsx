@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Search, Eye, Edit, CheckCircle, X, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { audit } from '@/lib/audit-logger';
+import { DemoBanner } from '@/components/admin/demo-banner';
 
 type SubmissionType = 'complaint' | 'feedback' | 'rti';
 type SubmissionStatus = 'received' | 'under_review' | 'in_progress' | 'resolved' | 'closed';
@@ -190,6 +191,7 @@ export default function AdminSubmissionsPage() {
 
   return (
     <div>
+      <DemoBanner message="Sample submissions — this queue is not yet wired to the live submissions API." />
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>

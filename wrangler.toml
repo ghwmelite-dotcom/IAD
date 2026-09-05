@@ -1,5 +1,5 @@
 # Cloudflare Pages project configuration
-name = "ohcs"
+name = "iad-ohcs"
 pages_build_output_dir = ".vercel/output/static"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
@@ -11,13 +11,13 @@ compatibility_flags = ["nodejs_compat"]
 # D1 database (relational data)
 [[d1_databases]]
 binding = "DB"
-database_name = "ohcs-recruitment"
-database_id = "75e11590-a648-45ba-98a2-658525794896"
+database_name = "iad-platform"
+database_id = "9aef7df8-ddf1-4a6c-837f-04c186bc1c2f"
 
 # R2 bucket (uploaded files)
 [[r2_buckets]]
 binding = "UPLOADS"
-bucket_name = "ohcs-recruitment-uploads"
+bucket_name = "iad-uploads"
 
 # Workers AI binding (document sanity checks)
 [ai]
@@ -25,50 +25,39 @@ binding = "AI"
 
 # Non-secret env vars
 #
-# ─── EMAIL CONFIG (TEMPORARY) ───────────────────────────────────────
-# Sender is currently the Resend sandbox `onboarding@resend.dev`.
-# EMAIL_PROVIDER='resend' forces sendEmail() to skip MailChannels
-# entirely (MailChannels can't accept mail from a domain we don't own
-# DNS for). When OHCS infra adds the Domain Lockdown + SPF records on
-# ohcs.gov.gh, swap EMAIL_FROM to noreply@ohcs.gov.gh and set
-# EMAIL_PROVIDER='auto' (or remove it). See docs/email-setup.md.
+# EMAIL: sender is the Resend sandbox `onboarding@resend.dev` until IAD
+# infra adds Domain Lockdown + SPF records for its own domain. Swap
+# EMAIL_FROM and set EMAIL_PROVIDER='auto' (or remove) when ready.
 # RESEND_API_KEY is set as a secret via:
-#   npx wrangler pages secret put RESEND_API_KEY --project-name=ohcs
-# ────────────────────────────────────────────────────────────────────
+#   npx wrangler pages secret put RESEND_API_KEY --project-name=iad-ohcs
 [vars]
-APP_NAME = "OHCS Recruitment"
-# Pre-launch phase. Demo mode is allowed (gated by site_config toggle).
-# Flip to "production" at launch ceremony to re-lock the defence-in-depth
-# gate in functions/_shared/admin-auth.ts that forces demo mode off.
+APP_NAME = "IAD Platform"
 APP_ENV = "preview"
 EMAIL_FROM = "onboarding@resend.dev"
-EMAIL_FROM_NAME = "OHCS Recruitment (Test)"
+EMAIL_FROM_NAME = "Internal Audit Department (Test)"
 EMAIL_PROVIDER = "resend"
 
 # ──────────────────────────────────────────────────────────────────────
 # Preview environment (Cloudflare Pages preview deployments)
-#
-# Preview shares the same D1/R2/AI resources as production in v1 —
-# simpler and sufficient for now. Split into separate preview resources
-# later if real-world preview usage starts generating conflicting data.
+# Preview shares the same D1/R2/AI resources as production in v1.
 # ──────────────────────────────────────────────────────────────────────
 [env.preview]
 
 [[env.preview.d1_databases]]
 binding = "DB"
-database_name = "ohcs-recruitment"
-database_id = "75e11590-a648-45ba-98a2-658525794896"
+database_name = "iad-platform"
+database_id = "9aef7df8-ddf1-4a6c-837f-04c186bc1c2f"
 
 [[env.preview.r2_buckets]]
 binding = "UPLOADS"
-bucket_name = "ohcs-recruitment-uploads"
+bucket_name = "iad-uploads"
 
 [env.preview.ai]
 binding = "AI"
 
 [env.preview.vars]
-APP_NAME = "OHCS Recruitment (Preview)"
+APP_NAME = "IAD Platform (Preview)"
 APP_ENV = "preview"
 EMAIL_FROM = "onboarding@resend.dev"
-EMAIL_FROM_NAME = "OHCS Recruitment (Preview)"
+EMAIL_FROM_NAME = "Internal Audit Department (Preview)"
 EMAIL_PROVIDER = "resend"

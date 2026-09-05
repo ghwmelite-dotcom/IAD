@@ -53,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
       <div className="fixed inset-0 z-50 bg-surface flex items-center justify-center">
         <div className="text-center">
-          <Image src="/images/ohcs-crest.png" alt="OHCS" width={48} height={48} className="object-contain mx-auto mb-4 opacity-0" style={{ width: 'auto', height: 48, animation: 'hero-reveal 0.6s cubic-bezier(0.16,1,0.3,1) forwards' }} />
+          <Image src="/images/coat-of-arms.png" alt="IAD" width={48} height={48} className="object-contain mx-auto mb-4 opacity-0" style={{ width: 'auto', height: 48, animation: 'hero-reveal 0.6s cubic-bezier(0.16,1,0.3,1) forwards' }} />
           <div className="w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-text-muted text-sm">Loading admin portal...</p>
         </div>
@@ -113,7 +113,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         {/* Minimal admin footer */}
         <footer className="px-8 py-4 border-t border-border/20 text-xs text-text-muted/40 flex items-center justify-between">
-          <span>&copy; {new Date().getFullYear()} OHCS Admin Portal</span>
+          <span>&copy; {new Date().getFullYear()} IAD Admin Portal</span>
           <span>v1.0.0</span>
         </footer>
       </div>
@@ -128,7 +128,7 @@ function getPageTitle(pathname: string): string {
     '/admin/events': 'Events Management',
     '/admin/publications': 'Publications',
     '/admin/leadership': 'Leadership Profiles',
-    '/admin/recruitment': 'Recruitment',
+    '/admin/registry': 'IAC Registry',
     '/admin/submissions': 'Submissions',
     '/admin/users': 'User Management',
     '/admin/audit-log': 'Audit Log',
@@ -144,7 +144,7 @@ function getPageSubtitle(pathname: string): string {
     '/admin/events': 'Manage upcoming events and activities',
     '/admin/publications': 'Upload and manage official documents',
     '/admin/leadership': 'Manage leadership profiles and bios',
-    '/admin/recruitment': 'Control recruitment windows and applications',
+    '/admin/registry': 'Manage the Internal Audit Class registry — auditors, credentials, CPD and certificates',
     '/admin/submissions': 'Review and manage citizen submissions',
     '/admin/users': 'Manage admin user accounts and roles',
     '/admin/audit-log': 'Track all admin actions and changes',

@@ -81,7 +81,7 @@ export default function AuthModePage() {
               <h2 className="text-lg font-bold text-primary-dark">Demo Mode</h2>
               <p className="text-sm text-text-muted mt-1">
                 When ON, the four hardcoded demo accounts (
-                <code className="text-xs">admin@ohcs.gov.gh</code> etc.) can sign in. When OFF,
+                <code className="text-xs">admin@iad.gov.gh</code> etc.) can sign in. When OFF,
                 only emails in the Admin Users allowlist can sign in via magic link.
               </p>
             </div>

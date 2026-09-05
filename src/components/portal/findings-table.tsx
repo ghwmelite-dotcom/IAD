@@ -7,6 +7,7 @@ import type { Finding, FindingSeverity, FindingStatus } from '@/lib/portal-api';
 import { findingAgeDays } from '@/lib/portal-api';
 import { formatDateShort, cn } from '@/lib/utils';
 import { SeverityBadge, FindingStatusBadge } from '@/components/portal/badges';
+import { ScrollRegion } from '@/components/ui/scroll-region';
 
 const STATUSES: FindingStatus[] = ['open', 'responded', 'in_progress', 'closed', 'verified'];
 const SEVERITIES: FindingSeverity[] = ['high', 'medium', 'low'];
@@ -106,7 +107,8 @@ export function FindingsTable({ findings, hideMda = false }: FindingsTableProps)
       </div>
 
       {/* Table */}
-      <div className="bg-surface-card rounded-xl border border-border/60 shadow-card overflow-x-auto">
+      <div className="bg-surface-card rounded-xl border border-border/60 shadow-card">
+        <ScrollRegion>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border/60 text-left">
@@ -156,6 +158,7 @@ export function FindingsTable({ findings, hideMda = false }: FindingsTableProps)
             )}
           </tbody>
         </table>
+        </ScrollRegion>
       </div>
       <p className="text-xs text-text-muted mt-2">
         Showing {filtered.length} of {findings.length} findings

@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpDown, ShieldAlert } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ScrollRegion } from '@/components/ui/scroll-region';
 import type { MdaTransparency } from '@/lib/public-api';
 
 type SortKey = 'mda_name' | 'findings' | 'closed' | 'resolutionRate' | 'openHigh';
@@ -48,7 +49,7 @@ export function MdaTable({ rows }: MdaTableProps) {
 
   return (
     <div className="bg-white rounded-2xl border-2 border-border/40 shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
+      <ScrollRegion>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b-2 border-border/40 bg-primary/[0.03]">
@@ -121,7 +122,7 @@ export function MdaTable({ rows }: MdaTableProps) {
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollRegion>
     </div>
   );
 }

@@ -1,107 +1,54 @@
 'use client';
 
-import { useState, useId } from 'react';
-import { Plus, Search, Edit, Trash2, CheckCircle, X, ChevronDown } from 'lucide-react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import {
+  Plus, Search, Edit, Trash2, CheckCircle, X, ChevronDown, ChevronLeft,
+  ChevronRight, Loader2, AlertCircle, Upload, FileUp, Download,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { audit } from '@/lib/audit-logger';
-import { DemoBanner } from '@/components/admin/demo-banner';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type PubCategory = 'report' | 'policy' | 'form' | 'circular';
-type FileType = 'PDF' | 'DOCX' | 'XLSX';
-type PubStatus = 'published' | 'draft';
-
-interface PubItem {
-  id: string;
-  title: string;
-  category: PubCategory;
-  fileType: FileType;
-  date: string;
-  status: PubStatus;
-}
+import { formatDate } from '@/lib/public-api';
+import {
+  fetchAdminKnowledge,
+  createKnowledge,
+  updateKnowledge,
+  deleteKnowledge,
+  uploadKnowledgeVersion,
+  KnowledgeApiError,
+  KNOWLEDGE_CATEGORIES,
+  KNOWLEDGE_CATEGORY_LABELS,
+  KNOWLEDGE_CATEGORY_COLORS,
+  KNOWLEDGE_MAX_FILE_BYTES,
+  formatFileSize,
+  fileTypeLabel,
+  type AdminKnowledgeItem,
+  type KnowledgeAudience,
+  type KnowledgeCategory,
+  type KnowledgeListMeta,
+  type KnowledgeStatus,
+} from '@/lib/knowledge-api';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const CATEGORY_COLORS: Record<PubCategory, string> = {
-  report: 'bg-blue-100 text-blue-800',
-  policy: 'bg-amber-100 text-amber-800',
-  form: 'bg-rose-100 text-rose-800',
-  circular: 'bg-purple-100 text-purple-800',
-};
-
-const CATEGORY_LABELS: Record<PubCategory, string> = {
-  report: 'Report',
-  policy: 'Policy',
-  form: 'Form',
-  circular: 'Circular',
-};
-
-const INITIAL_PUBS: PubItem[] = [
-  {
-    id: '1',
-    title: 'Head of Department Performance Agreement 2024',
-    category: 'report',
-    fileType: 'PDF',
-    date: '15 Jan 2025',
-    status: 'published',
-  },
-  {
-    id: '2',
-    title: 'Public Service Awards Criteria and Guidelines',
-    category: 'policy',
-    fileType: 'PDF',
-    date: '10 Dec 2024',
-    status: 'published',
-  },
-  {
-    id: '3',
-    title: 'Right to Information (RTI) Manual for MDAs',
-    category: 'policy',
-    fileType: 'PDF',
-    date: '5 Nov 2024',
-    status: 'published',
-  },
-  {
-    id: '4',
-    title: 'Code of Conduct for Civil Servants',
-    category: 'circular',
-    fileType: 'PDF',
-    date: '2 Mar 2025',
-    status: 'published',
-  },
-  {
-    id: '5',
-    title: 'Annual Performance Report 2023/2024',
-    category: 'report',
-    fileType: 'PDF',
-    date: '20 Feb 2025',
-    status: 'published',
-  },
-  {
-    id: '6',
-    title: 'Training Nomination Template — Q2 2025',
-    category: 'form',
-    fileType: 'XLSX',
-    date: '1 Apr 2025',
-    status: 'draft',
-  },
-];
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function generateId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2);
-}
-
-function todayLabel(): string {
-  return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-}
-
-// ─── Input / Select Styles ───────────────────────────────────────────────────
+const PAGE_SIZE = 10;
 
 const inputCls =
   'w-full px-4 py-3 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors';
+
+const ACCEPT_FILE_TYPES = '.pdf,.doc,.docx,.xls,.xlsx';
+
+function errMessage(e: unknown): string {
+  if (e instanceof KnowledgeApiError && (e.status === 401 || e.status === 403)) {
+    return 'Knowledge management requires an admin or director sign-in (magic link).';
+  }
+  return e instanceof Error ? e.message : 'Something went wrong';
+}
+
+function parseTags(raw: string): string[] {
+  return raw
+    .split(',')
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
 
 // ─── Modal Component ─────────────────────────────────────────────────────────
 
@@ -119,7 +66,7 @@ function Modal({ title, onClose, children }: ModalProps) {
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/40">
           <h3 id="modal-title" className="text-lg font-bold text-primary-dark">
             {title}
@@ -142,11 +89,12 @@ function Modal({ title, onClose, children }: ModalProps) {
 
 interface DeleteConfirmProps {
   itemTitle: string;
+  busy: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-function DeleteConfirm({ itemTitle, onConfirm, onCancel }: DeleteConfirmProps) {
+function DeleteConfirm({ itemTitle, busy, onConfirm, onCancel }: DeleteConfirmProps) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -157,21 +105,24 @@ function DeleteConfirm({ itemTitle, onConfirm, onCancel }: DeleteConfirmProps) {
         <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
           <Trash2 className="h-6 w-6 text-red-600" />
         </div>
-        <h3 className="text-lg font-bold text-primary-dark mb-2">Delete Publication?</h3>
+        <h3 className="text-lg font-bold text-primary-dark mb-2">Delete Document?</h3>
         <p className="text-sm text-text-muted mb-6 leading-relaxed">
-          <span className="font-semibold">&ldquo;{itemTitle}&rdquo;</span> will be permanently removed.
+          <span className="font-semibold">&ldquo;{itemTitle}&rdquo;</span> and all its versions will be permanently removed.
         </p>
         <div className="flex gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors"
+            disabled={busy}
+            className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 px-4 py-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition-colors"
+            disabled={busy}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50"
           >
+            {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
             Delete
           </button>
         </div>
@@ -180,34 +131,186 @@ function DeleteConfirm({ itemTitle, onConfirm, onCancel }: DeleteConfirmProps) {
   );
 }
 
-// ─── Pub Form ─────────────────────────────────────────────────────────────────
+// ─── Shared form pieces ───────────────────────────────────────────────────────
 
-interface PubFormData {
-  title: string;
-  category: PubCategory;
-  fileType: FileType;
-  status: PubStatus;
+function StatusToggle({
+  status,
+  onChange,
+}: {
+  status: KnowledgeStatus;
+  onChange: (status: KnowledgeStatus) => void;
+}) {
+  return (
+    <div>
+      <span className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+        Status
+      </span>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          role="switch"
+          aria-checked={status === 'published'}
+          onClick={() => onChange(status === 'published' ? 'draft' : 'published')}
+          className={cn(
+            'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20',
+            status === 'published' ? 'bg-green-500' : 'bg-gray-300',
+          )}
+        >
+          <span
+            className={cn(
+              'inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform',
+              status === 'published' ? 'translate-x-6' : 'translate-x-1',
+            )}
+          />
+        </button>
+        <span className="text-sm font-medium text-text-muted capitalize">{status}</span>
+      </div>
+    </div>
+  );
 }
 
-interface PubFormProps {
-  initial: PubFormData;
-  onSubmit: (data: PubFormData) => void;
+function AudienceSelect({
+  value,
+  onChange,
+}: {
+  value: KnowledgeAudience;
+  onChange: (audience: KnowledgeAudience) => void;
+}) {
+  return (
+    <div>
+      <span className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+        Audience
+      </span>
+      <div className="grid grid-cols-2 gap-2">
+        {(
+          [
+            { key: 'public', label: 'Public', hint: 'Anyone on the website' },
+            { key: 'mda', label: 'MDA auditors only', hint: 'Portal sign-in required' },
+          ] as const
+        ).map((opt) => (
+          <button
+            key={opt.key}
+            type="button"
+            onClick={() => onChange(opt.key)}
+            aria-pressed={value === opt.key}
+            className={cn(
+              'rounded-xl border-2 px-3 py-2.5 text-left transition-colors',
+              value === opt.key
+                ? 'border-primary bg-primary/5'
+                : 'border-border/60 hover:border-primary/30',
+            )}
+          >
+            <span className="block text-sm font-semibold text-primary-dark">{opt.label}</span>
+            <span className="block text-[11px] text-text-muted">{opt.hint}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FilePicker({
+  file,
+  onSelect,
+  required,
+}: {
+  file: File | null;
+  onSelect: (file: File | null) => void;
+  required?: boolean;
+}) {
+  const inputId = useId();
+  const [error, setError] = useState<string | null>(null);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const selected = e.target.files?.[0] ?? null;
+    if (selected && selected.size > KNOWLEDGE_MAX_FILE_BYTES) {
+      setError(`File is ${formatFileSize(selected.size)} — the maximum is 25 MB.`);
+      onSelect(null);
+      e.target.value = '';
+      return;
+    }
+    setError(null);
+    onSelect(selected);
+  }
+
+  return (
+    <div>
+      <label
+        htmlFor={inputId}
+        className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5"
+      >
+        File {required ? <span className="text-red-500">*</span> : <span className="normal-case font-normal">(optional)</span>}
+      </label>
+      <label
+        htmlFor={inputId}
+        className="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-dashed border-border/60 bg-white text-sm cursor-pointer hover:border-primary/40 transition-colors"
+      >
+        <FileUp className="h-4 w-4 text-text-muted/50 shrink-0" aria-hidden="true" />
+        <span className={cn('truncate', file ? 'font-medium text-primary-dark' : 'text-text-muted/60')}>
+          {file ? `${file.name} (${formatFileSize(file.size)})` : 'Choose a PDF, DOCX or XLSX file…'}
+        </span>
+      </label>
+      <input
+        id={inputId}
+        type="file"
+        accept={ACCEPT_FILE_TYPES}
+        onChange={handleChange}
+        className="sr-only"
+      />
+      {error && <p className="text-xs text-red-600 mt-1.5">{error}</p>}
+      <p className="text-[11px] text-text-muted/50 mt-1.5">PDF, DOCX or XLSX — up to 25 MB.</p>
+    </div>
+  );
+}
+
+// ─── Upload (create) Form ─────────────────────────────────────────────────────
+
+function UploadForm({
+  onSubmit,
+  onCancel,
+}: {
+  onSubmit: () => void;
   onCancel: () => void;
-  submitLabel: string;
-}
-
-function PubForm({ initial, onSubmit, onCancel, submitLabel }: PubFormProps) {
-  const [form, setForm] = useState<PubFormData>(initial);
+}) {
+  const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
+  const [category, setCategory] = useState<KnowledgeCategory>('manual');
+  const [audience, setAudience] = useState<KnowledgeAudience>('public');
+  const [status, setStatus] = useState<KnowledgeStatus>('draft');
+  const [tags, setTags] = useState('');
+  const [changeNote, setChangeNote] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const titleId = useId();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.title.trim()) return;
-    onSubmit(form);
+    if (!title.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      await createKnowledge({
+        title: title.trim(),
+        summary: summary.trim(),
+        category,
+        audience,
+        status,
+        tags: parseTags(tags),
+        change_note: changeNote.trim() || undefined,
+        file,
+      });
+      onSubmit();
+    } catch (err) {
+      setError(errMessage(err));
+      setSubmitting(false);
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <p className="text-sm text-red-700">{error}</p>}
+
       <div>
         <label htmlFor={titleId} className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
           Title <span className="text-red-500">*</span>
@@ -216,93 +319,310 @@ function PubForm({ initial, onSubmit, onCancel, submitLabel }: PubFormProps) {
           id={titleId}
           type="text"
           required
-          value={form.title}
-          onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-          placeholder="Enter publication title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter document title"
           className={inputCls}
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
-            Category
-          </label>
-          <div className="relative">
-            <select
-              value={form.category}
-              onChange={(e) => setForm((f) => ({ ...f, category: e.target.value as PubCategory }))}
-              className={cn(inputCls, 'appearance-none pr-10')}
-            >
-              <option value="report">Report</option>
-              <option value="policy">Policy</option>
-              <option value="form">Form</option>
-              <option value="circular">Circular</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
-            File Type
-          </label>
-          <div className="relative">
-            <select
-              value={form.fileType}
-              onChange={(e) => setForm((f) => ({ ...f, fileType: e.target.value as FileType }))}
-              className={cn(inputCls, 'appearance-none pr-10')}
-            >
-              <option value="PDF">PDF</option>
-              <option value="DOCX">DOCX</option>
-              <option value="XLSX">XLSX</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
-          </div>
-        </div>
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Summary
+        </label>
+        <textarea
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
+          rows={3}
+          placeholder="Short description shown in the Knowledge Hub"
+          className={cn(inputCls, 'resize-none')}
+        />
       </div>
 
       <div>
-        <span className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
-          Status
-        </span>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            role="switch"
-            aria-checked={form.status === 'published'}
-            onClick={() =>
-              setForm((f) => ({ ...f, status: f.status === 'published' ? 'draft' : 'published' }))
-            }
-            className={cn(
-              'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20',
-              form.status === 'published' ? 'bg-green-500' : 'bg-gray-300',
-            )}
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Category <span className="text-red-500">*</span>
+        </label>
+        <div className="relative">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as KnowledgeCategory)}
+            className={cn(inputCls, 'appearance-none pr-10')}
           >
-            <span
-              className={cn(
-                'inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform',
-                form.status === 'published' ? 'translate-x-6' : 'translate-x-1',
-              )}
-            />
-          </button>
-          <span className="text-sm font-medium text-text-muted capitalize">{form.status}</span>
+            {KNOWLEDGE_CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>
+                {KNOWLEDGE_CATEGORY_LABELS[cat]}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
         </div>
+      </div>
+
+      <AudienceSelect value={audience} onChange={setAudience} />
+
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Tags
+        </label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="Comma-separated, e.g. risk, planning, template"
+          className={inputCls}
+        />
+      </div>
+
+      <StatusToggle status={status} onChange={setStatus} />
+
+      <FilePicker file={file} onSelect={setFile} />
+
+      {file && (
+        <div>
+          <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+            Change note
+          </label>
+          <input
+            type="text"
+            value={changeNote}
+            onChange={(e) => setChangeNote(e.target.value)}
+            placeholder="e.g. Initial upload"
+            className={inputCls}
+          />
+        </div>
+      )}
+
+      <div className="flex gap-3 pt-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={submitting}
+          className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors disabled:opacity-50"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors disabled:opacity-50"
+        >
+          {submitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          Upload
+        </button>
+      </div>
+    </form>
+  );
+}
+
+// ─── Edit (metadata) Form ─────────────────────────────────────────────────────
+
+function EditForm({
+  item,
+  onSubmit,
+  onCancel,
+}: {
+  item: AdminKnowledgeItem;
+  onSubmit: () => void;
+  onCancel: () => void;
+}) {
+  const [title, setTitle] = useState(item.title);
+  const [summary, setSummary] = useState(item.summary);
+  const [category, setCategory] = useState<KnowledgeCategory>(item.category);
+  const [audience, setAudience] = useState<KnowledgeAudience>(item.audience);
+  const [status, setStatus] = useState<KnowledgeStatus>(item.status);
+  const [tags, setTags] = useState(item.tags.join(', '));
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const titleId = useId();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!title.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      await updateKnowledge(item.id, {
+        title: title.trim(),
+        summary: summary.trim(),
+        category,
+        audience,
+        status,
+        tags: parseTags(tags),
+      });
+      onSubmit();
+    } catch (err) {
+      setError(errMessage(err));
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <p className="text-sm text-red-700">{error}</p>}
+
+      <div>
+        <label htmlFor={titleId} className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Title <span className="text-red-500">*</span>
+        </label>
+        <input
+          id={titleId}
+          type="text"
+          required
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className={inputCls}
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Summary
+        </label>
+        <textarea
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
+          rows={3}
+          className={cn(inputCls, 'resize-none')}
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Category <span className="text-red-500">*</span>
+        </label>
+        <div className="relative">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as KnowledgeCategory)}
+            className={cn(inputCls, 'appearance-none pr-10')}
+          >
+            {KNOWLEDGE_CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>
+                {KNOWLEDGE_CATEGORY_LABELS[cat]}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
+        </div>
+      </div>
+
+      <AudienceSelect value={audience} onChange={setAudience} />
+
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Tags
+        </label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="Comma-separated"
+          className={inputCls}
+        />
+      </div>
+
+      <StatusToggle status={status} onChange={setStatus} />
+
+      <p className="text-[11px] text-text-muted/50">
+        To replace the document file itself, use <span className="font-semibold">New version</span> from the row actions.
+      </p>
+
+      <div className="flex gap-3 pt-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={submitting}
+          className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors disabled:opacity-50"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors disabled:opacity-50"
+        >
+          {submitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          Save Changes
+        </button>
+      </div>
+    </form>
+  );
+}
+
+// ─── New Version Form ─────────────────────────────────────────────────────────
+
+function VersionForm({
+  item,
+  onSubmit,
+  onCancel,
+}: {
+  item: AdminKnowledgeItem;
+  onSubmit: () => void;
+  onCancel: () => void;
+}) {
+  const [file, setFile] = useState<File | null>(null);
+  const [changeNote, setChangeNote] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!file) {
+      setError('Choose a file to upload as the new version.');
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    try {
+      await uploadKnowledgeVersion(item.id, file, changeNote.trim());
+      onSubmit();
+    } catch (err) {
+      setError(errMessage(err));
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <p className="text-sm text-red-700">{error}</p>}
+
+      <p className="text-sm text-text-muted leading-relaxed">
+        Uploading a new version of <span className="font-semibold text-primary-dark">&ldquo;{item.title}&rdquo;</span>.
+        The previous file is kept in the version history; downloads always serve the latest version.
+      </p>
+
+      <FilePicker file={file} onSelect={setFile} required />
+
+      <div>
+        <label className="block text-xs font-semibold text-text-muted uppercase tracking-wide mb-1.5">
+          Change note
+        </label>
+        <input
+          type="text"
+          value={changeNote}
+          onChange={(e) => setChangeNote(e.target.value)}
+          placeholder="e.g. Updated thresholds for 2026"
+          className={inputCls}
+        />
       </div>
 
       <div className="flex gap-3 pt-2">
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors"
+          disabled={submitting}
+          className="flex-1 px-4 py-2.5 rounded-xl border-2 border-border/60 text-sm font-semibold text-text-muted hover:bg-gray-50 transition-colors disabled:opacity-50"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="flex-1 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors"
+          disabled={submitting || !file}
+          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors disabled:opacity-50"
         >
-          {submitLabel}
+          {submitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          Upload Version
         </button>
       </div>
     </form>
@@ -314,73 +634,105 @@ function PubForm({ initial, onSubmit, onCancel, submitLabel }: PubFormProps) {
 type ModalState =
   | { type: 'none' }
   | { type: 'create' }
-  | { type: 'edit'; item: PubItem }
-  | { type: 'delete'; item: PubItem };
+  | { type: 'edit'; item: AdminKnowledgeItem }
+  | { type: 'delete'; item: AdminKnowledgeItem }
+  | { type: 'version'; item: AdminKnowledgeItem };
 
 export default function AdminPublicationsPage() {
-  const [pubs, setPubs] = useState<PubItem[]>(INITIAL_PUBS);
+  const [items, setItems] = useState<AdminKnowledgeItem[] | null>(null);
+  const [meta, setMeta] = useState<KnowledgeListMeta>({ page: 1, pageSize: PAGE_SIZE, total: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<PubCategory | 'all'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<KnowledgeCategory | 'all'>('all');
+  const [statusFilter, setStatusFilter] = useState<KnowledgeStatus | 'all'>('all');
+  const [audienceFilter, setAudienceFilter] = useState<KnowledgeAudience | 'all'>('all');
+  const [page, setPage] = useState(1);
   const [modal, setModal] = useState<ModalState>({ type: 'none' });
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [deleteBusy, setDeleteBusy] = useState(false);
+  const requestId = useRef(0);
+
+  const load = useCallback(
+    async (q: string, cat: KnowledgeCategory | 'all', st: KnowledgeStatus | 'all', aud: KnowledgeAudience | 'all', pg: number) => {
+      const id = ++requestId.current;
+      try {
+        const result = await fetchAdminKnowledge({
+          q,
+          category: cat,
+          status: st,
+          audience: aud,
+          page: pg,
+          pageSize: PAGE_SIZE,
+        });
+        if (id !== requestId.current) return;
+        setItems(result.items);
+        setMeta(result.meta);
+        setError(null);
+      } catch (err) {
+        if (id !== requestId.current) return;
+        setError(errMessage(err));
+        setItems((prev) => prev ?? []);
+      } finally {
+        if (id === requestId.current) setLoading(false);
+      }
+    },
+    [],
+  );
+
+  // Live load + debounced search (debounce only applies to free text).
+  useEffect(() => {
+    const timer = setTimeout(
+      () => void load(query, categoryFilter, statusFilter, audienceFilter, page),
+      query.trim() ? 300 : 0,
+    );
+    return () => clearTimeout(timer);
+  }, [query, categoryFilter, statusFilter, audienceFilter, page, load]);
 
   function showSuccess(msg: string) {
     setSuccessMsg(msg);
     setTimeout(() => setSuccessMsg(null), 3000);
   }
 
-  function handleCreate(data: PubFormData) {
-    const newItem: PubItem = {
-      id: generateId(),
-      ...data,
-      date: todayLabel(),
-    };
-    setPubs((prev) => [newItem, ...prev]);
-    audit('create', 'publication', newItem.id, newItem.title, 'Created publication');
-    setModal({ type: 'none' });
-    showSuccess('Publication added successfully.');
+  function reload() {
+    void load(query, categoryFilter, statusFilter, audienceFilter, page);
   }
 
-  function handleEdit(data: PubFormData) {
-    if (modal.type !== 'edit') return;
-    setPubs((prev) =>
-      prev.map((p) => (p.id === modal.item.id ? { ...p, ...data } : p)),
-    );
-    audit('update', 'publication', modal.item.id, data.title, 'Updated publication');
-    setModal({ type: 'none' });
-    showSuccess('Publication updated successfully.');
+  async function toggleStatus(item: AdminKnowledgeItem) {
+    const next: KnowledgeStatus = item.status === 'published' ? 'draft' : 'published';
+    setBusyId(item.id);
+    try {
+      await updateKnowledge(item.id, { status: next });
+      reload();
+      showSuccess(next === 'published' ? 'Document published.' : 'Document moved to draft.');
+    } catch (err) {
+      setError(errMessage(err));
+    } finally {
+      setBusyId(null);
+    }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (modal.type !== 'delete') return;
-    audit('delete', 'publication', modal.item.id, modal.item.title, 'Deleted publication');
-    setPubs((prev) => prev.filter((p) => p.id !== modal.item.id));
-    setModal({ type: 'none' });
-    showSuccess('Publication deleted.');
+    setDeleteBusy(true);
+    try {
+      await deleteKnowledge(modal.item.id);
+      setModal({ type: 'none' });
+      reload();
+      showSuccess('Document deleted.');
+    } catch (err) {
+      setError(errMessage(err));
+      setModal({ type: 'none' });
+    } finally {
+      setDeleteBusy(false);
+    }
   }
 
-  function toggleStatus(id: string) {
-    const pub = pubs.find((p) => p.id === id);
-    const newStatus = pub?.status === 'published' ? 'draft' : 'published';
-    setPubs((prev) =>
-      prev.map((p) =>
-        p.id === id
-          ? { ...p, status: newStatus }
-          : p,
-      ),
-    );
-    if (pub) audit('status_change', 'publication', pub.id, pub.title, 'Changed status to ' + newStatus);
-  }
-
-  const filtered = pubs.filter((p) => {
-    const matchesQuery = p.title.toLowerCase().includes(query.toLowerCase());
-    const matchesCategory = categoryFilter === 'all' || p.category === categoryFilter;
-    return matchesQuery && matchesCategory;
-  });
+  const totalPages = Math.max(1, Math.ceil(meta.total / meta.pageSize));
 
   return (
     <div>
-      <DemoBanner message="Sample publications — publications have no backend yet, so changes here are not saved to a server." />
       {/* Success banner */}
       {successMsg && (
         <div
@@ -392,12 +744,19 @@ export default function AdminPublicationsPage() {
         </div>
       )}
 
+      {error && (
+        <div className="flex items-center gap-3 mb-6 rounded-xl border-2 border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+          <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {error}
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-primary-dark">Publications</h2>
+          <h2 className="text-2xl font-bold text-primary-dark">Knowledge Hub</h2>
           <p className="text-sm text-text-muted mt-1">
-            Manage reports, policies, forms, and circulars available for download.
+            Manage manuals, templates, standards, circulars, guidelines, reports, forms and policies.
           </p>
         </div>
         <button
@@ -410,7 +769,7 @@ export default function AdminPublicationsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="flex flex-col lg:flex-row gap-3 mb-6">
         <div className="relative flex-1 max-w-md">
           <Search
             className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/40"
@@ -418,146 +777,292 @@ export default function AdminPublicationsPage() {
           />
           <input
             type="text"
-            placeholder="Search publications..."
+            placeholder="Search documents..."
+            aria-label="Search documents"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setPage(1);
+            }}
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors"
           />
         </div>
 
-        <div className="relative">
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value as PubCategory | 'all')}
-            className="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors font-medium text-text-muted"
-          >
-            <option value="all">All Categories</option>
-            <option value="report">Reports</option>
-            <option value="policy">Policies</option>
-            <option value="form">Forms</option>
-            <option value="circular">Circulars</option>
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative">
+            <select
+              value={categoryFilter}
+              onChange={(e) => {
+                setCategoryFilter(e.target.value as KnowledgeCategory | 'all');
+                setPage(1);
+              }}
+              aria-label="Filter by category"
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors font-medium text-text-muted"
+            >
+              <option value="all">All Categories</option>
+              {KNOWLEDGE_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {KNOWLEDGE_CATEGORY_LABELS[cat]}s
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
+          </div>
+
+          <div className="relative">
+            <select
+              value={statusFilter}
+              onChange={(e) => {
+                setStatusFilter(e.target.value as KnowledgeStatus | 'all');
+                setPage(1);
+              }}
+              aria-label="Filter by status"
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors font-medium text-text-muted"
+            >
+              <option value="all">All Statuses</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
+          </div>
+
+          <div className="relative">
+            <select
+              value={audienceFilter}
+              onChange={(e) => {
+                setAudienceFilter(e.target.value as KnowledgeAudience | 'all');
+                setPage(1);
+              }}
+              aria-label="Filter by audience"
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-2 border-border/60 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-colors font-medium text-text-muted"
+            >
+              <option value="all">All Audiences</option>
+              <option value="public">Public</option>
+              <option value="mda">MDA only</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted/60" />
+          </div>
         </div>
       </div>
 
       {/* Table */}
       <div className="bg-white rounded-2xl border-2 border-border/40 overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-50 border-b border-border/40">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
-                Title
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
-                Category
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
-                File Type
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
-                Date
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-right text-xs font-bold text-text-muted uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border/30">
-            {filtered.length === 0 ? (
+        {loading && items === null ? (
+          <div className="flex items-center justify-center gap-2 py-16 text-text-muted">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading documents…
+          </div>
+        ) : !items || items.length === 0 ? (
+          <div className="py-16 text-center text-sm text-text-muted/60">
+            {meta.total === 0 && !query && categoryFilter === 'all' && statusFilter === 'all' && audienceFilter === 'all'
+              ? 'No documents uploaded yet.'
+              : 'No documents match the current filters.'}
+          </div>
+        ) : (
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b border-border/40">
               <tr>
-                <td colSpan={6} className="px-6 py-12 text-center text-sm text-text-muted">
-                  No publications found.
-                </td>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Title
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Category
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Audience
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  File
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Downloads
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-right text-xs font-bold text-text-muted uppercase tracking-wider">
+                  Actions
+                </th>
               </tr>
-            ) : (
-              filtered.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="px-6 py-4 text-sm font-medium text-primary-dark max-w-xs truncate">
-                    {row.title}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={cn(
-                        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold',
-                        CATEGORY_COLORS[row.category],
-                      )}
-                    >
-                      {CATEGORY_LABELS[row.category]}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-gray-100 text-gray-700">
-                      {row.fileType}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-text-muted">{row.date}</td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => toggleStatus(row.id)}
-                      aria-label={`Toggle status — currently ${row.status}`}
-                      className={cn(
-                        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold cursor-pointer transition-opacity hover:opacity-75',
-                        row.status === 'published'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-gray-100 text-gray-600',
-                      )}
-                    >
-                      {row.status === 'published' ? 'Published' : 'Draft'}
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button
-                        onClick={() => setModal({ type: 'edit', item: row })}
-                        aria-label={`Edit ${row.title}`}
-                        className="p-2 rounded-lg hover:bg-primary/5 text-text-muted hover:text-primary transition-colors"
+            </thead>
+            <tbody className="divide-y divide-border/30">
+              {items.map((row) => {
+                const fileType = fileTypeLabel(row.current_file);
+                return (
+                  <tr key={row.id} className="hover:bg-gray-50/50 transition-colors">
+                    <td className="px-6 py-4 max-w-xs">
+                      <p className="text-sm font-medium text-primary-dark truncate">{row.title}</p>
+                      <p className="text-[11px] text-text-muted/50 mt-0.5">
+                        Updated {formatDate(row.updated_at)}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={cn(
+                          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold',
+                          KNOWLEDGE_CATEGORY_COLORS[row.category] ?? 'bg-gray-100 text-gray-700',
+                        )}
                       >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => setModal({ type: 'delete', item: row })}
-                        aria-label={`Delete ${row.title}`}
-                        className="p-2 rounded-lg hover:bg-red-50 text-text-muted hover:text-red-600 transition-colors"
+                        {KNOWLEDGE_CATEGORY_LABELS[row.category] ?? row.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={cn(
+                          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold',
+                          row.audience === 'mda'
+                            ? 'bg-primary-dark/5 text-primary-dark border border-primary-dark/10'
+                            : 'bg-gray-100 text-gray-600',
+                        )}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        {row.audience === 'mda' ? 'MDA only' : 'Public'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      {row.current_file && fileType ? (
+                        <span className="inline-flex items-center gap-1.5">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-gray-100 text-gray-700">
+                            {fileType}
+                          </span>
+                          <span className="text-[11px] font-semibold text-text-muted/60">
+                            v{row.version_count}
+                          </span>
+                        </span>
+                      ) : (
+                        <span className="text-xs text-text-muted/40">No file</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex items-center gap-1.5 text-sm text-text-muted">
+                        <Download className="h-3.5 w-3.5 text-text-muted/40" aria-hidden="true" />
+                        {row.download_count}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => void toggleStatus(row)}
+                        disabled={busyId === row.id}
+                        aria-label={`Toggle status — currently ${row.status}`}
+                        className={cn(
+                          'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold cursor-pointer transition-opacity hover:opacity-75 disabled:opacity-50',
+                          row.status === 'published'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-gray-100 text-gray-600',
+                        )}
+                      >
+                        {busyId === row.id && <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />}
+                        {row.status === 'published' ? 'Published' : 'Draft'}
                       </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-1">
+                        <button
+                          onClick={() => setModal({ type: 'version', item: row })}
+                          aria-label={`Upload new version of ${row.title}`}
+                          title="Upload new version"
+                          className="p-2 rounded-lg hover:bg-primary/5 text-text-muted hover:text-primary transition-colors"
+                        >
+                          <Upload className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => setModal({ type: 'edit', item: row })}
+                          aria-label={`Edit ${row.title}`}
+                          className="p-2 rounded-lg hover:bg-primary/5 text-text-muted hover:text-primary transition-colors"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => setModal({ type: 'delete', item: row })}
+                          aria-label={`Delete ${row.title}`}
+                          className="p-2 rounded-lg hover:bg-red-50 text-text-muted hover:text-red-600 transition-colors"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav aria-label="Document pages" className="flex items-center justify-center gap-2 mt-6">
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className={cn(
+              'inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200',
+              page === 1
+                ? 'text-text-muted/30 cursor-not-allowed'
+                : 'text-primary hover:bg-primary/5 border-2 border-primary/10 hover:border-primary/30',
+            )}
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+            Previous
+          </button>
+          <span className="text-sm text-text-muted">
+            Page {meta.page} of {totalPages}
+          </span>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className={cn(
+              'inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200',
+              page === totalPages
+                ? 'text-text-muted/30 cursor-not-allowed'
+                : 'text-primary hover:bg-primary/5 border-2 border-primary/10 hover:border-primary/30',
+            )}
+          >
+            Next
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </nav>
+      )}
 
       {/* Modals */}
       {modal.type === 'create' && (
         <Modal title="Upload Document" onClose={() => setModal({ type: 'none' })}>
-          <PubForm
-            initial={{ title: '', category: 'report', fileType: 'PDF', status: 'draft' }}
-            onSubmit={handleCreate}
+          <UploadForm
+            onSubmit={() => {
+              setModal({ type: 'none' });
+              setPage(1);
+              void load(query, categoryFilter, statusFilter, audienceFilter, 1);
+              showSuccess('Document uploaded successfully.');
+            }}
             onCancel={() => setModal({ type: 'none' })}
-            submitLabel="Upload"
           />
         </Modal>
       )}
 
       {modal.type === 'edit' && (
-        <Modal title="Edit Publication" onClose={() => setModal({ type: 'none' })}>
-          <PubForm
-            initial={{
-              title: modal.item.title,
-              category: modal.item.category,
-              fileType: modal.item.fileType,
-              status: modal.item.status,
+        <Modal title="Edit Document" onClose={() => setModal({ type: 'none' })}>
+          <EditForm
+            item={modal.item}
+            onSubmit={() => {
+              setModal({ type: 'none' });
+              reload();
+              showSuccess('Document updated successfully.');
             }}
-            onSubmit={handleEdit}
             onCancel={() => setModal({ type: 'none' })}
-            submitLabel="Save Changes"
+          />
+        </Modal>
+      )}
+
+      {modal.type === 'version' && (
+        <Modal title="Upload New Version" onClose={() => setModal({ type: 'none' })}>
+          <VersionForm
+            item={modal.item}
+            onSubmit={() => {
+              setModal({ type: 'none' });
+              reload();
+              showSuccess('New version uploaded.');
+            }}
+            onCancel={() => setModal({ type: 'none' })}
           />
         </Modal>
       )}
@@ -565,7 +1070,8 @@ export default function AdminPublicationsPage() {
       {modal.type === 'delete' && (
         <DeleteConfirm
           itemTitle={modal.item.title}
-          onConfirm={handleDelete}
+          busy={deleteBusy}
+          onConfirm={() => void handleDelete()}
           onCancel={() => setModal({ type: 'none' })}
         />
       )}

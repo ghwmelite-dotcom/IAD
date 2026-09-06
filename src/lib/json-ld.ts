@@ -99,6 +99,24 @@ export function transparencyDatasetSchema(summary: TransparencySummary | null) {
   };
 }
 
+export function knowledgeHubSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `Knowledge Hub — ${SITE_NAME}`,
+    description:
+      'Official manuals, templates, standards, circulars, guidelines, reports, forms and policies published by the Internal Audit Department for MDAs and the public.',
+    url: `${SITE_ORIGIN}/publications`,
+    isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_ORIGIN },
+    about: {
+      '@type': 'GovernmentOrganization',
+      name: SITE_NAME,
+      url: SITE_ORIGIN,
+    },
+    isAccessibleForFree: true,
+  };
+}
+
 export function faqPageSchema(faqs: FaqItem[]) {
   return {
     '@context': 'https://schema.org',

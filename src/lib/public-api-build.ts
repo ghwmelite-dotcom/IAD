@@ -9,6 +9,11 @@ import type {
   RegistryProfile,
   TransparencySummary,
 } from '@/lib/public-api';
+import type {
+  KnowledgeItem,
+  KnowledgeListMeta,
+  KnowledgeListResult,
+} from '@/lib/knowledge-api';
 
 const BUILD_API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? 'https://iad.ohcsghana.org';
@@ -65,4 +70,32 @@ export async function fetchTransparencyAtBuild(): Promise<TransparencyBuildData 
   ]);
   if (!summary || !mdas) return null;
   return { summary, mdas };
+}
+
+/** First page of public Knowledge Hub documents visible at build time. */
+export async function fetchKnowledgeAtBuild(): Promise<KnowledgeListResult | null> {
+  try {
+    const res = await fetch(
+      `${BUILD_API_BASE}/api/public/knowledge?page=1&pageSize=12`,
+      { signal: AbortSignal.timeout(10_000) },
+    );
+    if (!res.ok) {
+      console.warn(`[build] knowledge list: HTTP ${res.status} — falling back to client rendering`);
+      return null;
+    }
+    const body = (await res.json()) as {
+      data?: KnowledgeItem[];
+      meta?: KnowledgeListMeta;
+    };
+    if (!body.data || !body.meta) {
+      console.warn('[build] knowledge list: malformed envelope — falling back to client rendering');
+      return null;
+    }
+    return { items: body.data, meta: body.meta };
+  } catch (err) {
+    console.warn(
+      `[build] knowledge list: fetch failed (${err instanceof Error ? err.message : String(err)}) — falling back to client rendering`,
+    );
+    return null;
+  }
 }

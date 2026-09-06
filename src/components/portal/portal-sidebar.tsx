@@ -12,6 +12,7 @@ import {
   Briefcase,
   FileSearch,
   Building2,
+  BookOpen,
   Bell,
   LogOut,
   ChevronRight,
@@ -34,6 +35,7 @@ export const PORTAL_NAV_ITEMS = [
   { label: 'Annual Plans', href: '/portal/plans', icon: CalendarRange, internal: true },
   { label: 'Engagements', href: '/portal/engagements', icon: Briefcase, internal: true },
   { label: 'Findings', href: '/portal/findings', icon: FileSearch, internal: false },
+  { label: 'Knowledge Hub', href: '/portal/knowledge', icon: BookOpen, internal: false },
   { label: 'My MDA', href: '/portal/my-mda', icon: Building2, internal: false, liaisonOnly: true },
   { label: 'Notifications', href: '/portal/notifications', icon: Bell, internal: false },
 ] as const;

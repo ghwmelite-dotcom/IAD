@@ -43,7 +43,7 @@ const NAV_SECTIONS = [
     items: [
       { label: 'News', href: '/admin/news', icon: Newspaper, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
       { label: 'Events', href: '/admin/events', icon: Calendar, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
-      { label: 'Publications', href: '/admin/publications', icon: FileText, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
+      { label: 'Knowledge Hub', href: '/admin/publications', icon: FileText, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
       { label: 'Leadership', href: '/admin/leadership', icon: Users, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
     ],
   },

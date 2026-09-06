@@ -22,6 +22,8 @@ Roles: `admin`, `director`, `manager`, `auditor`, `mda_liaison`. Portal routes r
 - `certificates(id, auditor_id, title, serial UNIQUE, verify_code UNIQUE, issued_at)`
 - `notifications(id, user_id, type, payload_json, read INT 0/1, created_at)`
 - `audit_log(id, user_id NULL, action, entity, entity_id, meta_json, created_at)`
+- `knowledge_documents(id, slug UNIQUE, title, summary NULL, category('manual','template','standard','circular','guideline','report','form','policy'), audience('public','mda') DEFAULT 'public', status('draft','published','archived') DEFAULT 'draft', tags NULL (comma-separated), download_count INT, created_by, created_at, updated_at, published_at NULL)` — Knowledge Hub (0015)
+- `knowledge_versions(id, document_id → knowledge_documents ON DELETE CASCADE, version INT, r2_key, file_name, file_size, mime, change_note NULL, uploaded_by, created_at)` — a document may have ZERO versions (metadata-only); R2 keys `knowledge/<doc_id>/v<version>.<ext>`; accepted mimes PDF/DOCX/XLSX, max 25 MB
 
 Existing content tables (news, events, publications, submissions) stay; extend `submissions.type` enum to include `special_audit`, `consultancy`, `fraud_report` (frontend already posts these).
 
@@ -32,6 +34,8 @@ Existing content tables (news, events, publications, submissions) stay; extend `
 - `GET /api/public/registry/:slug` → `{ name, grade, mda_name, verified, credentials: [{body, designation, year}], cpdPoints, memberSince }` — only if `verified=1`
 - `GET /api/public/certificates/verify/:code` → `{ valid, title, serial, issuedAt, auditorName }`
 - `POST /api/public/submissions` (exists; extend types), `GET /api/public/track/:ref` (exists)
+- `GET /api/public/knowledge?q=&category=&page=1&pageSize=12` → `{ data: [{ id, slug, title, summary, category, tags: string[], download_count, published_at, current_file: { version, file_name, file_size, mime } | null }], meta: { page, pageSize, total } }` — only `status='published' AND audience='public'`; q matches title/summary/tags (LIKE); edge-cached 120s
+- `GET /api/public/knowledge/:id/download` → streams latest version from R2 (`Content-Type` from version, `Content-Disposition: attachment`), increments `download_count`; 404 if not published/public or no version
 
 ## Portal API (session + role)
 
@@ -45,12 +49,20 @@ All under `/api/portal/`, role-gated: director/manager full; auditor own engagem
 - `POST /api/portal/findings/:id/recommendations` · `PATCH /api/portal/recommendations/:id`
 - `GET|POST /api/portal/findings/:id/responses` (mda_liaison posts here)
 - `GET /api/portal/notifications` · `POST /api/portal/notifications/read`
+- `GET /api/portal/knowledge?q=&category=&page=1&pageSize=12` (all portal roles) → same shape as public list but also includes `audience='mda'` published docs
+- `GET /api/portal/knowledge/:id/download` (all portal roles) → same as public download but also allows `audience='mda'`
 
 ## Admin API (session, admin/director)
 
 - Existing `/api/admin/*` CMS endpoints stay (news, events, publications, submissions, users, settings, audit-log)
 - `GET|POST /api/admin/registry` · `PATCH /api/admin/registry/:id` (verify auditors)
 - `POST /api/admin/registry/:id/credentials` · `POST /api/admin/registry/:id/cpd` · `POST /api/admin/registry/:id/certificates`
+- `GET /api/admin/knowledge?q=&category=&status=&audience=&page=&pageSize=` → all docs any status, each with `version_count` + `current_file`; `{ data, meta: { page, pageSize, total } }`
+- `POST /api/admin/knowledge` (multipart: title*, summary, category*, audience, status, tags, change_note, file optional) → creates doc, slug auto-generated (`<slugified-title>-<8 hex>`), version 1 if file present → 201 `{ id, slug, version, r2_key }`
+- `PATCH /api/admin/knowledge/:id` (JSON: title/summary/category/audience/status/tags) → stamps `published_at` on first transition to `published`, always bumps `updated_at`
+- `DELETE /api/admin/knowledge/:id` → deletes doc row, version rows and all R2 objects
+- `POST /api/admin/knowledge/:id/versions` (multipart: file*, change_note) → adds version n+1 at `knowledge/<id>/v<n+1>.<ext>`, bumps `updated_at` → 201
+- `GET /api/admin/knowledge/:id/file?version=n` → streams a specific version inline (admin preview)
 
 ## Frontend routes consuming this
 

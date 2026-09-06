@@ -8,7 +8,7 @@
 //
 // Run AFTER `npm run migrate` so the 0012/0013 tables exist.
 
-import { writeFileSync, rmSync } from 'node:fs';
+import { writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
@@ -361,6 +361,201 @@ insert(
   ],
 );
 
+// ─── knowledge hub (6 documents; 5 with tiny seed PDFs uploaded to R2) ──
+// The draft document is intentionally metadata-only (zero versions).
+// PDFs are minimal valid single-page files generated below; file_size is
+// the real byte length. Re-running is safe: INSERT OR IGNORE + R2 put
+// overwrites the same keys.
+
+const R2_BUCKET = 'iad-uploads';
+
+function tinyPdf(label: string): Buffer {
+  const body = [
+    '%PDF-1.4',
+    `% ${label}`,
+    '1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj',
+    '2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj',
+    '3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]>>endobj',
+    'trailer<</Root 1 0 R>>',
+    '%%EOF',
+    '',
+  ].join('\n');
+  return Buffer.from(body, 'utf8');
+}
+
+interface KnowledgeSeedVersion {
+  id: string;
+  version: number;
+  r2Key: string;
+  fileName: string;
+  changeNote: string | null;
+  createdDaysAgo: number;
+  pdf: Buffer;
+}
+
+interface KnowledgeSeedDoc {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  category: string;
+  audience: 'public' | 'mda';
+  status: 'draft' | 'published' | 'archived';
+  tags: string;
+  downloadCount: number;
+  createdDaysAgo: number;
+  publishedDaysAgo: number | null;
+  versions: KnowledgeSeedVersion[];
+}
+
+function kv(
+  docId: string,
+  version: number,
+  fileName: string,
+  label: string,
+  changeNote: string | null,
+  createdDaysAgo: number,
+): KnowledgeSeedVersion {
+  return {
+    id: `${docId}-v${version}`,
+    version,
+    r2Key: `knowledge/${docId}/v${version}.pdf`,
+    fileName,
+    changeNote,
+    createdDaysAgo,
+    pdf: tinyPdf(label),
+  };
+}
+
+const KNOWLEDGE_DOCS: KnowledgeSeedDoc[] = [
+  {
+    id: 'seed-kd-manual',
+    slug: 'internal-audit-manual-2024',
+    title: 'Internal Audit Manual 2024',
+    summary: 'The consolidated IAD fieldwork manual: planning, execution, reporting and follow-up standards for all internal audit units.',
+    category: 'manual',
+    audience: 'public',
+    status: 'published',
+    tags: 'manual,procedures,fieldwork',
+    downloadCount: 37,
+    createdDaysAgo: 120,
+    publishedDaysAgo: 90,
+    versions: [
+      kv('seed-kd-manual', 1, 'internal-audit-manual-2024.pdf', 'IAD Internal Audit Manual 2024 (v1)', 'Initial release', 120),
+      kv('seed-kd-manual', 2, 'internal-audit-manual-2024-v2.pdf', 'IAD Internal Audit Manual 2024 (v2)', 'Updated risk-based planning chapter', 90),
+    ],
+  },
+  {
+    id: 'seed-kd-template',
+    slug: 'working-paper-template',
+    title: 'Working Paper Template',
+    summary: 'Standard working paper template for documenting audit evidence, cross-referencing and review sign-off.',
+    category: 'template',
+    audience: 'public',
+    status: 'published',
+    tags: 'template,working papers,documentation',
+    downloadCount: 58,
+    createdDaysAgo: 200,
+    publishedDaysAgo: 195,
+    versions: [kv('seed-kd-template', 1, 'working-paper-template.pdf', 'IAD Working Paper Template', null, 200)],
+  },
+  {
+    id: 'seed-kd-standard',
+    slug: 'risk-assessment-standard',
+    title: 'Risk Assessment Standard',
+    summary: 'Methodology for scoring likelihood and impact across the audit universe, aligned to the IAD annual planning cycle.',
+    category: 'standard',
+    audience: 'public',
+    status: 'published',
+    tags: 'risk,standard,planning',
+    downloadCount: 24,
+    createdDaysAgo: 150,
+    publishedDaysAgo: 140,
+    versions: [kv('seed-kd-standard', 1, 'risk-assessment-standard.pdf', 'IAD Risk Assessment Standard', null, 150)],
+  },
+  {
+    id: 'seed-kd-circular',
+    slug: 'circular-annual-audit-plan-submissions',
+    title: 'Circular: Submission of Annual Audit Plans',
+    summary: 'Circular to all MDAs on timelines and format for submitting annual internal audit plans to the IAD.',
+    category: 'circular',
+    audience: 'public',
+    status: 'published',
+    tags: 'circular,annual plan,mda',
+    downloadCount: 12,
+    createdDaysAgo: 60,
+    publishedDaysAgo: 55,
+    versions: [kv('seed-kd-circular', 1, 'circular-annual-audit-plans.pdf', 'IAD Circular — Annual Audit Plan Submissions', null, 60)],
+  },
+  {
+    id: 'seed-kd-guideline',
+    slug: 'guideline-management-responses',
+    title: 'Guideline: Management Responses to Audit Findings',
+    summary: 'How MDA management should respond to audit findings and recommendations within the statutory 30-day window.',
+    category: 'guideline',
+    audience: 'mda',
+    status: 'published',
+    tags: 'guideline,management response,mda',
+    downloadCount: 9,
+    createdDaysAgo: 80,
+    publishedDaysAgo: 75,
+    versions: [kv('seed-kd-guideline', 1, 'guideline-management-responses.pdf', 'IAD Guideline — Management Responses', null, 80)],
+  },
+  {
+    id: 'seed-kd-draft',
+    slug: 'procurement-audit-report-template-draft',
+    title: 'Procurement Audit Report Template (Draft)',
+    summary: 'Draft reporting template for procurement audits — under review by the Standards Committee.',
+    category: 'report',
+    audience: 'public',
+    status: 'draft',
+    tags: 'report,procurement,draft',
+    downloadCount: 0,
+    createdDaysAgo: 10,
+    publishedDaysAgo: null,
+    versions: [],
+  },
+];
+
+insert(
+  'knowledge_documents',
+  ['id', 'slug', 'title', 'summary', 'category', 'audience', 'status', 'tags', 'download_count', 'created_by', 'created_at', 'updated_at', 'published_at'],
+  KNOWLEDGE_DOCS.map((d) => [
+    d.id,
+    d.slug,
+    d.title,
+    d.summary,
+    d.category,
+    d.audience,
+    d.status,
+    d.tags,
+    d.downloadCount,
+    'seed-user-admin',
+    iso(d.createdDaysAgo),
+    iso(d.publishedDaysAgo ?? d.createdDaysAgo),
+    d.publishedDaysAgo === null ? null : iso(d.publishedDaysAgo),
+  ]),
+);
+
+insert(
+  'knowledge_versions',
+  ['id', 'document_id', 'version', 'r2_key', 'file_name', 'file_size', 'mime', 'change_note', 'uploaded_by', 'created_at'],
+  KNOWLEDGE_DOCS.flatMap((d) =>
+    d.versions.map((ver) => [
+      ver.id,
+      d.id,
+      ver.version,
+      ver.r2Key,
+      ver.fileName,
+      ver.pdf.byteLength,
+      'application/pdf',
+      ver.changeNote,
+      'seed-user-admin',
+      iso(ver.createdDaysAgo),
+    ]),
+  ),
+);
+
 // ─── apply ───────────────────────────────────────────────────────────────
 
 const tmpFile = join(REPO_ROOT, '.seed.tmp.sql');
@@ -380,4 +575,25 @@ try {
   console.log('✅ Seed applied. Re-running is safe (INSERT OR IGNORE).');
 } finally {
   rmSync(tmpFile, { force: true });
+}
+
+// Upload the tiny knowledge-hub PDFs to R2 so seeded versions resolve.
+// Note: `wrangler r2 object put` is REMOTE by default in wrangler 3 — it
+// only accepts `--local` (no `--remote` flag), unlike `d1 execute`.
+const r2Flag = remote ? '' : '--local';
+const pdfDir = join(REPO_ROOT, '.seed-pdfs.tmp');
+mkdirSync(pdfDir, { recursive: true });
+try {
+  const files = KNOWLEDGE_DOCS.flatMap((d) => d.versions);
+  for (const f of files) {
+    const path = join(pdfDir, `${f.id}.pdf`);
+    writeFileSync(path, f.pdf);
+    execSync(
+      `npx wrangler r2 object put "${R2_BUCKET}/${f.r2Key}" --file="${path}" --content-type=application/pdf ${r2Flag}`,
+      { cwd: REPO_ROOT, stdio: 'inherit' },
+    );
+  }
+  console.log(`✅ Uploaded ${files.length} knowledge-hub PDF(s) to r2://${R2_BUCKET}.`);
+} finally {
+  rmSync(pdfDir, { recursive: true, force: true });
 }

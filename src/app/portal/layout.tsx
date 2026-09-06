@@ -201,6 +201,7 @@ function getPageTitle(pathname: string): string {
     '/portal/findings': 'Findings Tracker',
     '/portal/findings/detail': 'Finding Detail',
     '/portal/my-mda': 'My MDA',
+    '/portal/knowledge': 'Knowledge Hub',
     '/portal/notifications': 'Notifications',
   };
   return map[p] ?? 'Audit Portal';
@@ -215,6 +216,7 @@ function getPageSubtitle(pathname: string): string {
     '/portal/engagements': 'Audit engagements and fieldwork',
     '/portal/findings': 'Track findings, recommendations and resolution',
     '/portal/my-mda': 'Findings and management responses for your MDA',
+    '/portal/knowledge': 'Manuals, templates, standards and circulars',
     '/portal/notifications': 'Your alerts and assignments',
   };
   return map[p] ?? '';

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Publications & Downloads',
+  title: 'Knowledge Hub — Publications & Downloads',
   description:
-    'Audit reports, annual plans, policies and charters, and manuals and templates from the Internal Audit Department.',
+    'Manuals, templates, standards, circulars, guidelines, reports, forms and policies from the Internal Audit Department — searchable and free to download.',
   openGraph: {
-    title: 'Publications & Downloads',
+    title: 'Knowledge Hub — Publications & Downloads',
     description:
-      'Audit reports, annual plans, policies and charters, and manuals and templates from the Internal Audit Department.',
+      'Manuals, templates, standards, circulars, guidelines, reports, forms and policies from the Internal Audit Department.',
   },
 };
 

@@ -256,8 +256,10 @@ allocation; usage-based costs are reviewed annually.
 | **Project total with AI module** | **50,000** |
 | Subsequent years (core platform) | **2,400 / yr** |
 
-**Recommendation:** present **GHS 35,000** as the year-one operationalization
-budget to IAD management, with the AI module shown as an optional enhancement
-taking the total to GHS 50,000 only if adopted. Every line is a technical cost
-attached to the platform — infrastructure, data, security, resilience and
-email — with all non-technical activities absorbed in-house.
+**Conclusion.** The year-one operationalization budget of **GHS 35,000** for the
+IAD Digital Platform — with an optional AI-assisted audit enhancement of
+GHS 15,000, taking the total to GHS 50,000 only if adopted — is respectfully
+submitted to IAD management for consideration and approval. Every line is a
+technical cost attached to the platform: infrastructure, data, security,
+resilience and email. All non-technical activities are absorbed in-house by the
+OHCS IT Department.

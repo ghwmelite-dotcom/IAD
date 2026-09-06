@@ -196,24 +196,45 @@ Key architectural decisions:
 
 ---
 
-## Annex A — Project Valuation & Commercial Guidance
+## Annex A — Operationalization Budget
 
-Independent market context (2025–2026): brochure websites in Ghana sell for
-GHS 2,000–10,000, but this platform is a **custom full-stack web application**
-(public site + two authenticated portals + admin CMS + edge database + file storage
-+ 423-test suite), a category that Ghanaian agencies quote at GHS 80,000–250,000 and
-international shops at US$40,000–90,000.
+The platform is developed **in-house by the OHCS IT Department for the Internal
+Audit Department**. No external development fees apply. The budget below covers
+only what is required to **operationalize** the platform: moving real data in,
+training the people who will use it, assuring its security before go-live, and
+keeping it running.
 
-Recommended billing structure:
+### A. One-off operationalization costs
 
-| Component | Basis | Guidance (GHS) |
-|---|---|---|
-| Platform build (Phases 1–2, Tier 1–2 shipped) | Fixed project fee | **180,000 – 250,000** |
-| Phase 3 hardening + launch | Fixed follow-on fee | 30,000 – 45,000 |
-| Annual maintenance & support retainer (hosting oversight, updates, backups, content support, SLA) | Recurring | 36,000 – 60,000 / yr |
-| Data migration & officer onboarding (real roster, CSV imports, training sessions) | Per engagement | 15,000 – 25,000 |
-| Cloudflare + email service running costs | Pass-through at cost | ~0 – 6,000 / yr (free tiers cover most) |
+| # | Item | What it covers | Estimate (GHS) |
+|---|---|---|---|
+| 1 | Data migration & records verification | Compiling and verifying the real Internal Audit Class officer roster; digitising findings & recommendations records across MDAs | 30,000 |
+| 2 | MDA liaison training (3 zonal workshops) | Venue, per diems, training materials and transport for Internal Audit Unit liaison officers | 48,000 |
+| 3 | Launch & stakeholder sensitisation | Launch event, media engagement, branded materials | 22,000 |
+| 4 | Independent security assessment | External penetration test and anonymity review of the whistleblowing channel before go-live | 18,000 |
+| 5 | User manuals & documentation | Design and printing of admin, portal and liaison user guides | 8,000 |
+| 6 | Contingency (≈10%) | | 12,600 |
+| | **Subtotal — one-off** | | **138,600** |
 
-**Headline advice:** quote **GHS 220,000** for the delivered platform (defensible
-mid-market figure for the scope), with Phase 3 and the retainer as separate line
-items so the client sees continuing value rather than a single large number.
+### B. Recurrent annual costs
+
+| # | Item | What it covers | Estimate (GHS/yr) |
+|---|---|---|---|
+| 1 | Cloud infrastructure | Cloudflare Pages/Functions, D1 database, R2 storage (paid tiers as usage grows; free tiers cover launch volumes) | 7,200 |
+| 2 | Transactional email service | Magic-link authentication emails for portal and admin users | 3,600 |
+| 3 | Domain & DNS | ohcsghana.org renewal share | 600 |
+| 4 | Platform maintenance & enhancements | OHCS IT staff time allocation, updates, backups, monitoring | 30,000 |
+| 5 | Refresher training & help-desk | Annual refresher sessions and support consumables | 9,600 |
+| | **Subtotal — recurrent** | | **51,000** |
+
+### C. Summary
+
+| | GHS |
+|---|---|
+| Year-one total (one-off + first-year recurrent) | **189,600** |
+| Subsequent years | **51,000 / yr** |
+
+**Recommendation:** present **GHS 190,000** as the year-one operationalization
+budget to IAD management, itemised as above so each cedi is tied to a concrete
+operational need — data, people, assurance, and running costs — rather than to
+software development, which the OHCS IT Department has already delivered in-house.

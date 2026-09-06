@@ -230,14 +230,34 @@ run on **free tiers** at launch volumes (GHS 0); platform maintenance, training,
 launch and documentation are **absorbed by OHCS IT** as part of normal duties
 (GHS 0).
 
-### C. Summary
+### D. Optional enhancement — AI-Assisted Audit Capabilities *(not mandatory)*
+
+This module is **entirely optional** and may be adopted at any later stage
+without rework — the platform's architecture already anticipates it (see §9,
+Tier 2: AI-Assisted Audit Copilot). It is presented separately so the core
+GHS 35,000 ask stands on its own.
+
+| # | Item | What it covers | Estimate (GHS) |
+|---|---|---|---|
+| 1 | AI copilot integration | Cloudflare Workers AI binding, working-paper drafting assistance and sampling support inside the audit portal | 8,000 |
+| 2 | Anomaly-flagging pipeline | Upload-and-analyse flow for financial data, flagging outliers for auditor review | 4,000 |
+| 3 | AI governance & security review | Data-confidentiality controls, prompt isolation, and audit logging of all AI-assisted actions | 3,000 |
+| | **Subtotal — optional AI module** | | **15,000** |
+
+Recurrent impact: negligible at launch — inference runs on the Workers AI free
+allocation; usage-based costs are reviewed annually.
+
+### E. Summary
 
 | | GHS |
 |---|---|
-| Year-one total (one-off + first-year recurrent) | **35,000** |
-| Subsequent years | **2,400 / yr** |
+| Core platform — year one (mandatory) | **35,000** |
+| Optional AI module (one-off, if adopted) | 15,000 |
+| **Project total with AI module** | **50,000** |
+| Subsequent years (core platform) | **2,400 / yr** |
 
 **Recommendation:** present **GHS 35,000** as the year-one operationalization
-budget to IAD management. Every line is a technical cost attached to the
-platform — infrastructure, data, security, resilience and email — with all
-non-technical activities absorbed in-house.
+budget to IAD management, with the AI module shown as an optional enhancement
+taking the total to GHS 50,000 only if adopted. Every line is a technical cost
+attached to the platform — infrastructure, data, security, resilience and
+email — with all non-technical activities absorbed in-house.

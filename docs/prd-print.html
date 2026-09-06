@@ -110,10 +110,11 @@
   /* ── Contents page ──────────────────────────────────── */
   .toc-title { font-family: Georgia, serif; font-size: 16pt; color: var(--green-dark); border-bottom: 2.5px solid var(--gold); padding-bottom: 2.2mm; margin-bottom: 7mm; }
   .toc { list-style: none; padding: 0; margin: 0; }
-  .toc li { display: flex; align-items: baseline; margin-bottom: 1.4mm; font-size: 10pt; }
-  .toc .t-num { color: var(--gold); font-weight: 700; width: 10mm; flex: none; }
-  .toc .t-name { color: var(--ink); }
-  .toc .t-dots { flex: 1; border-bottom: 1px dotted #9ca3af; margin: 0 2mm; }
+  .toc li { display: block; margin-bottom: 1.2mm; font-size: 10pt; }
+  .toc li::after { content: ''; display: block; clear: both; }
+  .toc .t-num { color: var(--gold); font-weight: 700; width: 10mm; float: left; }
+  .toc .t-name { color: var(--ink); float: left; }
+  .toc .t-dots { display: block; overflow: hidden; border-bottom: 1px dotted #9ca3af; height: .78em; margin: 0 1mm; }
   .toc .t-sub { color: var(--muted); font-size: 9pt; }
 
   /* ── Doc control ────────────────────────────────────── */
@@ -123,7 +124,7 @@
 
   .signrow { display: flex; gap: 10mm; margin-top: 4mm; }
   .signbox { flex: 1; }
-  .signbox .line { border-bottom: 1.5px solid #374151; height: 8mm; }
+  .signbox .line { border-bottom: 1.5px solid #374151; height: 7mm; }
   .signbox .who { font-size: 9pt; color: var(--muted); margin-top: 1.5mm; }
   .signbox .who b { color: var(--ink); display: block; font-size: 9.5pt; }
 
@@ -154,7 +155,7 @@
       <tr><td>Product</td><td>IAD Digital Platform — https://iad.ohcsghana.org</td></tr>
       <tr><td>Prepared by</td><td>OHCS IT Department</td></tr>
       <tr><td>Prepared for</td><td>Internal Audit Department (IAD)</td></tr>
-      <tr><td>Version</td><td>1.3 — reflects the platform as deployed</td></tr>
+      <tr><td>Version</td><td>1.4 — reflects the platform as deployed</td></tr>
       <tr><td>Status</td><td>Issued for management review</td></tr>
       <tr><td>Date</td><td>May 2026</td></tr>
     </table>
@@ -167,7 +168,7 @@
   <h2 class="sec">Document Control</h2>
   <table class="control">
     <tr><td>Title</td><td>Product Requirements Document — IAD Digital Platform</td></tr>
-    <tr><td>Version</td><td>1.3</td></tr>
+    <tr><td>Version</td><td>1.4</td></tr>
     <tr><td>Classification</td><td>Official — Internal (OHCS / IAD)</td></tr>
     <tr><td>Author</td><td>OHCS IT Department</td></tr>
     <tr><td>Owner</td><td>Director of Internal Audit</td></tr>
@@ -182,6 +183,7 @@
     <tr><td>1.1</td><td>May 2026</td><td>Annex A: vendor valuation replaced with internal operationalization budget</td></tr>
     <tr><td>1.2</td><td>May 2026</td><td>Annex A: budget reduced to GHS 35,000 via free tiers and absorption</td></tr>
     <tr><td>1.3</td><td>May 2026</td><td>Annex A: budget restricted to technical line items only</td></tr>
+    <tr><td>1.4</td><td>May 2026</td><td>Annex A: optional AI module added (GHS 50,000 total if adopted)</td></tr>
   </table>
 
   <h3>Approval</h3>
@@ -191,7 +193,7 @@
     <div class="signbox"><div class="line"></div><div class="who"><b>Head of Civil Service</b>Noted — Date</div></div>
   </div>
 
-  <h3 style="margin-top:4mm">Contents</h3>
+  <h3 style="margin-top:3mm">Contents</h3>
   <ul class="toc">
     <li><span class="t-num">1</span><span class="t-name">Executive Summary</span><span class="t-dots"></span></li>
     <li><span class="t-num">2</span><span class="t-name">Background &amp; Problem Statement</span><span class="t-dots"></span></li>
@@ -428,17 +430,35 @@
   platform maintenance, training, launch and documentation are <strong>absorbed by OHCS IT</strong>
   as part of normal duties (GHS 0).</p>
 
-  <h3>C. Summary</h3>
+  <h3>D. Optional enhancement — AI-Assisted Audit Capabilities <span style="font-weight:400;font-style:italic;color:var(--muted)">(not mandatory)</span></h3>
+  <div class="callout" style="margin-top:2mm"><strong>Entirely optional.</strong> This module may be
+  adopted at any later stage without rework — the platform's architecture already anticipates it
+  (see §9, Tier 2: AI-Assisted Audit Copilot). It is presented separately so the core GHS 35,000
+  ask stands on its own.</div>
+  <table class="data">
+    <tr><th style="width:8mm">#</th><th style="width:44mm">Item</th><th>What it covers</th><th class="r" style="width:24mm">GHS</th></tr>
+    <tr><td>1</td><td>AI copilot integration</td><td>Cloudflare Workers AI binding, working-paper drafting assistance and sampling support inside the audit portal</td><td class="r">8,000</td></tr>
+    <tr><td>2</td><td>Anomaly-flagging pipeline</td><td>Upload-and-analyse flow for financial data, flagging outliers for auditor review</td><td class="r">4,000</td></tr>
+    <tr><td>3</td><td>AI governance &amp; security review</td><td>Data-confidentiality controls, prompt isolation, and audit logging of all AI-assisted actions</td><td class="r">3,000</td></tr>
+    <tr class="subtotal"><td></td><td colspan="2">Subtotal — optional AI module</td><td class="r">15,000</td></tr>
+  </table>
+  <p style="font-size:9.5pt;color:#374151">Recurrent impact: negligible at launch — inference runs
+  on the Workers AI free allocation; usage-based costs are reviewed annually.</p>
+
+  <h3>E. Summary</h3>
   <table class="data">
     <tr><th></th><th class="r" style="width:30mm">GHS</th></tr>
-    <tr><td>Year-one total (one-off + first-year recurrent)</td><td class="r"><strong>35,000</strong></td></tr>
-    <tr><td>Subsequent years</td><td class="r"><strong>2,400 / yr</strong></td></tr>
+    <tr><td>Core platform — year one (mandatory)</td><td class="r"><strong>35,000</strong></td></tr>
+    <tr><td>Optional AI module (one-off, if adopted)</td><td class="r">15,000</td></tr>
+    <tr class="subtotal"><td>Project total with AI module</td><td class="r">50,000</td></tr>
+    <tr><td>Subsequent years (core platform)</td><td class="r"><strong>2,400 / yr</strong></td></tr>
   </table>
 
   <div class="callout"><strong>Recommendation.</strong> Present <strong>GHS 35,000</strong> as the
-  year-one operationalization budget to IAD management. Every line is a technical cost attached to
-  the platform — infrastructure, data, security, resilience and email — with all non-technical
-  activities absorbed in-house.</div>
+  year-one operationalization budget to IAD management, with the AI module shown as an optional
+  enhancement taking the total to GHS 50,000 only if adopted. Every line is a technical cost
+  attached to the platform — infrastructure, data, security, resilience and email — with all
+  non-technical activities absorbed in-house.</div>
 
   <div class="footstrip"><div class="kente"></div></div>
 </section>

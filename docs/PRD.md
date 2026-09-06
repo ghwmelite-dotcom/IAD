@@ -199,22 +199,23 @@ Key architectural decisions:
 ## Annex A — Operationalization Budget
 
 The platform is developed **in-house by the OHCS IT Department for the Internal
-Audit Department**. No external development fees apply. The budget below covers
-only what is required to **operationalize** the platform, and is deliberately
-lean: cloud free tiers, in-house labour and digital-first delivery keep the
-entire year-one ask at **GHS 35,000**.
+Audit Department**. No external development fees apply. The budget below is
+restricted to **technical line items only** — the engineering work and running
+costs required to operationalize and keep the platform — so that every figure is
+directly traceable to the platform itself. Training, launch and documentation
+activities are absorbed internally by OHCS IT and carry no cost here.
 
-### A. One-off operationalization costs
+### A. One-off technical costs
 
 | # | Item | What it covers | Estimate (GHS) |
 |---|---|---|---|
-| 1 | Data migration & records verification | Compiling and verifying the real Internal Audit Class officer roster; digitising findings & recommendations records (in-house exercise with liaison officers) | 8,000 |
-| 2 | MDA liaison training (1 national hybrid workshop) | One national workshop with regional officers joining virtually; venue, materials and connectivity | 10,000 |
-| 3 | Independent security assessment | Scoped external review of authentication and the whistleblowing channel before go-live | 6,000 |
-| 4 | Launch & sensitisation | Low-key internal launch and stakeholder briefing | 3,000 |
-| 5 | User guides (digital-first) | PDF guides for admin, portal and liaison users; minimal printing | 1,600 |
-| 6 | Contingency (≈10%) | | 3,000 |
-| | **Subtotal — one-off** | | **31,600** |
+| 1 | Cloud infrastructure provisioning | Cloudflare Pages/Functions environments, D1 database setup, R2 storage, DNS & SSL configuration, deployment secrets | 6,000 |
+| 2 | Data migration & digitisation | Engineering work to move the real Internal Audit Class officer roster and findings & recommendations records into the platform database, with verification | 8,000 |
+| 3 | Independent security assessment | External penetration test of the platform and anonymity review of the whistleblowing channel before go-live | 9,000 |
+| 4 | Backup, monitoring & disaster recovery | Automated database backups, uptime monitoring, alerting and recovery runbooks | 4,000 |
+| 5 | Email authentication infrastructure | Magic-link email service integration and deliverability configuration (SPF/DKIM) | 3,000 |
+| 6 | Contingency (≈10%) | | 2,600 |
+| | **Subtotal — one-off** | | **32,600** |
 
 ### B. Recurrent annual costs
 
@@ -222,22 +223,21 @@ entire year-one ask at **GHS 35,000**.
 |---|---|---|---|
 | 1 | Transactional email service | Magic-link authentication emails (entry tier) | 1,800 |
 | 2 | Domain & DNS | ohcsghana.org renewal share | 600 |
-| 3 | Refresher & help-desk consumables | Annual refresher session and support materials | 1,000 |
-| | **Subtotal — recurrent** | | **3,400** |
+| | **Subtotal — recurrent** | | **2,400** |
 
 Cost absorptions that make the GHS 35,000 possible: Cloudflare Pages, D1 and R2
-run on **free tiers** at launch volumes (GHS 0); platform maintenance is
-**absorbed by OHCS IT** as part of normal duties (GHS 0); training is hybrid
-rather than three residential zonal workshops; documentation is digital-first.
+run on **free tiers** at launch volumes (GHS 0); platform maintenance, training,
+launch and documentation are **absorbed by OHCS IT** as part of normal duties
+(GHS 0).
 
 ### C. Summary
 
 | | GHS |
 |---|---|
 | Year-one total (one-off + first-year recurrent) | **35,000** |
-| Subsequent years | **3,400 / yr** |
+| Subsequent years | **2,400 / yr** |
 
 **Recommendation:** present **GHS 35,000** as the year-one operationalization
-budget to IAD management. Every cedi is tied to a concrete operational need —
-data, people, assurance, and minimal running costs — with infrastructure and
-maintenance absorbed in-house.
+budget to IAD management. Every line is a technical cost attached to the
+platform — infrastructure, data, security, resilience and email — with all
+non-technical activities absorbed in-house.

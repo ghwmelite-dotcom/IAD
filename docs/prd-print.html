@@ -154,7 +154,7 @@
       <tr><td>Product</td><td>IAD Digital Platform — https://iad.ohcsghana.org</td></tr>
       <tr><td>Prepared by</td><td>OHCS IT Department</td></tr>
       <tr><td>Prepared for</td><td>Internal Audit Department (IAD)</td></tr>
-      <tr><td>Version</td><td>1.2 — reflects the platform as deployed</td></tr>
+      <tr><td>Version</td><td>1.3 — reflects the platform as deployed</td></tr>
       <tr><td>Status</td><td>Issued for management review</td></tr>
       <tr><td>Date</td><td>May 2026</td></tr>
     </table>
@@ -167,7 +167,7 @@
   <h2 class="sec">Document Control</h2>
   <table class="control">
     <tr><td>Title</td><td>Product Requirements Document — IAD Digital Platform</td></tr>
-    <tr><td>Version</td><td>1.2</td></tr>
+    <tr><td>Version</td><td>1.3</td></tr>
     <tr><td>Classification</td><td>Official — Internal (OHCS / IAD)</td></tr>
     <tr><td>Author</td><td>OHCS IT Department</td></tr>
     <tr><td>Owner</td><td>Director of Internal Audit</td></tr>
@@ -179,8 +179,9 @@
   <table class="data">
     <tr><th style="width:18mm">Version</th><th style="width:26mm">Date</th><th>Change</th></tr>
     <tr><td>1.0</td><td>May 2026</td><td>First issue — platform as deployed through Tier 2 (Knowledge Hub)</td></tr>
-    <tr><td>1.1</td><td>May 2026</td><td>Annex A revised: external-vendor valuation replaced with the internal operationalization budget</td></tr>
-    <tr><td>1.2</td><td>May 2026</td><td>Annex A revised: operationalization budget reduced to GHS 35,000 year-one via free tiers and in-house absorption</td></tr>
+    <tr><td>1.1</td><td>May 2026</td><td>Annex A: vendor valuation replaced with internal operationalization budget</td></tr>
+    <tr><td>1.2</td><td>May 2026</td><td>Annex A: budget reduced to GHS 35,000 via free tiers and absorption</td></tr>
+    <tr><td>1.3</td><td>May 2026</td><td>Annex A: budget restricted to technical line items only</td></tr>
   </table>
 
   <h3>Approval</h3>
@@ -397,20 +398,21 @@
   <h2 class="sec"><span class="num">A</span>Annex A — Operationalization Budget</h2>
   <div class="callout green"><strong>Internal delivery.</strong> The platform is developed
   in-house by the OHCS IT Department for the Internal Audit Department. No external development
-  fees apply. The budget below covers only what is required to <strong>operationalize</strong>
-  the platform, and is deliberately lean: cloud free tiers, in-house labour and digital-first
-  delivery keep the entire year-one ask at <strong>GHS 35,000</strong>.</div>
+  fees apply. The budget below is restricted to <strong>technical line items only</strong> — the
+  engineering work and running costs required to operationalize and keep the platform — so that
+  every figure is directly traceable to the platform itself. Training, launch and documentation
+  activities are absorbed internally by OHCS IT and carry no cost here.</div>
 
-  <h3>A. One-off operationalization costs</h3>
+  <h3>A. One-off technical costs</h3>
   <table class="data">
     <tr><th style="width:8mm">#</th><th style="width:44mm">Item</th><th>What it covers</th><th class="r" style="width:24mm">GHS</th></tr>
-    <tr><td>1</td><td>Data migration &amp; records verification</td><td>Compiling and verifying the real Internal Audit Class officer roster; digitising findings &amp; recommendations records (in-house exercise with liaison officers)</td><td class="r">8,000</td></tr>
-    <tr><td>2</td><td>MDA liaison training (1 national hybrid workshop)</td><td>One national workshop with regional officers joining virtually; venue, materials and connectivity</td><td class="r">10,000</td></tr>
-    <tr><td>3</td><td>Independent security assessment</td><td>Scoped external review of authentication and the whistleblowing channel before go-live</td><td class="r">6,000</td></tr>
-    <tr><td>4</td><td>Launch &amp; sensitisation</td><td>Low-key internal launch and stakeholder briefing</td><td class="r">3,000</td></tr>
-    <tr><td>5</td><td>User guides (digital-first)</td><td>PDF guides for admin, portal and liaison users; minimal printing</td><td class="r">1,600</td></tr>
-    <tr><td>6</td><td>Contingency (≈10%)</td><td></td><td class="r">3,000</td></tr>
-    <tr class="subtotal"><td></td><td colspan="2">Subtotal — one-off</td><td class="r">31,600</td></tr>
+    <tr><td>1</td><td>Cloud infrastructure provisioning</td><td>Cloudflare Pages/Functions environments, D1 database setup, R2 storage, DNS &amp; SSL configuration, deployment secrets</td><td class="r">6,000</td></tr>
+    <tr><td>2</td><td>Data migration &amp; digitisation</td><td>Engineering work to move the real Internal Audit Class officer roster and findings &amp; recommendations records into the platform database, with verification</td><td class="r">8,000</td></tr>
+    <tr><td>3</td><td>Independent security assessment</td><td>External penetration test of the platform and anonymity review of the whistleblowing channel before go-live</td><td class="r">9,000</td></tr>
+    <tr><td>4</td><td>Backup, monitoring &amp; disaster recovery</td><td>Automated database backups, uptime monitoring, alerting and recovery runbooks</td><td class="r">4,000</td></tr>
+    <tr><td>5</td><td>Email authentication infrastructure</td><td>Magic-link email service integration and deliverability configuration (SPF/DKIM)</td><td class="r">3,000</td></tr>
+    <tr><td>6</td><td>Contingency (≈10%)</td><td></td><td class="r">2,600</td></tr>
+    <tr class="subtotal"><td></td><td colspan="2">Subtotal — one-off</td><td class="r">32,600</td></tr>
   </table>
 
   <h3>B. Recurrent annual costs</h3>
@@ -418,26 +420,25 @@
     <tr><th style="width:8mm">#</th><th style="width:44mm">Item</th><th>What it covers</th><th class="r" style="width:24mm">GHS/yr</th></tr>
     <tr><td>1</td><td>Transactional email service</td><td>Magic-link authentication emails (entry tier)</td><td class="r">1,800</td></tr>
     <tr><td>2</td><td>Domain &amp; DNS</td><td>ohcsghana.org renewal share</td><td class="r">600</td></tr>
-    <tr><td>3</td><td>Refresher &amp; help-desk consumables</td><td>Annual refresher session and support materials</td><td class="r">1,000</td></tr>
-    <tr class="subtotal"><td></td><td colspan="2">Subtotal — recurrent</td><td class="r">3,400</td></tr>
+    <tr class="subtotal"><td></td><td colspan="2">Subtotal — recurrent</td><td class="r">2,400</td></tr>
   </table>
 
   <p style="font-size:9.5pt;color:#374151">Cost absorptions that make the GHS 35,000 possible:
   Cloudflare Pages, D1 and R2 run on <strong>free tiers</strong> at launch volumes (GHS 0);
-  platform maintenance is <strong>absorbed by OHCS IT</strong> as part of normal duties (GHS 0);
-  training is hybrid rather than three residential zonal workshops; documentation is digital-first.</p>
+  platform maintenance, training, launch and documentation are <strong>absorbed by OHCS IT</strong>
+  as part of normal duties (GHS 0).</p>
 
   <h3>C. Summary</h3>
   <table class="data">
     <tr><th></th><th class="r" style="width:30mm">GHS</th></tr>
     <tr><td>Year-one total (one-off + first-year recurrent)</td><td class="r"><strong>35,000</strong></td></tr>
-    <tr><td>Subsequent years</td><td class="r"><strong>3,400 / yr</strong></td></tr>
+    <tr><td>Subsequent years</td><td class="r"><strong>2,400 / yr</strong></td></tr>
   </table>
 
   <div class="callout"><strong>Recommendation.</strong> Present <strong>GHS 35,000</strong> as the
-  year-one operationalization budget to IAD management. Every cedi is tied to a concrete operational
-  need — data, people, assurance, and minimal running costs — with infrastructure and maintenance
-  absorbed in-house.</div>
+  year-one operationalization budget to IAD management. Every line is a technical cost attached to
+  the platform — infrastructure, data, security, resilience and email — with all non-technical
+  activities absorbed in-house.</div>
 
   <div class="footstrip"><div class="kente"></div></div>
 </section>

@@ -38,6 +38,11 @@ Before this platform:
   no public accountability surface and no consolidated view of implementation status.
 - Internal Audit Class officers had no verifiable professional identity — credentials
   (FCCA, ACCA, IIA, CITG) could not be checked by employers, donors or the public.
+  Officers' qualifications lived on paper CVs and in personnel files: an employer posting
+  or promoting an officer, a development partner funding a PFM programme and seeking
+  assurance that the audit units involved were competently staffed, or a journalist,
+  researcher or citizen — none had an independent way to confirm that an officer held
+  what they claimed.
 - Standards, manuals and templates circulated informally; MDA units had no single
   authoritative source for IAD guidance.
 - Whistleblowing channels lacked provable anonymity guarantees.

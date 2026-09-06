@@ -110,7 +110,7 @@
   /* ── Contents page ──────────────────────────────────── */
   .toc-title { font-family: Georgia, serif; font-size: 16pt; color: var(--green-dark); border-bottom: 2.5px solid var(--gold); padding-bottom: 2.2mm; margin-bottom: 7mm; }
   .toc { list-style: none; padding: 0; margin: 0; }
-  .toc li { display: flex; align-items: baseline; margin-bottom: 1.8mm; font-size: 10pt; }
+  .toc li { display: flex; align-items: baseline; margin-bottom: 1.4mm; font-size: 10pt; }
   .toc .t-num { color: var(--gold); font-weight: 700; width: 10mm; flex: none; }
   .toc .t-name { color: var(--ink); }
   .toc .t-dots { flex: 1; border-bottom: 1px dotted #9ca3af; margin: 0 2mm; }
@@ -118,7 +118,7 @@
 
   /* ── Doc control ────────────────────────────────────── */
   table.control { width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 4mm; }
-  table.control td, table.control th { border: 1px solid var(--rule); padding: 1.7mm 3.5mm; text-align: left; }
+  table.control td, table.control th { border: 1px solid var(--rule); padding: 1.5mm 3.5mm; text-align: left; }
   table.control td:first-child { background: var(--zebra); font-weight: 700; color: var(--green-dark); width: 42mm; }
 
   .signrow { display: flex; gap: 10mm; margin-top: 4mm; }
@@ -154,7 +154,7 @@
       <tr><td>Product</td><td>IAD Digital Platform — https://iad.ohcsghana.org</td></tr>
       <tr><td>Prepared by</td><td>OHCS IT Department</td></tr>
       <tr><td>Prepared for</td><td>Internal Audit Department (IAD)</td></tr>
-      <tr><td>Version</td><td>1.1 — reflects the platform as deployed</td></tr>
+      <tr><td>Version</td><td>1.2 — reflects the platform as deployed</td></tr>
       <tr><td>Status</td><td>Issued for management review</td></tr>
       <tr><td>Date</td><td>May 2026</td></tr>
     </table>
@@ -167,7 +167,7 @@
   <h2 class="sec">Document Control</h2>
   <table class="control">
     <tr><td>Title</td><td>Product Requirements Document — IAD Digital Platform</td></tr>
-    <tr><td>Version</td><td>1.1</td></tr>
+    <tr><td>Version</td><td>1.2</td></tr>
     <tr><td>Classification</td><td>Official — Internal (OHCS / IAD)</td></tr>
     <tr><td>Author</td><td>OHCS IT Department</td></tr>
     <tr><td>Owner</td><td>Director of Internal Audit</td></tr>
@@ -180,6 +180,7 @@
     <tr><th style="width:18mm">Version</th><th style="width:26mm">Date</th><th>Change</th></tr>
     <tr><td>1.0</td><td>May 2026</td><td>First issue — platform as deployed through Tier 2 (Knowledge Hub)</td></tr>
     <tr><td>1.1</td><td>May 2026</td><td>Annex A revised: external-vendor valuation replaced with the internal operationalization budget</td></tr>
+    <tr><td>1.2</td><td>May 2026</td><td>Annex A revised: operationalization budget reduced to GHS 35,000 year-one via free tiers and in-house absorption</td></tr>
   </table>
 
   <h3>Approval</h3>
@@ -189,7 +190,7 @@
     <div class="signbox"><div class="line"></div><div class="who"><b>Head of Civil Service</b>Noted — Date</div></div>
   </div>
 
-  <h3 style="margin-top:5mm">Contents</h3>
+  <h3 style="margin-top:4mm">Contents</h3>
   <ul class="toc">
     <li><span class="t-num">1</span><span class="t-name">Executive Summary</span><span class="t-dots"></span></li>
     <li><span class="t-num">2</span><span class="t-name">Background &amp; Problem Statement</span><span class="t-dots"></span></li>
@@ -397,43 +398,46 @@
   <div class="callout green"><strong>Internal delivery.</strong> The platform is developed
   in-house by the OHCS IT Department for the Internal Audit Department. No external development
   fees apply. The budget below covers only what is required to <strong>operationalize</strong>
-  the platform: moving real data in, training the people who will use it, assuring its security
-  before go-live, and keeping it running.</div>
+  the platform, and is deliberately lean: cloud free tiers, in-house labour and digital-first
+  delivery keep the entire year-one ask at <strong>GHS 35,000</strong>.</div>
 
   <h3>A. One-off operationalization costs</h3>
   <table class="data">
     <tr><th style="width:8mm">#</th><th style="width:44mm">Item</th><th>What it covers</th><th class="r" style="width:24mm">GHS</th></tr>
-    <tr><td>1</td><td>Data migration &amp; records verification</td><td>Compiling and verifying the real Internal Audit Class officer roster; digitising findings &amp; recommendations records across MDAs</td><td class="r">30,000</td></tr>
-    <tr><td>2</td><td>MDA liaison training (3 zonal workshops)</td><td>Venue, per diems, training materials and transport for Internal Audit Unit liaison officers</td><td class="r">48,000</td></tr>
-    <tr><td>3</td><td>Launch &amp; stakeholder sensitisation</td><td>Launch event, media engagement, branded materials</td><td class="r">22,000</td></tr>
-    <tr><td>4</td><td>Independent security assessment</td><td>External penetration test and anonymity review of the whistleblowing channel before go-live</td><td class="r">18,000</td></tr>
-    <tr><td>5</td><td>User manuals &amp; documentation</td><td>Design and printing of admin, portal and liaison user guides</td><td class="r">8,000</td></tr>
-    <tr><td>6</td><td>Contingency (≈10%)</td><td></td><td class="r">12,600</td></tr>
-    <tr class="subtotal"><td></td><td colspan="2">Subtotal — one-off</td><td class="r">138,600</td></tr>
+    <tr><td>1</td><td>Data migration &amp; records verification</td><td>Compiling and verifying the real Internal Audit Class officer roster; digitising findings &amp; recommendations records (in-house exercise with liaison officers)</td><td class="r">8,000</td></tr>
+    <tr><td>2</td><td>MDA liaison training (1 national hybrid workshop)</td><td>One national workshop with regional officers joining virtually; venue, materials and connectivity</td><td class="r">10,000</td></tr>
+    <tr><td>3</td><td>Independent security assessment</td><td>Scoped external review of authentication and the whistleblowing channel before go-live</td><td class="r">6,000</td></tr>
+    <tr><td>4</td><td>Launch &amp; sensitisation</td><td>Low-key internal launch and stakeholder briefing</td><td class="r">3,000</td></tr>
+    <tr><td>5</td><td>User guides (digital-first)</td><td>PDF guides for admin, portal and liaison users; minimal printing</td><td class="r">1,600</td></tr>
+    <tr><td>6</td><td>Contingency (≈10%)</td><td></td><td class="r">3,000</td></tr>
+    <tr class="subtotal"><td></td><td colspan="2">Subtotal — one-off</td><td class="r">31,600</td></tr>
   </table>
 
   <h3>B. Recurrent annual costs</h3>
   <table class="data">
     <tr><th style="width:8mm">#</th><th style="width:44mm">Item</th><th>What it covers</th><th class="r" style="width:24mm">GHS/yr</th></tr>
-    <tr><td>1</td><td>Cloud infrastructure</td><td>Cloudflare Pages/Functions, D1 database, R2 storage (paid tiers as usage grows; free tiers cover launch volumes)</td><td class="r">7,200</td></tr>
-    <tr><td>2</td><td>Transactional email service</td><td>Magic-link authentication emails for portal and admin users</td><td class="r">3,600</td></tr>
-    <tr><td>3</td><td>Domain &amp; DNS</td><td>ohcsghana.org renewal share</td><td class="r">600</td></tr>
-    <tr><td>4</td><td>Platform maintenance &amp; enhancements</td><td>OHCS IT staff time allocation, updates, backups, monitoring</td><td class="r">30,000</td></tr>
-    <tr><td>5</td><td>Refresher training &amp; help-desk</td><td>Annual refresher sessions and support consumables</td><td class="r">9,600</td></tr>
-    <tr class="subtotal"><td></td><td colspan="2">Subtotal — recurrent</td><td class="r">51,000</td></tr>
+    <tr><td>1</td><td>Transactional email service</td><td>Magic-link authentication emails (entry tier)</td><td class="r">1,800</td></tr>
+    <tr><td>2</td><td>Domain &amp; DNS</td><td>ohcsghana.org renewal share</td><td class="r">600</td></tr>
+    <tr><td>3</td><td>Refresher &amp; help-desk consumables</td><td>Annual refresher session and support materials</td><td class="r">1,000</td></tr>
+    <tr class="subtotal"><td></td><td colspan="2">Subtotal — recurrent</td><td class="r">3,400</td></tr>
   </table>
+
+  <p style="font-size:9.5pt;color:#374151">Cost absorptions that make the GHS 35,000 possible:
+  Cloudflare Pages, D1 and R2 run on <strong>free tiers</strong> at launch volumes (GHS 0);
+  platform maintenance is <strong>absorbed by OHCS IT</strong> as part of normal duties (GHS 0);
+  training is hybrid rather than three residential zonal workshops; documentation is digital-first.</p>
 
   <h3>C. Summary</h3>
   <table class="data">
     <tr><th></th><th class="r" style="width:30mm">GHS</th></tr>
-    <tr><td>Year-one total (one-off + first-year recurrent)</td><td class="r"><strong>189,600</strong></td></tr>
-    <tr><td>Subsequent years</td><td class="r"><strong>51,000 / yr</strong></td></tr>
+    <tr><td>Year-one total (one-off + first-year recurrent)</td><td class="r"><strong>35,000</strong></td></tr>
+    <tr><td>Subsequent years</td><td class="r"><strong>3,400 / yr</strong></td></tr>
   </table>
 
-  <div class="callout"><strong>Recommendation.</strong> Present <strong>GHS 190,000</strong> as the
-  year-one operationalization budget to IAD management, itemised as above so each cedi is tied to a
-  concrete operational need — data, people, assurance, and running costs — rather than to software
-  development, which the OHCS IT Department has already delivered in-house.</div>
+  <div class="callout"><strong>Recommendation.</strong> Present <strong>GHS 35,000</strong> as the
+  year-one operationalization budget to IAD management. Every cedi is tied to a concrete operational
+  need — data, people, assurance, and minimal running costs — with infrastructure and maintenance
+  absorbed in-house.</div>
 
   <div class="footstrip"><div class="kente"></div></div>
 </section>

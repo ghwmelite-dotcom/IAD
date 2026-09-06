@@ -112,11 +112,16 @@
   /* ── Contents page ──────────────────────────────────── */
   .toc-title { font-family: Georgia, serif; font-size: 16pt; color: var(--green-dark); border-bottom: 2.5px solid var(--gold); padding-bottom: 2.2mm; margin-bottom: 7mm; }
   .toc { list-style: none; padding: 0; margin: 0; }
-  .toc li { display: block; margin-bottom: 1.2mm; font-size: 10pt; }
+  .toc li { display: block; margin-bottom: 0.9mm; font-size: 10pt; }
   .toc li::after { content: ''; display: block; clear: both; }
   .toc .t-num { color: var(--gold); font-weight: 700; width: 10mm; float: left; }
   .toc .t-name { color: var(--ink); float: left; }
-  .toc .t-dots { display: block; overflow: hidden; border-bottom: 1px dotted #9ca3af; height: .78em; margin: 0 1mm; }
+  .toc .t-page { color: var(--ink); font-weight: 700; float: right; min-width: 6mm; text-align: right; }
+  .toc .t-dots { display: block; overflow: hidden; border-bottom: 1px dotted #9ca3af; height: .78em; margin: 0 1.5mm; }
+  .tight table.data { margin: 2mm 0 3mm; }
+  .tight .signrow { margin-top: 2.5mm; }
+  .tight .signbox .line { height: 5.5mm; }
+  .tight .toc li { margin-bottom: 0.5mm; }
   .toc .t-sub { color: var(--muted); font-size: 9pt; }
 
   /* ── Doc control ────────────────────────────────────── */
@@ -199,19 +204,19 @@
     <div class="signbox"><div class="line"></div><div class="who"><b>Head of Civil Service</b>Noted — Date</div></div>
   </div>
 
-  <h3 style="margin-top:3mm">Contents</h3>
+  <h3 style="margin-top:2mm">Contents</h3>
   <ul class="toc">
-    <li><span class="t-num">1</span><span class="t-name">Executive Summary</span><span class="t-dots"></span></li>
-    <li><span class="t-num">2</span><span class="t-name">Background &amp; Problem Statement</span><span class="t-dots"></span></li>
-    <li><span class="t-num">3</span><span class="t-name">Goals &amp; Success Metrics</span><span class="t-dots"></span></li>
-    <li><span class="t-num">4</span><span class="t-name">Personas &amp; Access Model</span><span class="t-dots"></span></li>
-    <li><span class="t-num">5</span><span class="t-name">Shipped Scope (v1.0)</span><span class="t-dots"></span></li>
-    <li><span class="t-num">6</span><span class="t-name">Architecture</span><span class="t-dots"></span></li>
-    <li><span class="t-num">7</span><span class="t-name">Non-Functional Requirements</span><span class="t-dots"></span></li>
-    <li><span class="t-num">8</span><span class="t-name">Known Limitations</span><span class="t-dots"></span></li>
-    <li><span class="t-num">9</span><span class="t-name">Roadmap</span><span class="t-dots"></span></li>
-    <li><span class="t-num">10</span><span class="t-name">Risks &amp; Dependencies</span><span class="t-dots"></span></li>
-    <li><span class="t-num">A</span><span class="t-name">Annex A — Operationalization Budget</span><span class="t-dots"></span></li>
+    <li><span class="t-num">1</span><span class="t-page">3</span><span class="t-name">Executive Summary</span><span class="t-dots"></span></li>
+    <li><span class="t-num">2</span><span class="t-page">3</span><span class="t-name">Background &amp; Problem Statement</span><span class="t-dots"></span></li>
+    <li><span class="t-num">3</span><span class="t-page">4</span><span class="t-name">Goals &amp; Success Metrics</span><span class="t-dots"></span></li>
+    <li><span class="t-num">4</span><span class="t-page">4</span><span class="t-name">Personas &amp; Access Model</span><span class="t-dots"></span></li>
+    <li><span class="t-num">5</span><span class="t-page">5</span><span class="t-name">Shipped Scope (v1.0)</span><span class="t-dots"></span></li>
+    <li><span class="t-num">6</span><span class="t-page">6</span><span class="t-name">Architecture</span><span class="t-dots"></span></li>
+    <li><span class="t-num">7</span><span class="t-page">6</span><span class="t-name">Non-Functional Requirements</span><span class="t-dots"></span></li>
+    <li><span class="t-num">8</span><span class="t-page">7</span><span class="t-name">Known Limitations</span><span class="t-dots"></span></li>
+    <li><span class="t-num">9</span><span class="t-page">7</span><span class="t-name">Roadmap</span><span class="t-dots"></span></li>
+    <li><span class="t-num">10</span><span class="t-page">7</span><span class="t-name">Risks &amp; Dependencies</span><span class="t-dots"></span></li>
+    <li><span class="t-num">A</span><span class="t-page">8</span><span class="t-name">Annex A — Operationalization Budget</span><span class="t-dots"></span></li>
   </ul>
 </section>
 

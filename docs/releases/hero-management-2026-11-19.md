@@ -26,9 +26,11 @@ Live editor: https://iad.ohcsghana.org/admin/hero/
 - Production deployment succeeded. Public manifest returns four valid slides; editor route responds; anonymous and forged-demo mutations return 401. Existing Knowledge Hub API remains operational.
 - Additive migration 0016_hero_content.sql applied and registered. No existing tables or records changed.
 
-## Remaining access dependency
+## Production activation — deferred by owner
 
-Production has no RESEND_API_KEY secret. Existing magic-link sign-in therefore needs an approved transactional-email configuration before an administrator without an existing valid session can use publishing. Hero publishing deliberately does not accept demo headers or localStorage identities. Live authenticated publishing has not been exercised; the full authenticated workflow was tested locally.
+The owner explicitly deferred transactional-email and real-admin sign-in activation until the institution is ready to move from prototype review to production. Cloudflare’s environment is named production, but that does not represent institutional production approval.
+
+The deployed environment has no RESEND_API_KEY secret. Existing magic-link sign-in therefore needs an approved transactional-email configuration before an administrator without an existing valid session can use publishing. Hero publishing deliberately does not accept demo headers or localStorage identities. Live authenticated publishing has not been exercised; the full authenticated workflow was tested locally.
 
 ## Admin workflow
 

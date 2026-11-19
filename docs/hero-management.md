@@ -12,3 +12,5 @@ Scope: /admin/hero manages the homepage carousel without a site rebuild.
 - Preview reflects desktop/mobile framing and English/French copy. Unsaved work triggers navigation protection. Public changes appear after refresh or the next polling interval.
 
 Data migration: 0016_hero_content.sql (additive). No existing data is modified.
+
+Production readiness decision (19 November 2026): the owner deferred email-service configuration and real-admin sign-in activation until production rollout. Keep publishing protected; do not enable demo accounts or forged-header access as a substitute. The existing four public slides remain unchanged.

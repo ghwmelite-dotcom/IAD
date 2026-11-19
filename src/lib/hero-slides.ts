@@ -114,7 +114,7 @@ export function defaultHeroSlides(): HeroSlide[] {
       '2022',
       'https://iaa.gov.gh/2022/09/12/iaa-inaugurates-the-audit-committee-of-the-ohcs/',
       60,
-      38,
+      0,
     ],
     [
       'audit-training.jpg',

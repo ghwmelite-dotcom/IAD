@@ -9,6 +9,7 @@ import type { AdminUser } from '@/types';
 import {
   LayoutDashboard,
   Newspaper,
+  Images,
   Calendar,
   FileText,
   Users,
@@ -41,6 +42,7 @@ const NAV_SECTIONS = [
   {
     title: 'Content',
     items: [
+      { label: 'Hero Slides', href: '/admin/hero', icon: Images, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
       { label: 'News', href: '/admin/news', icon: Newspaper, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
       { label: 'Events', href: '/admin/events', icon: Calendar, roles: ['super_admin', 'content_manager', 'admin', 'director'] },
       { label: 'Knowledge Hub', href: '/admin/publications', icon: FileText, roles: ['super_admin', 'content_manager', 'admin', 'director'] },

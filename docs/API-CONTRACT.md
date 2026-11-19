@@ -76,3 +76,12 @@ All under `/api/portal/`, role-gated: director/manager full; auditor own engagem
 - Dates ISO-8601; IDs: `crypto.randomUUID()`; engagement codes `ENG-YYYY-NNN`
 - Portal frontend is client-rendered under `src/app/portal/` using `src/lib/api.ts` fetch client (extend it); charts with `recharts` (add dependency)
 - Seed data: `migrations/seed.sql` or `scripts/seed.ts` with 6+ MDAs, ~20 findings, 8 auditors, 2 plans, 5 engagements — realistic Ghana MDA names
+
+## Homepage hero publishing
+
+- `GET /api/public/hero`: enabled slides from the published manifest; `Cache-Control: no-store`.
+- `GET /api/admin/hero`: draft + published manifests and optimistic revision numbers; real cookie session required for super_admin/content_manager/admin/director.
+- `POST /api/admin/hero`: `{ action: "save" | "publish", revision, slides }`; requires `X-IAD-Admin: 1` and a same-origin request. Returns 409 on stale revision. Publication requires at least one enabled slide. Content and audit insert commit together.
+- `POST /api/admin/hero/images`: multipart `file`; genuine JPEG/PNG/WebP, ≤6 MiB, 40 uploads/editor/hour; immutable R2 image URI returned.
+- `GET /api/public/hero-images/:key`: published image bytes, or private draft preview for an authorised cookie session. Drafts are not publicly served.
+- `/admin/hero` provides image optimisation, responsive previews, EN/FR copy, links, focal-point adjustment, ordering, disabling/removal, drafts and publication. See `docs/hero-management.md`.

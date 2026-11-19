@@ -124,6 +124,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 function getPageTitle(pathname: string): string {
   const map: Record<string, string> = {
     '/admin': 'Dashboard',
+    '/admin/hero': 'Hero Slides',
     '/admin/news': 'News Management',
     '/admin/events': 'Events Management',
     '/admin/publications': 'Knowledge Hub',
@@ -140,6 +141,7 @@ function getPageTitle(pathname: string): string {
 function getPageSubtitle(pathname: string): string {
   const map: Record<string, string> = {
     '/admin': 'Overview of your admin portal',
+    '/admin/hero': 'Manage homepage images, copy and publishing',
     '/admin/news': 'Create, edit, and publish news articles',
     '/admin/events': 'Manage upcoming events and activities',
     '/admin/publications': 'Upload and manage Knowledge Hub documents',

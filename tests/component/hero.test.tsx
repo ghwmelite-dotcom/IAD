@@ -1,14 +1,16 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Hero } from '@/components/home/hero';
+import { defaultHeroSlides } from '@/lib/hero-slides';
 
 // Mock next/link to render a plain anchor
 vi.mock('next/link', () => ({
   default: ({ children, href, ...props }: Record<string, unknown>) => (
-    <a href={href as string} {...props}>{children as React.ReactNode}</a>
+    <a href={href as string} {...props}>
+      {children as React.ReactNode}
+    </a>
   ),
 }));
-
 
 let reducedMotion = false;
 let pageHidden = false;
@@ -16,11 +18,14 @@ beforeEach(() => {
   vi.useFakeTimers();
   reducedMotion = false;
   pageHidden = false;
-  vi.stubGlobal('matchMedia', vi.fn(() => ({
-    matches: reducedMotion,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  })));
+  vi.stubGlobal(
+    'matchMedia',
+    vi.fn(() => ({
+      matches: reducedMotion,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })),
+  );
   vi.spyOn(document, 'hidden', 'get').mockImplementation(() => pageHidden);
 });
 afterEach(() => {
@@ -69,14 +74,21 @@ describe('Hero slideshow controls', () => {
     render(<Hero />);
     fireEvent.click(screen.getByRole('button', { name: 'Next slide' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Stronger skills');
-    expect(screen.getByRole('link', { name: /Publications/ })).toHaveAttribute('href', '/publications');
+    expect(screen.getByRole('link', { name: /Publications/ })).toHaveAttribute(
+      'href',
+      '/publications',
+    );
     fireEvent.click(screen.getByRole('button', { name: 'Previous slide' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Independent Assurance');
     fireEvent.click(screen.getByRole('button', { name: 'Previous slide' }));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Serving a stronger Civil Service');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Serving a stronger Civil Service',
+    );
     expect(screen.getByText('Photo supplied for the IAD platform')).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: 'Previous slide' }));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Accountability that everyone can see');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Accountability that everyone can see',
+    );
   });
 
   it('rotates every eight seconds and pauses on request', () => {
@@ -88,15 +100,22 @@ describe('Hero slideshow controls', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Stronger skills');
     fireEvent.click(screen.getByRole('button', { name: 'Play slideshow' }));
     act(() => vi.advanceTimersByTime(8000));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Accountability that everyone can see');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Accountability that everyone can see',
+    );
   });
 
   it('keeps a manually selected slide in place', () => {
     render(<Hero />);
     fireEvent.click(screen.getByRole('button', { name: 'Slide 3: Public accountability' }));
     act(() => vi.advanceTimersByTime(24000));
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Accountability that everyone can see');
-    expect(screen.getByRole('button', { name: 'Slide 3: Public accountability' })).toHaveAttribute('aria-current', 'true');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Accountability that everyone can see',
+    );
+    expect(screen.getByRole('button', { name: 'Slide 3: Public accountability' })).toHaveAttribute(
+      'aria-current',
+      'true',
+    );
   });
 
   it('supports arrow-key navigation', () => {
@@ -128,5 +147,35 @@ describe('Hero slideshow controls', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Independent Assurance');
     fireEvent.click(screen.getByRole('button', { name: 'Next slide' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Stronger skills');
+  });
+});
+
+describe('Managed hero content', () => {
+  it('loads published admin content without a rebuilt page', async () => {
+    const slides = defaultHeroSlides().slice(0, 1);
+    slides[0]!.copy.en.title = 'Managed from the admin portal';
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ ok: true, json: async () => ({ data: slides }) })),
+    );
+    await act(async () => {
+      render(<Hero />);
+    });
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Managed from the admin portal',
+    );
+    expect(screen.getByRole('button', { name: 'Slide 1: Independent assurance' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: /Slide 2:/ })).toBeNull();
+  });
+  it('retains the bundled carousel when the public API returns invalid content', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ ok: true, json: async () => ({ data: [] }) })),
+    );
+    await act(async () => {
+      render(<Hero />);
+    });
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Independent Assurance');
+    expect(screen.getByRole('button', { name: 'Slide 4: Civil Service' })).toBeDefined();
   });
 });

@@ -23,7 +23,7 @@ const QUICK_ACTIONS: {
   href: string;
   gradient: string;
 }[] = [
-  { icon: ShieldAlert, key: 'reportFraud', href: '/services/report-fraud', gradient: 'from-green-500 to-emerald-600' },
+  { icon: ShieldAlert, key: 'reportFraud', href: '/services/report-fraud', gradient: 'from-primary-light to-primary' },
   { icon: Search, key: 'track', href: '/track', gradient: 'from-amber-500 to-yellow-600' },
   { icon: BookOpen, key: 'publications', href: '/publications', gradient: 'from-blue-500 to-indigo-600' },
 ];
@@ -78,13 +78,13 @@ export function CtaSection() {
       </section>
 
       {/* ── Newsletter CTA ── */}
-      <section className="relative py-20 lg:py-24 bg-primary-dark overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-ink overflow-hidden">
         {/* Animated Kente threads */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[25%] left-0 right-0 h-px opacity-[0.1]" style={{ background: 'linear-gradient(90deg, transparent, #D4A017 30%, #D4A017 70%, transparent)', animation: 'kente-thread-h 8s ease-in-out infinite' }} />
           <div className="absolute top-[65%] left-0 right-0 h-px opacity-[0.07]" style={{ background: 'linear-gradient(90deg, transparent, #E8C547 20%, #E8C547 80%, transparent)', animation: 'kente-thread-h 12s ease-in-out 3s infinite reverse' }} />
-          <div className="absolute left-[20%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, #2E7D32 30%, #2E7D32 70%, transparent)', animation: 'kente-thread-v 10s ease-in-out 1s infinite' }} />
-          <div className="absolute left-[75%] top-0 bottom-0 w-px opacity-[0.08]" style={{ background: 'linear-gradient(0deg, transparent, #2E7D32 40%, #2E7D32 60%, transparent)', animation: 'kente-thread-v 8s ease-in-out infinite' }} />
+          <div className="absolute left-[20%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent)', animation: 'kente-thread-v 10s ease-in-out 1s infinite' }} />
+          <div className="absolute left-[75%] top-0 bottom-0 w-px opacity-[0.08]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 40%, var(--color-primary-light) 60%, transparent)', animation: 'kente-thread-v 8s ease-in-out infinite' }} />
         </div>
 
         <div
@@ -125,7 +125,7 @@ export function CtaSection() {
               <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/30 rounded-sm -z-10" />
             </span>
           </h2>
-          <p className="text-lg text-white/55 leading-relaxed mb-10 max-w-lg mx-auto">
+          <p className="text-lg text-white/80 leading-relaxed mb-10 max-w-lg mx-auto">
             {dict.cta.body}
           </p>
 
@@ -169,7 +169,7 @@ export function CtaSection() {
                     placeholder={dict.cta.emailPlaceholder}
                     required
                     aria-label={dict.cta.emailPlaceholder}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.08] border-2 border-white/15 text-white text-base placeholder:text-white/30 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.08] border-2 border-white/15 text-white text-base placeholder:text-white/70 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                   />
                 </div>
                 <Button type="submit" variant="accent" size="lg" loading={state === 'loading'} className="shrink-0">
@@ -191,7 +191,7 @@ export function CtaSection() {
                   </button>
                 </div>
               )}
-              <p className="text-xs text-white/30 mt-3">{dict.cta.finePrint}</p>
+              <p className="text-xs text-white/70 mt-3">{dict.cta.finePrint}</p>
             </form>
           )}
 

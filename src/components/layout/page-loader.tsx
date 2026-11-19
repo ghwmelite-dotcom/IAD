@@ -61,7 +61,7 @@ export function PageLoader() {
           }}
         >
           {Array.from({ length: 160 }).map((_, i) => {
-            const colors = ['#1B5E20', '#D4A017', '#B71C1C', '#212121'];
+            const colors = ['var(--color-primary)', '#D4A017', '#B71C1C', '#212121'];
             const row = Math.floor(i / 16);
             const col = i % 16;
             const colorIndex = (row + col) % 4;
@@ -172,7 +172,7 @@ export function PageLoader() {
                 fontFamily: "'Playfair Display', serif",
                 fontSize: 28,
                 fontWeight: 700,
-                color: '#0D3B13',
+                color: 'var(--color-primary-dark)',
                 letterSpacing: 8,
                 display: 'block',
                 textAlign: 'center',
@@ -207,7 +207,7 @@ export function PageLoader() {
               overflow: 'hidden',
               width: textIn ? 120 : 0,
               transition: 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s',
-              background: 'linear-gradient(90deg, #1B5E20 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)',
+              background: 'linear-gradient(90deg, var(--color-primary) 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)',
             }}
           >
             <div

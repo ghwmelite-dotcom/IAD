@@ -15,7 +15,7 @@ export function KenteSectionDivider({ className }: KenteSectionDividerProps) {
         className="h-full relative"
         style={{
           background:
-            'repeating-linear-gradient(90deg, #1B5E20 0px, #1B5E20 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)',
+            'repeating-linear-gradient(90deg, var(--color-primary) 0px, var(--color-primary) 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)',
         }}
       >
         {/* Weft thread lines */}

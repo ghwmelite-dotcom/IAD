@@ -72,21 +72,21 @@ export function PageHero({
         <div
           className="absolute left-[15%] top-0 bottom-0 w-px opacity-[0.08]"
           style={{
-            background: 'linear-gradient(0deg, transparent, #2E7D32 30%, #2E7D32 70%, transparent)',
+            background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent)',
             animation: 'kente-thread-v 9s ease-in-out 1s infinite',
           }}
         />
         <div
           className="absolute left-[50%] top-0 bottom-0 w-px opacity-[0.06]"
           style={{
-            background: 'linear-gradient(0deg, transparent, #1B5E20 20%, #1B5E20 80%, transparent)',
+            background: 'linear-gradient(0deg, transparent, var(--color-primary) 20%, var(--color-primary) 80%, transparent)',
             animation: 'kente-thread-v 11s ease-in-out 3s infinite reverse',
           }}
         />
         <div
           className="absolute left-[82%] top-0 bottom-0 w-px opacity-[0.1]"
           style={{
-            background: 'linear-gradient(0deg, transparent, #2E7D32 40%, #2E7D32 60%, transparent)',
+            background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 40%, var(--color-primary-light) 60%, transparent)',
             animation: 'kente-thread-v 7s ease-in-out infinite',
           }}
         />
@@ -135,7 +135,7 @@ export function PageHero({
         <div
           className="h-full"
           style={{
-            background: 'repeating-linear-gradient(90deg, #1B5E20 0px, #1B5E20 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)',
+            background: 'repeating-linear-gradient(90deg, var(--color-primary) 0px, var(--color-primary) 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)',
           }}
         />
         <div

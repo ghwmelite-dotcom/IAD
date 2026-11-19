@@ -45,7 +45,7 @@ export function TransparencyShowcase() {
       className="relative py-24 lg:py-32 overflow-hidden"
       style={{
         background:
-          'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(46,125,50,0.35) 0%, transparent 60%), linear-gradient(180deg, #0D3B13 0%, #0a2f0f 100%)',
+          'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)',
       }}
     >
       {/* Kente mesh overlay */}
@@ -66,7 +66,7 @@ export function TransparencyShowcase() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-            <span className="text-sm font-semibold text-accent tracking-wide">Open by Design</span>
+            <span className="text-sm font-semibold text-brand-on-dark tracking-wide">Open by Design</span>
           </div>
           <h2
             id="transparency-heading"
@@ -74,11 +74,11 @@ export function TransparencyShowcase() {
           >
             Accountability You Can{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-accent">See</span>
+              <span className="relative z-10 text-brand-on-dark">See</span>
               <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/20 rounded-sm -z-0" />
             </span>
           </h2>
-          <p className="text-lg text-white/55 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
             Three public tools that open the department&apos;s work to every citizen —
             no account, no gatekeeping.
           </p>
@@ -113,7 +113,7 @@ export function TransparencyShowcase() {
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-accent-light flex items-center justify-center shadow-[0_8px_20px_rgba(212,160,23,0.3)] group-hover/card:scale-110 transition-transform duration-300">
                   <feature.icon className="w-7 h-7 text-primary-dark" aria-hidden="true" />
                 </div>
-                <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-[1.5px] text-accent/90 border border-accent/25 rounded-full px-3 py-1 bg-accent/[0.08]">
+                <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-[1.5px] text-brand-on-dark/90 border border-accent/25 rounded-full px-3 py-1 bg-accent/[0.08]">
                   {feature.tag === 'Live Data' && (
                     <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
@@ -127,11 +127,11 @@ export function TransparencyShowcase() {
               <h3 className="font-display text-xl lg:text-2xl font-bold text-white mb-3 leading-snug">
                 {feature.title}
               </h3>
-              <p className="text-white/55 text-[15px] leading-relaxed mb-7">
+              <p className="text-white/80 text-[15px] leading-relaxed mb-7">
                 {feature.description}
               </p>
 
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand-on-dark">
                 {feature.cta}
                 <ArrowRight
                   className="h-4 w-4 group-hover/card:translate-x-1.5 transition-transform duration-300"

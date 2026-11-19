@@ -45,8 +45,8 @@ const STATUS_COLORS: Record<string, string> = {
   open: '#C62828',
   responded: '#1565C0',
   in_progress: '#E65100',
-  closed: '#2E7D32',
-  verified: '#1B5E20',
+  closed: 'var(--color-primary-light)',
+  verified: 'var(--color-primary)',
 };
 
 export default function PortalDashboardPage() {
@@ -164,7 +164,7 @@ export default function PortalDashboardPage() {
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="raised" stroke="#C62828" strokeWidth={2} dot={{ r: 2 }} name="Raised" />
-                <Line type="monotone" dataKey="closed" stroke="#1B5E20" strokeWidth={2} dot={{ r: 2 }} name="Closed" />
+                <Line type="monotone" dataKey="closed" stroke="var(--color-primary)" strokeWidth={2} dot={{ r: 2 }} name="Closed" />
               </LineChart>
             </ResponsiveContainer>
           </div>

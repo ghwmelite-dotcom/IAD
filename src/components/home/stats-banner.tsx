@@ -6,7 +6,7 @@ import { Landmark, ClipboardCheck, BadgeCheck, GraduationCap, ShieldCheck } from
 
 // TODO(rebrand): replace with verified departmental figures.
 const STATS = [
-  { icon: Landmark, number: '40+', label: 'MDAs Covered', gradient: 'from-green-500 to-emerald-600' },
+  { icon: Landmark, number: '40+', label: 'MDAs Covered', gradient: 'from-primary-light to-primary' },
   { icon: ClipboardCheck, number: '120+', label: 'Audits Completed', gradient: 'from-blue-500 to-indigo-600' },
   { icon: BadgeCheck, number: '85%', label: 'Findings Resolved', gradient: 'from-purple-500 to-violet-600' },
   { icon: GraduationCap, number: '300+', label: 'Auditors Trained', gradient: 'from-teal-500 to-cyan-600' },
@@ -17,31 +17,14 @@ export function StatsBanner() {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <section ref={ref} className="relative py-20 lg:py-24 bg-primary-dark overflow-hidden">
-      {/* Kente mesh */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: [
-            'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
-            'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
-          ].join(', '),
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(46,125,50,0.15) 0%, transparent 60%)' }}
-      />
-
+    <section ref={ref} className="relative py-20 lg:py-24 bg-surface border-y border-border overflow-hidden">
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-            <span className="text-sm font-semibold text-accent tracking-wide">By the Numbers</span>
+            <span className="text-sm font-semibold text-primary tracking-wide">By the Numbers</span>
           </div>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-white">
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-text">
             Internal Audit at a{' '}
             <span className="relative inline-block">
               Glance
@@ -55,8 +38,8 @@ export function StatsBanner() {
             <div
               key={stat.label}
               className={cn(
-                'group bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-7 text-center',
-                'hover:bg-white/[0.1] hover:border-accent/20 hover:-translate-y-1 transition-all duration-300',
+                'group bg-white border border-border rounded-2xl p-7 text-center',
+                'hover:border-primary/30 hover:-translate-y-1 transition-all duration-300',
                 isVisible && 'animate-[reveal_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]',
                 !isVisible && 'opacity-0',
               )}
@@ -69,8 +52,8 @@ export function StatsBanner() {
               )}>
                 <stat.icon className="h-7 w-7 text-white" aria-hidden="true" />
               </div>
-              <p className="text-3xl lg:text-4xl font-bold text-white leading-none mb-2 font-display">{stat.number}</p>
-              <p className="text-[10px] text-white/50 font-bold uppercase tracking-[0.15em]">{stat.label}</p>
+              <p className="text-3xl lg:text-4xl font-bold text-primary leading-none mb-2 font-display">{stat.number}</p>
+              <p className="text-[10px] text-text-muted font-bold uppercase tracking-[0.15em]">{stat.label}</p>
             </div>
           ))}
         </div>

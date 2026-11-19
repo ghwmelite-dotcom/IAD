@@ -13,7 +13,7 @@ export function NewsEventsSection() {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <section ref={ref} className="py-24 lg:py-32 relative overflow-hidden" style={{ backgroundColor: '#F0F7F1' }}>
+    <section ref={ref} className="py-24 lg:py-32 relative overflow-hidden bg-white">
       <FloatingShapes />
 
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +46,7 @@ export function NewsEventsSection() {
           <div className="lg:col-span-3">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-light to-primary flex items-center justify-center shadow-sm">
                   <Newspaper className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-primary-dark">Latest News</h3>

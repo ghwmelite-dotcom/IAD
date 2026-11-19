@@ -27,7 +27,7 @@ export function MobileNav({ onOpenSearch }: MobileNavProps) {
         aria-expanded={isOpen}
         aria-controls="mobile-nav-panel"
         className={cn(
-          'lg:hidden flex items-center justify-center w-10 h-10 rounded-md',
+          'xl:hidden flex items-center justify-center w-10 h-10 rounded-md',
           'text-text hover:text-primary hover:bg-primary/5 transition-colors duration-150',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
         )}
@@ -39,7 +39,7 @@ export function MobileNav({ onOpenSearch }: MobileNavProps) {
       {isOpen && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-40 xl:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -52,7 +52,7 @@ export function MobileNav({ onOpenSearch }: MobileNavProps) {
           aria-modal="true"
           aria-label="Site navigation"
           className={cn(
-            'fixed top-0 right-0 h-full w-[300px] bg-surface-card z-50 lg:hidden',
+            'fixed top-0 right-0 h-full w-[300px] bg-surface-card z-50 xl:hidden',
             'flex flex-col shadow-card',
             'transform transition-transform duration-300 ease-out translate-x-0',
           )}

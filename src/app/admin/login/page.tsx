@@ -141,9 +141,9 @@ export default function AdminLoginPage() {
           <div className="absolute top-[40%] left-0 right-0 h-px opacity-[0.08]" style={{ background: 'linear-gradient(90deg, transparent, #E8C547 20%, #E8C547 80%, transparent)', animation: 'kente-thread-h 12s ease-in-out 2s infinite reverse' }} />
           <div className="absolute top-[65%] left-0 right-0 h-px opacity-[0.1]" style={{ background: 'linear-gradient(90deg, transparent, #D4A017 40%, #D4A017 60%, transparent)', animation: 'kente-thread-h 10s ease-in-out 4s infinite' }} />
           <div className="absolute top-[85%] left-0 right-0 h-px opacity-[0.06]" style={{ background: 'linear-gradient(90deg, transparent, #E8C547 35%, #E8C547 65%, transparent)', animation: 'kente-thread-h 14s ease-in-out 1s infinite' }} />
-          <div className="absolute left-[20%] top-0 bottom-0 w-px opacity-[0.08]" style={{ background: 'linear-gradient(0deg, transparent, #2E7D32 30%, #2E7D32 70%, transparent)', animation: 'kente-thread-v 9s ease-in-out 1s infinite' }} />
-          <div className="absolute left-[60%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, #1B5E20 20%, #1B5E20 80%, transparent)', animation: 'kente-thread-v 11s ease-in-out 3s infinite reverse' }} />
-          <div className="absolute left-[85%] top-0 bottom-0 w-px opacity-[0.1]" style={{ background: 'linear-gradient(0deg, transparent, #2E7D32 40%, #2E7D32 60%, transparent)', animation: 'kente-thread-v 7s ease-in-out infinite' }} />
+          <div className="absolute left-[20%] top-0 bottom-0 w-px opacity-[0.08]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent)', animation: 'kente-thread-v 9s ease-in-out 1s infinite' }} />
+          <div className="absolute left-[60%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary) 20%, var(--color-primary) 80%, transparent)', animation: 'kente-thread-v 11s ease-in-out 3s infinite reverse' }} />
+          <div className="absolute left-[85%] top-0 bottom-0 w-px opacity-[0.1]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 40%, var(--color-primary-light) 60%, transparent)', animation: 'kente-thread-v 7s ease-in-out infinite' }} />
         </div>
 
         {/* Kente mesh */}
@@ -194,7 +194,7 @@ export default function AdminLoginPage() {
 
         {/* Bottom Kente stripe */}
         <div className="relative opacity-0" style={{ animation: 'hero-reveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s forwards' }}>
-          <div className="h-[4px] rounded-full overflow-hidden" style={{ background: 'linear-gradient(90deg, #1B5E20 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }}>
+          <div className="h-[4px] rounded-full overflow-hidden" style={{ background: 'linear-gradient(90deg, var(--color-primary) 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }}>
             <div className="h-full" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 100%)', backgroundSize: '200% 100%', animation: 'kente-shimmer 4s ease-in-out infinite' }} />
           </div>
           <p className="text-[10px] text-white/20 mt-4 tracking-wider">
@@ -404,7 +404,7 @@ export default function AdminLoginPage() {
           </div>
 
           {/* Mobile Kente stripe */}
-          <div className="lg:hidden mt-8 h-[3px] rounded-full overflow-hidden" aria-hidden="true" style={{ background: 'linear-gradient(90deg, #1B5E20 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }} />
+          <div className="lg:hidden mt-8 h-[3px] rounded-full overflow-hidden" aria-hidden="true" style={{ background: 'linear-gradient(90deg, var(--color-primary) 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }} />
         </div>
         </div>
       </div>

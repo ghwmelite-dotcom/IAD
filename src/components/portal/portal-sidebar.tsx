@@ -104,7 +104,7 @@ export function PortalSidebar({
           </div>
         </Link>
         {/* Kente stripe */}
-        <div className="mt-4 h-[3px] rounded-full overflow-hidden" style={{ background: 'linear-gradient(90deg, #1B5E20 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }} />
+        <div className="mt-4 h-[3px] rounded-full overflow-hidden" style={{ background: 'linear-gradient(90deg, var(--color-primary) 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }} />
       </div>
 
       {/* ── Collapse Toggle ── */}

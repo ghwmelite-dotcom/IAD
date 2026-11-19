@@ -4,7 +4,7 @@
  */
 
 export const KENTE_COLORS = {
-  green: '#1B5E20',
+  green: 'var(--color-primary)',
   gold: '#D4A017',
   red: '#B71C1C',
   black: '#212121',

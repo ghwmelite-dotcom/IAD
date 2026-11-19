@@ -55,7 +55,7 @@ export function Header() {
       className={cn(
         'sticky top-0 z-30 transition-all duration-300',
         scrolled
-          ? 'bg-white/80 backdrop-blur-xl shadow-header border-b border-border/50'
+          ? 'bg-white/95 backdrop-blur-xl shadow-header border-b border-border/50'
           : 'bg-white border-b border-border/30',
       )}
     >
@@ -159,14 +159,14 @@ export function Header() {
 
       {/* Main nav bar */}
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+        <div className="flex items-center justify-between min-h-22 gap-2 sm:gap-4">
           {/* Logo + Identity */}
           <AnimatedLogo variant="header" />
 
           {/* Desktop navigation */}
           <nav
             aria-label="Main navigation"
-            className="hidden lg:flex items-center gap-1"
+            className="hidden xl:flex items-center gap-1"
           >
             {NAV_ITEMS.map((item) => (
               <MegaMenu key={item.href} item={item} />
@@ -174,14 +174,14 @@ export function Header() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-3">
             {/* Search button */}
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label={dict.header.search}
               className={cn(
-                'flex items-center justify-center w-10 h-10 rounded-xl',
+                'hidden min-[360px]:flex items-center justify-center w-10 h-10 rounded-xl',
                 'text-text-muted hover:text-primary hover:bg-primary/5 transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
               )}

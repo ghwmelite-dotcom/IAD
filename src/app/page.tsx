@@ -14,19 +14,12 @@ export default function HomePage() {
       <Hero />
       <KenteSectionDivider />
       <QuickServices />
-      <KenteSectionDivider />
       <StatsBanner />
-      <KenteSectionDivider />
       <NewsEventsSection />
-      <KenteSectionDivider />
       <TransparencyShowcase />
-      <KenteSectionDivider />
       <LeadershipSpotlight />
-      <KenteSectionDivider />
       <AuditUnitsGrid />
-      <KenteSectionDivider />
       <CtaSection />
-      <KenteSectionDivider />
     </main>
   );
 }

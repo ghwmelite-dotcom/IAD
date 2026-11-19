@@ -21,7 +21,7 @@ import type { SeverityCount, CategoryCount, TrendPoint } from '@/lib/public-api'
 const SEVERITY_COLORS: Record<string, string> = {
   high: '#B71C1C',
   medium: '#D4A017',
-  low: '#2E7D32',
+  low: 'var(--color-primary-light)',
 };
 
 const CHART_CARD =
@@ -100,7 +100,7 @@ export function CategoryBars({ data }: { data: CategoryCount[] }) {
               tick={{ fontSize: 12 }}
             />
             <Tooltip formatter={(value) => [value, 'Findings']} />
-            <Bar dataKey="count" fill="#2E7D32" radius={[0, 6, 6, 0]} maxBarSize={22} />
+            <Bar dataKey="count" fill="var(--color-primary-light)" radius={[0, 6, 6, 0]} maxBarSize={22} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -126,8 +126,8 @@ export function TrendChart({ data }: { data: TrendPoint[] }) {
                 <stop offset="100%" stopColor="#D4A017" stopOpacity={0.02} />
               </linearGradient>
               <linearGradient id="trendClosed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2E7D32" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="#2E7D32" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="var(--color-primary-light)" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="var(--color-primary-light)" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -147,7 +147,7 @@ export function TrendChart({ data }: { data: TrendPoint[] }) {
               type="monotone"
               dataKey="closed"
               name="Closed"
-              stroke="#2E7D32"
+              stroke="var(--color-primary-light)"
               strokeWidth={2.5}
               fill="url(#trendClosed)"
             />

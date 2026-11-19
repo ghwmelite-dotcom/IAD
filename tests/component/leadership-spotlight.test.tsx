@@ -41,9 +41,9 @@ describe('LeadershipSpotlight', () => {
     expect(screen.queryByText(/Nartey/i)).toBeNull();
   });
 
-  it('renders the View all leadership link', () => {
+  it('renders the Director profile link', () => {
     render(<LeadershipSpotlight />);
-    const link = screen.getByRole('link', { name: /View all leadership/i });
+    const link = screen.getByRole('link', { name: /Meet the Director/i });
     expect(link.getAttribute('href')).toBe('/about/leadership');
   });
 
@@ -52,9 +52,9 @@ describe('LeadershipSpotlight', () => {
     expect(screen.getByAltText('Solomon Wemegah')).toBeDefined();
   });
 
-  it('renders the Internal Audit Unit head alongside the Director', () => {
+  it('features only the IAD Director', () => {
     render(<LeadershipSpotlight />);
-    expect(screen.getByText('Nicholas Adjetey')).toBeDefined();
-    expect(screen.getByText(/Head, Internal Audit Unit/i)).toBeDefined();
+    expect(screen.queryByText('Nicholas Adjetey')).toBeNull();
+    expect(screen.queryByText(/Head, Internal Audit Unit/i)).toBeNull();
   });
 });

@@ -114,7 +114,7 @@ export default function AdminDashboardPage() {
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[30%] left-0 right-0 h-px opacity-[0.1]" style={{ background: 'linear-gradient(90deg, transparent, #D4A017 30%, #D4A017 70%, transparent)', animation: 'kente-thread-h 8s ease-in-out infinite' }} />
           <div className="absolute top-[70%] left-0 right-0 h-px opacity-[0.07]" style={{ background: 'linear-gradient(90deg, transparent, #E8C547 20%, #E8C547 80%, transparent)', animation: 'kente-thread-h 12s ease-in-out 3s infinite reverse' }} />
-          <div className="absolute left-[75%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, #2E7D32 30%, #2E7D32 70%, transparent)', animation: 'kente-thread-v 10s ease-in-out 1s infinite' }} />
+          <div className="absolute left-[75%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent)', animation: 'kente-thread-v 10s ease-in-out 1s infinite' }} />
         </div>
         <div aria-hidden="true" className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 32px)' }} />
 
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Kente stripe at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-[3px]" aria-hidden="true" style={{ background: 'linear-gradient(90deg, #1B5E20 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }}>
+        <div className="absolute bottom-0 left-0 right-0 h-[3px]" aria-hidden="true" style={{ background: 'linear-gradient(90deg, var(--color-primary) 25%, #D4A017 25%, #D4A017 50%, #B71C1C 50%, #B71C1C 75%, #212121 75%)' }}>
           <div className="h-full" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 100%)', backgroundSize: '200% 100%', animation: 'kente-shimmer 4s ease-in-out infinite' }} />
         </div>
       </div>

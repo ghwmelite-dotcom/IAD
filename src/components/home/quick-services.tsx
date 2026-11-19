@@ -21,7 +21,7 @@ const services: {
     icon: FileSearch,
     key: 'specialAudit',
     href: '/services/special-audit',
-    gradient: 'from-emerald-400 to-green-500',
+    gradient: 'from-primary-light to-primary',
     bg: 'bg-green-50/70',
     border: 'border-green-200 hover:border-green-400',
     number: '01',

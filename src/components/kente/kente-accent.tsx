@@ -27,7 +27,7 @@ export function KenteAccent({ variant, className }: KenteAccentProps) {
             style={{
               backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 8" preserveAspectRatio="none">' +
-                '<rect x="0"  y="0" width="16" height="8" fill="#1B5E20"/>' +
+                '<rect x="0"  y="0" width="16" height="8" fill="var(--color-primary)"/>' +
                 '<rect x="16" y="0" width="16" height="8" fill="#D4A017"/>' +
                 '<rect x="32" y="0" width="16" height="8" fill="#B71C1C"/>' +
                 '<rect x="48" y="0" width="16" height="8" fill="#212121"/>' +
@@ -55,7 +55,7 @@ export function KenteAccent({ variant, className }: KenteAccentProps) {
             style={{
               backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 8" preserveAspectRatio="none">' +
-                '<rect x="0"  y="0" width="16" height="8" fill="#1B5E20"/>' +
+                '<rect x="0"  y="0" width="16" height="8" fill="var(--color-primary)"/>' +
                 '<rect x="16" y="0" width="16" height="8" fill="#D4A017"/>' +
                 '<rect x="32" y="0" width="16" height="8" fill="#B71C1C"/>' +
                 '<rect x="48" y="0" width="16" height="8" fill="#212121"/>' +
@@ -93,7 +93,7 @@ export function KenteAccent({ variant, className }: KenteAccentProps) {
             className,
           )}
           style={{
-            background: 'linear-gradient(to bottom, #1B5E20, #D4A017, #B71C1C)',
+            background: 'linear-gradient(to bottom, var(--color-primary), #D4A017, #B71C1C)',
           }}
         />
       );

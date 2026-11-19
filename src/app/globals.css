@@ -4,16 +4,19 @@
 
 @theme inline {
   /* Colors */
-  --color-primary: #1B5E20;
-  --color-primary-light: #2E7D32;
-  --color-primary-dark: #0D3B13;
+  --color-primary: #205B32;
+  --color-primary-light: #3F873A;
+  --color-primary-dark: #174526;
+  --color-brand-lime: #8DC63F;
+  --color-brand-on-dark: #C0E58B;
+  --color-ink: #202D28;
   --color-accent: #D4A017;
   --color-accent-light: #E8C547;
-  --color-surface: #FDFAF5;
+  --color-surface: #F5F6F3;
   --color-surface-card: #FFFFFF;
-  --color-border: #E5DDD0;
-  --color-text: #1A1A1A;
-  --color-text-muted: #5C5549;
+  --color-border: #DFE5DE;
+  --color-text: #202D28;
+  --color-text-muted: #536158;
   --color-kente-red: #B71C1C;
   --color-kente-black: #212121;
   --color-success: #2E7D32;
@@ -23,6 +26,7 @@
 
   /* Typography */
   --font-display: 'Playfair Display', Georgia, serif;
+  --font-brand: 'DM Sans', Arial, sans-serif;
   --font-body: 'Libre Baskerville', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
 

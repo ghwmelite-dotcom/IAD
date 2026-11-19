@@ -13,11 +13,11 @@ export default function HomePage() {
     <main>
       <Hero />
       <KenteSectionDivider />
+      <LeadershipSpotlight />
       <QuickServices />
       <StatsBanner />
       <NewsEventsSection />
       <TransparencyShowcase />
-      <LeadershipSpotlight />
       <AuditUnitsGrid />
       <CtaSection />
     </main>

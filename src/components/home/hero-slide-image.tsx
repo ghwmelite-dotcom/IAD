@@ -53,7 +53,7 @@ export function HeroOverlay() {
       className="absolute inset-0 -z-10 bg-black/15"
       style={{
         backgroundImage:
-          'linear-gradient(90deg, rgba(7,19,15,0.88) 0%, rgba(7,19,15,0.65) 45%, rgba(7,19,15,0.12) 100%), linear-gradient(0deg, rgba(7,19,15,0.92) 0%, transparent 75%)',
+          'linear-gradient(90deg, color-mix(in srgb, var(--color-home-dark) 88%, transparent) 0%, color-mix(in srgb, var(--color-home-dark) 65%, transparent) 45%, color-mix(in srgb, var(--color-home-dark) 12%, transparent) 100%), linear-gradient(0deg, color-mix(in srgb, var(--color-home-dark) 92%, transparent) 0%, transparent 75%)',
       }}
     />
   );

@@ -1,12 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Newspaper, Calendar } from 'lucide-react';
+import { ArrowRight, Newspaper, Calendar } from 'lucide-react';
 import { NewsCard } from '@/components/news/news-card';
 import { EventCard } from '@/components/events/event-card';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { cn } from '@/lib/utils';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { SAMPLE_NEWS, SAMPLE_EVENTS } from '@/lib/sample-content';
 
 export function NewsEventsSection() {
@@ -14,7 +13,6 @@ export function NewsEventsSection() {
 
   return (
     <section ref={ref} className="py-24 lg:py-32 relative overflow-hidden bg-white">
-      <FloatingShapes />
 
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header — centered */}
@@ -23,7 +21,7 @@ export function NewsEventsSection() {
             <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
             <span className="text-sm font-semibold text-primary tracking-wide">Stay Informed</span>
           </div>
-          <h2 className="font-display text-4xl lg:text-5xl font-bold text-primary-dark mb-5">
+          <h2 className="font-display text-4xl lg:text-5xl font-bold text-home-ink mb-5">
             News &{' '}
             <span className="relative inline-block">
               Events

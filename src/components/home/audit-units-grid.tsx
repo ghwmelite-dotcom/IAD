@@ -59,7 +59,7 @@ export function AuditUnitsGrid() {
     >
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface border border-border mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-home-canvas border border-border mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
             <span className="text-sm font-semibold text-primary tracking-wide">
               Our Network
@@ -90,7 +90,7 @@ export function AuditUnitsGrid() {
                 key={unit.slug}
                 href={`/audit-units/${unit.slug}`}
                 className={cn(
-                  'group/dir block relative bg-surface rounded-2xl border border-border p-6',
+                  'group/dir block relative bg-home-canvas rounded-2xl border border-border p-6',
                   'hover:bg-white hover:border-primary/30 hover:-translate-y-1 transition-all duration-400',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white',
                   glow,

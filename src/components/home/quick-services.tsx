@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FileSearch, ShieldAlert, FileText, Download, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { cn } from '@/lib/utils';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { useLanguage } from '@/components/layout/language-context';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -65,7 +64,6 @@ export function QuickServices() {
       aria-labelledby="services-heading"
       className="relative py-24 lg:py-32 bg-white overflow-hidden"
     >
-      <FloatingShapes />
 
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -75,7 +73,7 @@ export function QuickServices() {
           </div>
           <h2
             id="services-heading"
-            className="font-display text-4xl lg:text-5xl font-bold text-primary-dark mb-5"
+            className="font-display text-4xl lg:text-5xl font-bold text-home-ink mb-5"
           >
             {dict.quickServices.titleA}{' '}
             <span className="relative inline-block">

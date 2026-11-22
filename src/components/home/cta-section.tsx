@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight,
@@ -57,7 +56,6 @@ export function CtaSection() {
     <>
       {/* ── Quick Actions Row ── */}
       <section className="py-16 lg:py-20 bg-white relative overflow-hidden">
-        <FloatingShapes />
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             {QUICK_ACTIONS.map((action) => (
@@ -77,124 +75,66 @@ export function CtaSection() {
         </div>
       </section>
 
-      {/* ── Newsletter CTA ── */}
-      <section className="relative py-20 lg:py-24 bg-ink overflow-hidden">
-        {/* Animated Kente threads */}
-        <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-[25%] left-0 right-0 h-px opacity-[0.1]" style={{ background: 'linear-gradient(90deg, transparent, #D4A017 30%, #D4A017 70%, transparent)', animation: 'kente-thread-h 8s ease-in-out infinite' }} />
-          <div className="absolute top-[65%] left-0 right-0 h-px opacity-[0.07]" style={{ background: 'linear-gradient(90deg, transparent, #E8C547 20%, #E8C547 80%, transparent)', animation: 'kente-thread-h 12s ease-in-out 3s infinite reverse' }} />
-          <div className="absolute left-[20%] top-0 bottom-0 w-px opacity-[0.06]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 30%, var(--color-primary-light) 70%, transparent)', animation: 'kente-thread-v 10s ease-in-out 1s infinite' }} />
-          <div className="absolute left-[75%] top-0 bottom-0 w-px opacity-[0.08]" style={{ background: 'linear-gradient(0deg, transparent, var(--color-primary-light) 40%, var(--color-primary-light) 60%, transparent)', animation: 'kente-thread-v 8s ease-in-out infinite' }} />
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: [
-              'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
-              'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
-            ].join(', '),
-          }}
-        />
-
-        {/* Gold corner accents */}
-        <div aria-hidden="true" className="absolute top-6 left-6 opacity-30" style={{ animation: 'corner-glow 3s ease-in-out infinite' }}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M2 30V4a2 2 0 012-2h26" stroke="#D4A017" strokeWidth="1.5" strokeLinecap="round" /><circle cx="4" cy="4" r="1.5" fill="#D4A017" /></svg>
-        </div>
-        <div aria-hidden="true" className="absolute top-6 right-6 opacity-30" style={{ animation: 'corner-glow 3s ease-in-out 0.75s infinite' }}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M30 30V4a2 2 0 00-2-2H2" stroke="#D4A017" strokeWidth="1.5" strokeLinecap="round" /><circle cx="28" cy="4" r="1.5" fill="#D4A017" /></svg>
-        </div>
-        <div aria-hidden="true" className="absolute bottom-6 left-6 opacity-30" style={{ animation: 'corner-glow 3s ease-in-out 1.5s infinite' }}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M2 2V28a2 2 0 002 2h26" stroke="#D4A017" strokeWidth="1.5" strokeLinecap="round" /><circle cx="4" cy="28" r="1.5" fill="#D4A017" /></svg>
-        </div>
-        <div aria-hidden="true" className="absolute bottom-6 right-6 opacity-30" style={{ animation: 'corner-glow 3s ease-in-out 2.25s infinite' }}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M30 2V28a2 2 0 01-2 2H2" stroke="#D4A017" strokeWidth="1.5" strokeLinecap="round" /><circle cx="28" cy="28" r="1.5" fill="#D4A017" /></svg>
-        </div>
-
-        <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 mb-6">
-            <Bell className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-            <span className="text-sm font-semibold text-accent tracking-wide">{dict.cta.stayConnected}</span>
-          </div>
-
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-5">
-            {dict.cta.headlineA}{' '}
-            <span className="relative inline-block">
-              {dict.cta.headlineAccent}
-              <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/30 rounded-sm -z-10" />
-            </span>
-          </h2>
-          <p className="text-lg text-white/80 leading-relaxed mb-10 max-w-lg mx-auto">
-            {dict.cta.body}
-          </p>
-
-          <div className="mb-12">
-            <Link
-              href="/services/report-fraud"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-primary-dark font-semibold text-base rounded-xl hover:bg-accent-light hover:shadow-lg transition-all duration-200"
-            >
+      <section aria-labelledby="connect-heading" className="border-t border-home-border bg-home-canvas py-16 lg:py-24">
+        <div className="mx-auto grid max-w-content gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8">
+          <div>
+            <p className="mb-5 flex items-center gap-3 text-sm font-semibold text-home-gold">
+              <Bell className="h-4 w-4" aria-hidden="true" />
+              {dict.cta.stayConnected}
+            </p>
+            <h2 id="connect-heading" className="mb-5 font-display text-3xl font-bold leading-tight text-home-ink lg:text-4xl">
+              {dict.cta.headlineA} {dict.cta.headlineAccent}
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-home-muted lg:text-lg">{dict.cta.body}</p>
+            <Link href="/services/report-fraud" className="mt-7 inline-flex min-h-12 items-center gap-3 font-brand text-sm font-bold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
               <ShieldAlert className="h-5 w-5" aria-hidden="true" />
               {dict.cta.reportButton}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 
-          <p className="text-sm font-semibold text-white/70 mb-4">{dict.cta.subscribePrompt}</p>
-          {state === 'success' || state === 'already' ? (
-            <div className="bg-white/[0.08] backdrop-blur-sm border border-white/15 rounded-2xl p-8 max-w-md mx-auto">
-              <CheckCircle className="h-10 w-10 text-accent mx-auto mb-4" />
-              <h3 className="font-display text-xl font-bold text-white mb-2">
-                {state === 'already' ? dict.cta.alreadyTitle : dict.cta.successTitle}
-              </h3>
-              <p className="text-base text-white/60">
-                {state === 'already' ? (
-                  dict.cta.alreadyBody
-                ) : (
-                  <>
-                    {dict.cta.successDetail}{' '}
-                    <span className="font-semibold text-accent">{email}</span>. {dict.cta.successBody}.
-                  </>
-                )}
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex-1 relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20" aria-hidden="true" />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={dict.cta.emailPlaceholder}
-                    required
-                    aria-label={dict.cta.emailPlaceholder}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.08] border-2 border-white/15 text-white text-base placeholder:text-white/70 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
-                  />
-                </div>
-                <Button type="submit" variant="accent" size="lg" loading={state === 'loading'} className="shrink-0">
-                  {dict.cta.subscribe}
-                </Button>
+          <div className="rounded-2xl border border-home-border bg-white p-6 sm:p-9">
+            <p className="mb-6 text-base font-semibold leading-relaxed text-home-ink">{dict.cta.subscribePrompt}</p>
+            {state === 'success' || state === 'already' ? (
+              <div role="status" className="py-3">
+                <CheckCircle className="mb-4 h-9 w-9 text-primary" aria-hidden="true" />
+                <h3 className="mb-3 font-display text-xl font-bold text-home-ink">{state === 'already' ? dict.cta.alreadyTitle : dict.cta.successTitle}</h3>
+                <p className="text-sm leading-relaxed text-home-muted">
+                  {state === 'already' ? dict.cta.alreadyBody : <>{dict.cta.successDetail} <span className="break-words font-semibold text-primary">{email}</span>. {dict.cta.successBody}.</>}
+                </p>
               </div>
-              {state === 'error' && (
-                <div
-                  role="alert"
-                  className="mt-4 flex items-center justify-center gap-2 text-sm text-red-300"
-                >
-                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  <span>{dict.cta.errorBody}</span>
-                  <button
-                    type="submit"
-                    className="font-semibold text-accent underline underline-offset-2 hover:text-accent-light transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
-                  >
-                    {dict.cta.retry}
-                  </button>
+            ) : (
+              <form onSubmit={handleSubscribe}>
+                <div className="flex flex-col gap-3">
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-home-muted" aria-hidden="true" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={dict.cta.emailPlaceholder}
+                      required
+                      autoComplete="email"
+                      aria-label={dict.cta.emailPlaceholder}
+                      className="min-h-14 w-full rounded-lg border border-home-border bg-home-canvas py-4 pl-12 pr-4 text-base text-home-ink placeholder:text-home-muted focus:border-primary focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+                    />
+                  </div>
+                  <Button type="submit" variant="primary" size="lg" loading={state === 'loading'} className="w-full gap-3 rounded-lg font-brand text-sm font-bold">
+                    {dict.cta.subscribe}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Button>
                 </div>
-              )}
-              <p className="text-xs text-white/70 mt-3">{dict.cta.finePrint}</p>
-            </form>
-          )}
-
+                {state === 'error' && (
+                  <div role="alert" className="mt-4 flex flex-wrap items-center gap-2 text-sm text-error">
+                    <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                    <span>{dict.cta.errorBody}</span>
+                    <button type="submit" className="min-h-11 font-semibold underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">{dict.cta.retry}</button>
+                  </div>
+                )}
+                <p className="mt-4 text-xs leading-relaxed text-home-muted">{dict.cta.finePrint}</p>
+              </form>
+            )}
+          </div>
         </div>
       </section>
     </>

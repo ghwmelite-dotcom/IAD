@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AnimatedLogo } from '@/components/layout/animated-logo';
@@ -68,6 +69,7 @@ const serviceLinks: { key: keyof Dictionary['footer']['serviceLinks']; href: str
 
 export function Footer({ className }: { className?: string }) {
   const { dict } = useLanguage();
+  const isHome = usePathname() === '/';
 
   return (
     <footer className={cn('w-full', className)}>
@@ -83,7 +85,7 @@ export function Footer({ className }: { className?: string }) {
       </div>
 
       {/* ── Main footer ── */}
-      <div className="relative bg-primary-dark overflow-hidden">
+      <div className={cn('relative overflow-hidden', isHome ? 'bg-home-dark' : 'bg-primary-dark')}>
         {/* Subtle Kente mesh background */}
         <div
           aria-hidden="true"

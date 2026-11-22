@@ -90,7 +90,7 @@ function StatCard({ stat, index }: { stat: (typeof STATS)[number]; index: number
 export function StatsBanner() {
 
   return (
-    <section className="relative py-20 lg:py-24 bg-surface border-y border-border overflow-hidden">
+    <section className="relative py-20 lg:py-24 bg-home-canvas border-y border-border overflow-hidden">
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border mb-6">

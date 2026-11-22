@@ -10,7 +10,7 @@ export function LeadershipSpotlight() {
   const { ref, isVisible } = useScrollReveal(0.15);
 
   return (
-    <section aria-labelledby="leadership-heading" className="bg-surface py-16 lg:py-24">
+    <section aria-labelledby="leadership-heading" className="bg-home-canvas py-16 lg:py-24">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}

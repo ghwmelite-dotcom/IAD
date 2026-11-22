@@ -270,6 +270,36 @@
   top: 16px;
 }
 
+/* Photographic hero: the CMS focal point anchors the zoom, preserving framing. */
+@keyframes hero-photo-zoom-in {
+  from { transform: none; }
+  to { transform: translateX(var(--hero-photo-pan)) scale(1.035); }
+}
+@keyframes hero-photo-zoom-out {
+  from { transform: translateX(var(--hero-photo-pan)) scale(1.035); }
+  to { transform: none; }
+}
+.hero-photo-motion {
+  --hero-photo-pan: var(--hero-photo-pan-mobile);
+  transform-origin: var(--hero-photo-origin-mobile);
+}
+@media (min-width: 1024px) {
+  .hero-photo-motion {
+    --hero-photo-pan: var(--hero-photo-pan-desktop);
+    transform-origin: var(--hero-photo-origin-desktop);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-photo-motion {
+    animation: hero-photo-zoom-in 20s ease-in-out infinite alternate both;
+    animation-play-state: paused;
+  }
+  .hero-photo-motion[data-direction='out'] { animation-name: hero-photo-zoom-out; }
+  [data-hero-playing='true'] .hero-photo-motion[data-active='true'] {
+    animation-play-state: running;
+  }
+}
+
 /* Artwork moves independently of the page layout, using only transform/opacity. */
 @keyframes hero-art-arrive {
   from { opacity: 0.35; transform: translateY(6px) scale(0.985); }

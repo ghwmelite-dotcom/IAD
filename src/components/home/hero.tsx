@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import { defaultHeroSlides, heroManifestSchema, type HeroSlide } from '@/lib/hero-slides';
 import { HeroSlideImage, HeroOverlay } from './hero-slide-image';
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
@@ -35,15 +35,30 @@ export function Hero() {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
+  const [inView, setInView] = useState(true);
+  const heroRef = useRef<HTMLElement>(null);
   const reducedMotion = useSyncExternalStore(subscribeMotion, getReducedMotion, getServerPaused);
   const hidden = useSyncExternalStore(subscribeVisibility, getHidden, getServerPaused);
   const gesture = useRef<{ x: number; y: number } | null>(null);
-  const rotating = playing && !hovered && !hidden && !reducedMotion;
+  const rotating = playing && !hovered && !hidden && !reducedMotion && inView;
 
   const slides = (remoteSlides ?? DEFAULT_SLIDES).filter((s) => s.enabled);
   const activeIndex = active % slides.length;
   const photo = slides[activeIndex]!;
   const copyFor = (slide: HeroSlide) => slide.copy[lang] ?? slide.copy.en;
+
+  useEffect(() => {
+    const node = heroRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry?.isIntersecting ?? false);
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -102,6 +117,8 @@ export function Hero() {
 
   return (
     <section
+      ref={heroRef}
+      data-hero-playing={rotating}
       aria-label="Hero"
       aria-roledescription="carousel"
       className="relative isolate overflow-hidden bg-ink text-white touch-pan-y"
@@ -138,11 +155,29 @@ export function Hero() {
             key={slide.id}
             aria-hidden={index !== activeIndex}
             className={cn(
-              'absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none',
-              index === activeIndex ? 'opacity-100' : 'opacity-0',
+              'absolute inset-0 pointer-events-none',
+              // The incoming image is opaque beneath the fading outgoing image,
+              // preserving brightness even when wrapping from last to first.
+              index === activeIndex
+                ? 'z-0 opacity-100 transition-none'
+                : 'z-10 opacity-0 transition-opacity duration-1000 ease-in-out motion-reduce:transition-none',
             )}
           >
-            <HeroSlideImage slide={slide} preload={index === 0} />
+            <div
+              className="hero-photo-motion absolute inset-0"
+              data-active={index === activeIndex}
+              data-direction={index % 2 === 0 ? 'in' : 'out'}
+              style={
+                {
+                  '--hero-photo-origin-mobile': `${slide.mobileX}% ${slide.mobileY}%`,
+                  '--hero-photo-origin-desktop': `${slide.desktopX}% ${slide.desktopY}%`,
+                  '--hero-photo-pan-mobile': slide.mobileX >= 50 ? '0.35%' : '-0.35%',
+                  '--hero-photo-pan-desktop': slide.desktopX >= 50 ? '0.35%' : '-0.35%',
+                } as CSSProperties
+              }
+            >
+              <HeroSlideImage slide={slide} preload={index === 0} />
+            </div>
           </div>
         ))}
       </div>

@@ -17,7 +17,7 @@ export function AnimatedLogo({ variant = 'header' }: AnimatedLogoProps) {
         'inline-flex max-w-full min-w-0 shrink-0 items-center gap-2 rounded-lg py-1 focus-visible:outline-2 focus-visible:outline-offset-4 sm:gap-3',
         isFooter ? 'focus-visible:outline-brand-lime' : 'focus-visible:outline-primary',
       )}
-      aria-label={`${SITE_NAME} — Home`}
+      aria-label={`${SITE_NAME} (IAD) — Home`}
     >
       <Image
         src="/images/ohcs-crest.png"
@@ -34,7 +34,7 @@ export function AnimatedLogo({ variant = 'header' }: AnimatedLogoProps) {
         height={42}
         className="block h-auto w-[clamp(172px,47vw,216px)] shrink-0 font-brand sm:w-[300px]"
         role="img"
-        aria-label={`${SITE_NAME}. Strengthening Governance & Accountability.`}
+        aria-label={`${SITE_NAME} (IAD). Strengthening Governance & Accountability.`}
       >
         <text
           x="1"
@@ -45,7 +45,7 @@ export function AnimatedLogo({ variant = 'header' }: AnimatedLogoProps) {
           fontWeight="700"
           className={isFooter ? 'fill-white' : 'fill-primary-dark'}
         >
-          {SITE_NAME.toUpperCase()}
+          {SITE_NAME.toUpperCase()} (IAD)
         </text>
         <text
           x="1"

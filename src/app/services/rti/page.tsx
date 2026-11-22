@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PageHero } from '@/components/layout/page-hero';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { SubmissionForm } from '@/components/forms/submission-form';
 import { rtiFormSchema, type RtiFormData } from '@/lib/validations';
@@ -13,7 +12,6 @@ import {
   Scale,
   Clock,
   Shield,
-  CheckCircle,
   BookOpen,
   Users,
   ChevronDown,
@@ -63,30 +61,31 @@ export default function RtiPage() {
   return (
     <>
       <PageHero
+        theme="rights"
         title="Right to Information"
         subtitle="Every person has the right to information held by public institutions — enshrined in the Right to Information Act, 2019 (Act 989)."
         breadcrumbs={[{ label: 'Services', href: '/services' }, { label: 'Right to Information' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-3 mt-2">
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <BookOpen className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Act 989 (2019)</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <BookOpen className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Act 989 (2019)</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Users className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Available to everyone</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Users className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Available to everyone</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Clock className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">14-day response guarantee</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Clock className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">14-day response guarantee</span>
           </div>
         </div>
       </PageHero>
 
       {/* ── Your Rights Section ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
@@ -104,8 +103,8 @@ export default function RtiPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {YOUR_RIGHTS.map((right) => (
-              <div key={right.title} className="bg-green-50 rounded-2xl border-2 border-green-200 p-7 text-center hover:-translate-y-1 hover:shadow-xl hover:border-green-400 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-5 shadow-sm">
+              <div key={right.title} className="bg-white rounded-2xl border border-border p-7 text-center hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-light to-primary flex items-center justify-center mx-auto mb-5 shadow-sm">
                   <right.icon className="h-7 w-7 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-lg text-primary-dark mb-2">{right.title}</h3>
@@ -119,8 +118,8 @@ export default function RtiPage() {
       <KenteSectionDivider />
 
       {/* ── How It Works ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#FFF8F0' }}>
-        <FloatingShapes />
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/15 mb-6">
@@ -152,12 +151,12 @@ export default function RtiPage() {
 
       {/* ── Submit Request Section ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {!showForm ? (
             /* CTA to open form */
             <div className="text-center">
-              <div className="relative bg-primary-dark rounded-2xl p-10 lg:p-14 overflow-hidden">
+              <div className="relative border border-border bg-white rounded-2xl p-10 lg:p-14 overflow-hidden">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 opacity-[0.04]"
@@ -169,13 +168,13 @@ export default function RtiPage() {
                   }}
                 />
                 <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-light to-primary flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <FileText className="h-8 w-8 text-white" aria-hidden="true" />
                   </div>
-                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">
+                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-text mb-4">
                     Ready to Submit Your Request?
                   </h2>
-                  <p className="text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
+                  <p className="text-base text-text-muted max-w-lg mx-auto mb-8 leading-relaxed">
                     Your request will be assigned a unique reference number for tracking.
                     A valid email address is required for correspondence.
                   </p>
@@ -194,7 +193,7 @@ export default function RtiPage() {
             /* The actual form */
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-light to-primary flex items-center justify-center">
                   <FileText className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
                 <div>
@@ -219,7 +218,7 @@ export default function RtiPage() {
       <KenteSectionDivider />
 
       {/* ── FAQ Section ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#F0F7F1' }}>
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">

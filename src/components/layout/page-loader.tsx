@@ -45,7 +45,7 @@ export function PageLoader() {
       }}
     >
       {/* Background — warm cream */}
-      <div className="absolute inset-0" style={{ backgroundColor: '#FDFAF5' }} />
+      <div className="absolute inset-0" style={{ backgroundColor: 'var(--color-surface)' }} />
 
       {/* ── Kente Pattern Grid — builds block by block ── */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -124,7 +124,7 @@ export function PageLoader() {
               className="absolute rounded-full"
               style={{
                 inset: -6,
-                backgroundColor: '#FDFAF5',
+                backgroundColor: 'var(--color-surface)',
                 opacity: burst ? 1 : 0,
                 transition: 'opacity 0.3s',
               }}

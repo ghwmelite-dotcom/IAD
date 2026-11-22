@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PageHero } from '@/components/layout/page-hero';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -73,26 +72,27 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        theme="contact"
         title="Contact Us"
         subtitle="Have a question or need assistance? We're here to help. Reach out through any of the channels below."
         breadcrumbs={[{ label: 'Contact' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-3 mt-2">
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Clock className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Mon – Fri, 8 AM – 5 PM</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Clock className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Mon – Fri, 8 AM – 5 PM</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">2-day response time</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Mail className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">2-day response time</span>
           </div>
         </div>
       </PageHero>
 
       {/* ── Contact Cards ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
@@ -139,8 +139,8 @@ export default function ContactPage() {
       <KenteSectionDivider />
 
       {/* ── Map + Form Section ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#FFF8F0' }}>
-        <FloatingShapes />
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 

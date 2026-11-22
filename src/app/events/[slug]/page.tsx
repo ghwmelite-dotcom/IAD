@@ -38,6 +38,7 @@ export default async function EventDetailPage({ params }: PageProps) {
   return (
     <>
       <PageHero
+        theme="events"
         title={event.title}
         subtitle={event.location}
         breadcrumbs={[{ label: 'Events', href: '/events' }, { label: event.title }]}

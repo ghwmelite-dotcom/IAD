@@ -18,7 +18,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
         <li className="flex items-center">
           <Link
             href="/"
-            className="flex items-center gap-1 hover:opacity-100 opacity-70 transition-opacity font-medium"
+            className="flex items-center gap-1 hover:opacity-100 opacity-100 transition-opacity font-medium"
           >
             Home
           </Link>
@@ -35,11 +35,11 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                   {item.label}
                 </span>
               ) : item.href ? (
-                <Link href={item.href} className="hover:opacity-100 opacity-70 transition-opacity font-medium">
+                <Link href={item.href} className="hover:opacity-100 opacity-100 transition-opacity font-medium">
                   {item.label}
                 </Link>
               ) : (
-                <span className="opacity-70">{item.label}</span>
+                <span className="opacity-100">{item.label}</span>
               )}
             </li>
           );

@@ -1,6 +1,5 @@
 import { PageHero } from '@/components/layout/page-hero';
 import type { Metadata } from 'next';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import Link from 'next/link';
 import {
@@ -58,6 +57,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        theme="institution"
         title="About the Internal Audit Department"
         subtitle="Providing independent assurance, advisory, and audit coordination services within the Office of the Head of the Civil Service."
         breadcrumbs={[{ label: 'About' }]}
@@ -68,11 +68,11 @@ export default function AboutPage() {
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] rounded-2xl p-5 text-center"
+              className="bg-white border border-border rounded-2xl p-5 text-center"
             >
-              <stat.icon className="h-5 w-5 text-accent mx-auto mb-2" aria-hidden="true" />
-              <p className="text-2xl lg:text-3xl font-bold text-white leading-none mb-1">{stat.number}</p>
-              <p className="text-xs text-white/50 font-medium uppercase tracking-wider">{stat.label}</p>
+              <stat.icon className="h-5 w-5 text-home-gold mx-auto mb-2" aria-hidden="true" />
+              <p className="text-2xl lg:text-3xl font-bold text-text leading-none mb-1">{stat.number}</p>
+              <p className="text-xs text-text-muted font-medium uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
 
       {/* ── Section: Mandate ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
@@ -111,32 +111,15 @@ export default function AboutPage() {
 
       <KenteSectionDivider />
 
-      {/* ── Section: What We Do — full width dark ── */}
-      <section className="relative py-20 lg:py-24 bg-primary-dark overflow-hidden">
-        {/* Kente texture */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: [
-              'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 40px)',
-              'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 40px)',
-            ].join(', '),
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(46,125,50,0.2) 0%, transparent 60%)' }}
-        />
-
+      {/* ── Section: What We Do ── */}
+      <section className="relative border-y border-border bg-surface py-20 lg:py-24">
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-              <span className="text-sm font-semibold text-accent tracking-wide">What We Do</span>
+              <span className="text-sm font-semibold text-home-gold tracking-wide">What We Do</span>
             </div>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-white">
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-text">
               Services We{' '}
               <span className="relative inline-block">
                 Provide
@@ -149,12 +132,12 @@ export default function AboutPage() {
             {SERVICES.map((service, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/[0.1] transition-colors duration-300"
+                className="flex items-start gap-4 bg-white border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-lg">
                   <ShieldCheck className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
-                <p className="text-base text-white/70 leading-relaxed">{service}</p>
+                <p className="text-base text-text-muted leading-relaxed">{service}</p>
               </div>
             ))}
           </div>
@@ -163,8 +146,8 @@ export default function AboutPage() {
 
       <KenteSectionDivider />
 
-      {/* ── Section: Explore More — light green bg ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#F0F7F1' }}>
+      {/* ── Section: Explore More ── */}
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">

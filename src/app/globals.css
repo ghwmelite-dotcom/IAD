@@ -9,8 +9,8 @@
   --color-primary-dark: #174526;
   --color-brand-lime: #8DC63F;
   --color-brand-on-dark: #C0E58B;
-  --color-ink: #202D28;
-  /* Neutral surfaces for the homepage; forest green remains the brand accent. */
+  --color-ink: #24313A;
+  /* Shared neutral surfaces; forest green remains the IAD brand accent. */
   --color-home-canvas: #F5F7F8;
   --color-home-ink: #24313A;
   --color-home-muted: #53616C;
@@ -19,11 +19,11 @@
   --color-home-gold: #8B691F;
   --color-accent: #D4A017;
   --color-accent-light: #E8C547;
-  --color-surface: #F5F6F3;
+  --color-surface: #F5F7F8;
   --color-surface-card: #FFFFFF;
-  --color-border: #DFE5DE;
-  --color-text: #202D28;
-  --color-text-muted: #536158;
+  --color-border: #DFE4E8;
+  --color-text: #24313A;
+  --color-text-muted: #53616C;
   --color-kente-red: #B71C1C;
   --color-kente-black: #212121;
   --color-success: #2E7D32;

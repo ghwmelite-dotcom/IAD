@@ -33,6 +33,7 @@ export default async function AuditUnitDetailPage({ params }: PageProps) {
   return (
     <>
       <PageHero
+        theme="network"
         title={unit.name}
         subtitle={unit.description.length > 160 ? unit.description.slice(0, 160) + '…' : unit.description}
         breadcrumbs={[

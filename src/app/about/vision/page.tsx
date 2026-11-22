@@ -32,6 +32,7 @@ export default function VisionPage() {
   return (
     <>
       <PageHero
+        theme="vision"
         title="Our Vision"
         subtitle="The guiding aspiration of the Internal Audit Department within the Office of the Head of the Civil Service."
         breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Vision' }]}
@@ -41,7 +42,7 @@ export default function VisionPage() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           <div className="lg:col-span-3">
-            <div className="bg-primary/5 border-2 border-primary/10 rounded-2xl p-8 lg:p-12 mb-10">
+            <div className="bg-white border border-border rounded-2xl p-8 lg:p-12 mb-10">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center mb-6 shadow-lg">
                 <Eye className="h-7 w-7 text-white" aria-hidden="true" />
               </div>

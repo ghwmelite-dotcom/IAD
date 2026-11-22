@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PageHero } from '@/components/layout/page-hero';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { SubmissionForm } from '@/components/forms/submission-form';
 import { feedbackFormSchema, type FeedbackFormData } from '@/lib/validations';
@@ -44,6 +43,7 @@ export default function FeedbackPage() {
   return (
     <>
       <PageHero
+        theme="feedback"
         title="Share Your Feedback"
         subtitle="Help us improve the work of the Internal Audit Department. Your feedback — positive or constructive — drives meaningful change."
         breadcrumbs={[{ label: 'Services', href: '/services' }, { label: 'Feedback' }]}
@@ -52,11 +52,11 @@ export default function FeedbackPage() {
 
       {/* ── Submit Feedback Section ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {!showForm ? (
             <div className="text-center">
-              <div className="relative bg-primary-dark rounded-2xl p-10 lg:p-14 overflow-hidden">
+              <div className="relative border border-border bg-white rounded-2xl p-10 lg:p-14 overflow-hidden">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 opacity-[0.04]"
@@ -71,10 +71,10 @@ export default function FeedbackPage() {
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent-light flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <Send className="h-8 w-8 text-primary-dark" aria-hidden="true" />
                   </div>
-                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">
+                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-text mb-4">
                     Ready to Share Your Feedback?
                   </h2>
-                  <p className="text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
+                  <p className="text-base text-text-muted max-w-lg mx-auto mb-8 leading-relaxed">
                     Your feedback will be assigned a unique reference number so you can track
                     how it is addressed.
                   </p>
@@ -117,8 +117,8 @@ export default function FeedbackPage() {
       <KenteSectionDivider />
 
       {/* ── Impact Section ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#FFF8F0' }}>
-        <FloatingShapes />
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">

@@ -134,7 +134,7 @@ export default function AdminLoginPage() {
   return (
     <div className="fixed inset-0 z-50 flex">
       {/* ── Left Panel — Branded visual ── */}
-      <div className="hidden lg:flex lg:w-[55%] relative bg-primary-dark overflow-hidden flex-col justify-between p-12">
+      <div className="hidden lg:flex lg:w-[55%] relative bg-home-dark overflow-hidden flex-col justify-between p-12">
         {/* Animated Kente threads */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[15%] left-0 right-0 h-px opacity-[0.12]" style={{ background: 'linear-gradient(90deg, transparent, #D4A017 30%, #D4A017 70%, transparent)', animation: 'kente-thread-h 8s ease-in-out infinite' }} />

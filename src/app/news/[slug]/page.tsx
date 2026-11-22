@@ -39,6 +39,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
   return (
     <>
       <PageHero
+        theme="news"
         title={article.title}
         subtitle={article.publishedAt ? formatDateShort(article.publishedAt) : undefined}
         breadcrumbs={[{ label: 'News', href: '/news' }, { label: article.title }]}

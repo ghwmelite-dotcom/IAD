@@ -59,7 +59,7 @@ export function ProfileDetail({ profile }: ProfileDetailProps) {
 
       <KenteSectionDivider />
 
-      <section className="py-16 lg:py-20 relative overflow-hidden" style={{ backgroundColor: '#F0F7F1' }}>
+      <section className="py-16 lg:py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
         <FloatingShapes />
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           {/* Summary tiles */}

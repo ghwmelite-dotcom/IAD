@@ -57,6 +57,7 @@ export default function StructurePage() {
   return (
     <>
       <PageHero
+        theme="structure"
         title="Organisational Structure"
         subtitle="The Internal Audit Department is the headquarters of internal audit in the Civil Service — every MDA's Internal Audit Unit, led by its own Head of Unit, answers to the Director of Internal Audit."
         breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Organisational Structure' }]}

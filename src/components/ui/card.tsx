@@ -13,12 +13,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           // Base — refined surface with layered depth
-          'relative bg-surface-card rounded-xl border border-border/60 shadow-card p-6',
+          'relative bg-surface-card rounded-xl border border-border shadow-card p-6',
           // Overflow hidden needed for the kente accent bar
           kenteAccent && 'group overflow-hidden',
           // Hoverable — smooth lift with gold-tinted shadow
           hoverable &&
-            'hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 ease-out cursor-pointer',
+            'motion-safe:hover:-translate-y-1 hover:shadow-card-hover transition-all duration-200 ease-out cursor-pointer',
           className,
         )}
         {...props}

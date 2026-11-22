@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AnimatedLogo } from '@/components/layout/animated-logo';
@@ -69,7 +68,6 @@ const serviceLinks: { key: keyof Dictionary['footer']['serviceLinks']; href: str
 
 export function Footer({ className }: { className?: string }) {
   const { dict } = useLanguage();
-  const isHome = usePathname() === '/';
 
   return (
     <footer className={cn('w-full', className)}>
@@ -85,7 +83,7 @@ export function Footer({ className }: { className?: string }) {
       </div>
 
       {/* ── Main footer ── */}
-      <div className={cn('relative overflow-hidden', isHome ? 'bg-home-dark' : 'bg-primary-dark')}>
+      <div className="relative overflow-hidden bg-home-dark">
         {/* Subtle Kente mesh background */}
         <div
           aria-hidden="true"
@@ -109,7 +107,7 @@ export function Footer({ className }: { className?: string }) {
               </div>
 
               {/* Description */}
-              <p className="text-white/60 text-base leading-relaxed mb-6">
+              <p className="text-white/75 text-base leading-relaxed mb-6">
                 {dict.footer.description}
               </p>
 
@@ -125,7 +123,7 @@ export function Footer({ className }: { className?: string }) {
                     className={cn(
                       'w-10 h-10 rounded-lg bg-white/5 border border-white/10',
                       'flex items-center justify-center',
-                      'text-white/50 hover:text-accent hover:bg-accent/10 hover:border-accent/30',
+                      'text-white/75 hover:text-accent hover:bg-accent/10 hover:border-accent/30',
                       'transition-all duration-200',
                     )}
                   >
@@ -141,7 +139,7 @@ export function Footer({ className }: { className?: string }) {
                 <Clock className="h-5 w-5 text-accent" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-semibold text-white">{dict.footer.officeHours}</p>
-                  <p className="text-sm text-white/50">{dict.footer.officeHoursValue}</p>
+                  <p className="text-sm text-white/75">{dict.footer.officeHoursValue}</p>
                 </div>
               </div>
             </div>
@@ -151,7 +149,7 @@ export function Footer({ className }: { className?: string }) {
       </div>
 
       {/* ── Links Section — Warm Cream Background ── */}
-      <div style={{ backgroundColor: '#FDFAF5' }}>
+      <div className="bg-white">
         <div className="max-w-content mx-auto px-6 sm:px-8 py-14 lg:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
             {/* Quick Links */}
@@ -253,7 +251,7 @@ export function Footer({ className }: { className?: string }) {
       </div>
 
       {/* ── Bottom bar — warm cream ── */}
-      <div style={{ backgroundColor: '#F5F0E8' }}>
+      <div className="bg-surface">
         <div className="max-w-content mx-auto px-6 sm:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
             {/* Coat of arms + copyright */}
@@ -268,7 +266,7 @@ export function Footer({ className }: { className?: string }) {
                     animation: 'coa-shimmer 3s linear infinite',
                   }}
                 />
-                <div aria-hidden="true" className="absolute -inset-0.5 rounded-full" style={{ backgroundColor: '#F5F0E8' }} />
+                <div aria-hidden="true" className="absolute -inset-0.5 rounded-full bg-surface" />
                 <Image
                   src="/images/coat-of-arms.png"
                   alt="Ghana Coat of Arms"
@@ -282,7 +280,7 @@ export function Footer({ className }: { className?: string }) {
                 <p className="text-sm font-semibold text-primary-dark">
                   &copy; {currentYear} {dict.footer.copyright}
                 </p>
-                <p className="text-xs text-text-muted/60">{dict.footer.rights}</p>
+                <p className="text-xs text-text-muted">{dict.footer.rights}</p>
               </div>
             </div>
 
@@ -297,7 +295,7 @@ export function Footer({ className }: { className?: string }) {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-sm text-text-muted/50 hover:text-primary px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-all duration-200"
+                      className="text-sm text-text-muted hover:text-primary px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-all duration-200"
                     >
                       {label}
                     </Link>

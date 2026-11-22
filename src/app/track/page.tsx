@@ -71,6 +71,7 @@ export default function TrackPage() {
   return (
     <>
       <PageHero
+        theme="tracking"
         title="Track Your Submission"
         subtitle="Enter your reference number and the email or phone number you used when submitting to check the current status."
         breadcrumbs={[{ label: 'Track Submission' }]}

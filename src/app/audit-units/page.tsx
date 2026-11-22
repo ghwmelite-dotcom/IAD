@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { AUDIT_UNITS } from '@/lib/constants';
 import {
   Wallet,
@@ -65,25 +64,26 @@ export default function AuditUnitsPage() {
   return (
     <>
       <PageHero
+        theme="network"
         title="Internal Audit Units in MDAs"
         subtitle="The Internal Audit Department is the headquarters of internal audit in the Ghana Civil Service. Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit — and every Head of Unit answers to the Director of Internal Audit."
         breadcrumbs={[{ label: 'Audit Units' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-4 mt-2">
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-5 py-2">
-            <span className="text-2xl font-bold text-white">{AUDIT_UNITS.length}</span>
-            <span className="text-sm text-white/50">Internal Audit Units</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-5 py-2">
+            <span className="text-2xl font-bold text-text">{AUDIT_UNITS.length}</span>
+            <span className="text-sm text-text-muted">Internal Audit Units</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-5 py-2">
-            <span className="text-sm text-white/50">Co-ordinated & monitored by IAD, OHCS</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-5 py-2">
+            <span className="text-sm text-text-muted">Co-ordinated & monitored by IAD, OHCS</span>
           </div>
         </div>
       </PageHero>
 
       {/* ── Audit Units Section ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">

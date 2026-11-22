@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { BadgeCheck, Info, ShieldCheck } from 'lucide-react';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
@@ -68,7 +67,7 @@ export function TransparencyDashboard({
   if (status === 'unavailable') {
     return (
       <section className="py-16 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <PublishingSoon onRetry={handleRetry} />
         </div>
@@ -80,7 +79,7 @@ export function TransparencyDashboard({
     <>
       {/* ── KPI stat cards ── */}
       <section className="py-16 lg:py-20 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div
           ref={kpisRef}
           className={cn(
@@ -112,9 +111,9 @@ export function TransparencyDashboard({
       {/* ── Charts ── */}
       <section
         className="py-16 lg:py-20 relative overflow-hidden"
-        style={{ backgroundColor: '#F0F7F1' }}
+        style={{ backgroundColor: 'var(--color-surface)' }}
       >
-        <FloatingShapes />
+
         <div
           ref={chartsRef}
           className={cn(
@@ -156,9 +155,9 @@ export function TransparencyDashboard({
       {/* ── By-MDA table ── */}
       <section
         className="py-16 lg:py-20 relative overflow-hidden"
-        style={{ backgroundColor: '#FFF8F0' }}
+        style={{ backgroundColor: 'var(--color-surface)' }}
       >
-        <FloatingShapes />
+
         <div
           ref={tableRef}
           className={cn(
@@ -187,9 +186,9 @@ export function TransparencyDashboard({
 
       {/* ── About this data ── */}
       <section className="py-16 lg:py-20 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-primary/[0.04] to-accent/[0.06] rounded-2xl border-2 border-primary/10 p-8 lg:p-10">
+          <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-border p-8 lg:p-10">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm">
                 <Info className="h-5 w-5 text-white" aria-hidden="true" />

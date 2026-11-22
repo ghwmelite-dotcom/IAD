@@ -64,6 +64,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
+        theme="services"
         title="Our Services"
         subtitle="The Internal Audit Department provides audit, advisory, and reporting channels to MDAs, public officers, and citizens. Select a service below to get started."
         breadcrumbs={[{ label: 'Services' }]}

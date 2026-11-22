@@ -72,6 +72,7 @@ export default function FunctionsPage() {
   return (
     <>
       <PageHero
+        theme="functions"
         title="Our Functions"
         subtitle="The department's core responsibilities for the Internal Audit Class of the Civil Service."
         breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Functions' }]}

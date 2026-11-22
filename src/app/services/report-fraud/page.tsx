@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PageHero } from '@/components/layout/page-hero';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import { SubmissionForm } from '@/components/forms/submission-form';
 import { FaqSection } from '@/components/seo/faq-section';
@@ -66,6 +65,7 @@ export default function ReportFraudPage() {
       <JsonLd data={faqPageSchema(FAQS)} />
 
       <PageHero
+        theme="protection"
         title="Report Fraud or Waste"
         subtitle="Help us safeguard public resources. Report suspected fraud, abuse, or waste — you can remain completely anonymous."
         breadcrumbs={[{ label: 'Services', href: '/services' }, { label: 'Report Fraud / Whistleblowing' }]}
@@ -74,7 +74,7 @@ export default function ReportFraudPage() {
 
       {/* ── Assurances Section ── */}
       <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/15 mb-6">
@@ -111,12 +111,12 @@ export default function ReportFraudPage() {
       <KenteSectionDivider />
 
       {/* ── Submit Report Section ── */}
-      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#FFF8F0' }}>
-        <FloatingShapes />
+      <section className="py-20 lg:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface)' }}>
+
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {!showForm ? (
             <div className="text-center">
-              <div className="relative bg-primary-dark rounded-2xl p-10 lg:p-14 overflow-hidden">
+              <div className="relative border border-border bg-white rounded-2xl p-10 lg:p-14 overflow-hidden">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 opacity-[0.04]"
@@ -131,10 +131,10 @@ export default function ReportFraudPage() {
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <ShieldAlert className="h-8 w-8 text-white" aria-hidden="true" />
                   </div>
-                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">
+                  <h2 className="font-display text-2xl lg:text-3xl font-bold text-text mb-4">
                     Ready to Make a Report?
                   </h2>
-                  <p className="text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
+                  <p className="text-base text-text-muted max-w-lg mx-auto mb-8 leading-relaxed">
                     All identity fields are optional — leave them blank to remain anonymous.
                     No identifying details are stored unless you choose to provide them.
                   </p>

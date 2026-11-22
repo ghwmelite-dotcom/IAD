@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Award, FileSearch, ShieldCheck, Stamp } from 'lucide-react';
 import { PageHero } from '@/components/layout/page-hero';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CertificateVerifier } from '@/components/registry/certificate-verifier';
 import { FaqSection } from '@/components/seo/faq-section';
@@ -48,19 +47,20 @@ export default function VerifyPage() {
       <JsonLd data={faqPageSchema(VERIFY_FAQS)} />
 
       <PageHero
+        theme="verification"
         title="Verify a Certificate"
         subtitle="Confirm that a certificate presented as issued by the Internal Audit Department is genuine."
         breadcrumbs={[{ label: 'Transparency', href: '/transparency' }, { label: 'Verify Certificate' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-3 mt-2">
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <ShieldCheck className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Checked against official records</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <ShieldCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Checked against official records</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Award className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Free and instant</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Award className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Free and instant</span>
           </div>
         </div>
       </PageHero>
@@ -70,9 +70,9 @@ export default function VerifyPage() {
       {/* ── Verification tool ── */}
       <section
         className="py-16 lg:py-20 relative overflow-hidden"
-        style={{ backgroundColor: '#F0F7F1' }}
+        style={{ backgroundColor: 'var(--color-surface)' }}
       >
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense
             fallback={
@@ -90,7 +90,7 @@ export default function VerifyPage() {
 
       {/* ── Why verification matters ── */}
       <section className="py-16 lg:py-20 bg-white relative overflow-hidden">
-        <FloatingShapes />
+
         <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">

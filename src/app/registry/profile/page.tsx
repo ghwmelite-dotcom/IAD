@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation';
 import { SearchX } from 'lucide-react';
 import { PageHero } from '@/components/layout/page-hero';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
-import { FloatingShapes } from '@/components/home/floating-shapes';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProfileDetail } from '@/components/registry/profile-detail';
 import {
@@ -87,6 +86,7 @@ function ProfileInner() {
     return (
       <>
         <PageHero
+        theme="registry"
           title="Registry Profile"
           breadcrumbs={[
             { label: 'Transparency', href: '/transparency' },
@@ -97,7 +97,7 @@ function ProfileInner() {
         />
         <KenteSectionDivider />
         <section className="py-16 lg:py-24 bg-white relative overflow-hidden">
-          <FloatingShapes />
+
           <div className="relative max-w-xl mx-auto px-4 text-center">
             <div className="bg-white rounded-2xl border-2 border-dashed border-border/50 p-12">
               <SearchX className="h-12 w-12 text-text-muted/30 mx-auto mb-4" aria-hidden="true" />

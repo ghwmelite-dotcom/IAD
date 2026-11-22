@@ -64,7 +64,7 @@ export function PortalSidebar({
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 bottom-0 bg-primary-dark flex-col z-30 hidden lg:flex overflow-hidden',
+        'fixed left-0 top-0 bottom-0 bg-home-dark flex-col z-30 hidden lg:flex overflow-hidden',
         'transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
         collapsed ? 'w-[76px]' : 'w-72',
       )}
@@ -155,7 +155,7 @@ export function PortalSidebar({
                   active ? 'bg-accent/20' : 'bg-white/5 group-hover:bg-white/10',
                 )}
               >
-                <item.icon className={cn('h-4 w-4', active ? 'text-accent' : 'text-white/50 group-hover:text-white/70')} aria-hidden="true" />
+                <item.icon className={cn('h-4 w-4', active ? 'text-accent' : 'text-white/75 group-hover:text-white/70')} aria-hidden="true" />
               </div>
               {!collapsed && (
                 <>
@@ -164,9 +164,9 @@ export function PortalSidebar({
                 </>
               )}
               {collapsed && (
-                <div className="absolute left-full ml-3 px-3 py-1.5 bg-primary-dark border border-white/10 rounded-lg text-xs text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-xl z-50">
+                <div className="absolute left-full ml-3 px-3 py-1.5 bg-home-dark border border-white/10 rounded-lg text-xs text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-xl z-50">
                   {item.label}
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-primary-dark border-l border-b border-white/10 rotate-45" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-home-dark border-l border-b border-white/10 rotate-45" />
                 </div>
               )}
             </Link>

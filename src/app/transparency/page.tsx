@@ -28,23 +28,24 @@ export default async function TransparencyPage() {
       <JsonLd data={transparencyDatasetSchema(buildData?.summary ?? null)} />
 
       <PageHero
+        theme="transparency"
         title="Public Audit Findings Tracker"
         subtitle="Live, aggregate statistics on audit findings raised and resolved across Ghana's MDAs — because accountability should be visible."
         breadcrumbs={[{ label: 'Transparency' }]}
         accent="gold"
       >
         <div className="flex flex-wrap gap-3 mt-2">
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <BarChart3 className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Aggregates only — no sensitive detail</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <BarChart3 className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Aggregates only — no sensitive detail</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <Landmark className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Every covered MDA, side by side</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <Landmark className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Every covered MDA, side by side</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-            <ShieldCheck className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">Refreshed automatically</span>
+          <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
+            <ShieldCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
+            <span className="text-sm text-text-muted">Refreshed automatically</span>
           </div>
         </div>
       </PageHero>

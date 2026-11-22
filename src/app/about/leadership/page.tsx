@@ -28,6 +28,7 @@ export default function LeadershipPage() {
   return (
     <>
       <PageHero
+        theme="leadership"
         title="Our Leadership"
         breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Our Leadership' }]}
         accent="warm"

@@ -270,6 +270,26 @@
   top: 16px;
 }
 
+/* Active slide copy reveals in reading order, independent of the photo motion. */
+@keyframes hero-copy-arrive {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy-slide[data-copy-active='true'] [data-hero-copy] {
+    animation: hero-copy-arrive 300ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .hero-copy-slide[data-copy-active='true'] [data-hero-copy='heading'] { animation-delay: 40ms; }
+  .hero-copy-slide[data-copy-active='true'] [data-hero-copy='description'] { animation-delay: 110ms; }
+  .hero-copy-slide[data-copy-active='true'] [data-hero-copy='primary'] { animation-delay: 180ms; }
+  .hero-copy-slide[data-copy-active='true'] [data-hero-copy='secondary'] { animation-delay: 230ms; }
+  .hero-copy-slide [data-hero-copy]:focus-visible {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Photographic hero: the CMS focal point anchors the zoom, preserving framing. */
 @keyframes hero-photo-zoom-in {
   from { transform: none; }

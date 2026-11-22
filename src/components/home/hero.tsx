@@ -36,6 +36,7 @@ export function Hero() {
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
   const [inView, setInView] = useState(true);
+  const [contentReady, setContentReady] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const reducedMotion = useSyncExternalStore(subscribeMotion, getReducedMotion, getServerPaused);
   const hidden = useSyncExternalStore(subscribeVisibility, getHidden, getServerPaused);
@@ -50,14 +51,29 @@ export function Hero() {
   useEffect(() => {
     const node = heroRef.current;
     if (!node) return;
+    let visible = false;
+    let started = false;
+    const revealAfterTransition = () => {
+      if (started || !visible || document.querySelector('[data-page-loader]')) return;
+      started = true;
+      setContentReady(true);
+      transition.disconnect();
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setInView(entry?.isIntersecting ?? false);
+        visible = entry?.isIntersecting ?? false;
+        setInView(visible);
+        revealAfterTransition();
       },
       { threshold: 0.1 },
     );
+    const transition = new MutationObserver(revealAfterTransition);
     observer.observe(node);
-    return () => observer.disconnect();
+    transition.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      transition.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -198,28 +214,42 @@ export function Hero() {
                 aria-label={`${dict.hero.slide} ${index + 1} / ${slides.length}`}
                 aria-hidden={index !== activeIndex}
                 inert={index !== activeIndex}
+                data-copy-active={index === activeIndex && contentReady}
                 className={cn(
-                  'col-start-1 row-start-1 min-w-0',
-                  index === activeIndex ? 'visible motion-safe:animate-fade-in' : 'invisible',
+                  'hero-copy-slide col-start-1 row-start-1 min-w-0',
+                  index === activeIndex ? 'visible' : 'invisible',
                 )}
               >
-                <p className="mb-4 font-brand text-sm font-semibold text-brand-on-dark">
+                <p
+                  data-hero-copy="label"
+                  className="mb-4 font-brand text-sm font-semibold text-brand-on-dark"
+                >
                   {copyFor(slide).label}
                 </p>
                 {index === activeIndex ? (
-                  <h1 className="max-w-[730px] font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.025em] text-white">
+                  <h1
+                    data-hero-copy="heading"
+                    className="max-w-[730px] font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.025em] text-white"
+                  >
                     {copyFor(slide).title}
                   </h1>
                 ) : (
-                  <p className="max-w-[730px] font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.025em] text-white">
+                  <p
+                    data-hero-copy="heading"
+                    className="max-w-[730px] font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.025em] text-white"
+                  >
                     {copyFor(slide).title}
                   </p>
                 )}
-                <p className="mt-6 max-w-[610px] text-[15px] leading-[1.8] text-white/90 sm:text-base">
+                <p
+                  data-hero-copy="description"
+                  className="mt-6 max-w-[610px] text-[15px] leading-[1.8] text-white/90 sm:text-base"
+                >
                   {copyFor(slide).body}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
+                    data-hero-copy="primary"
                     href={slide.buttonHref}
                     className="inline-flex min-h-12 items-center justify-center gap-3 rounded-lg bg-white px-5 py-3 font-brand text-sm font-bold text-primary-dark transition-colors hover:bg-brand-on-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
@@ -228,6 +258,7 @@ export function Hero() {
                   </Link>
                   {slide.secondaryHref && copyFor(slide).secondaryText && (
                     <Link
+                      data-hero-copy="secondary"
                       href={slide.secondaryHref}
                       className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/70 px-5 py-3 font-brand text-sm font-semibold text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                     >

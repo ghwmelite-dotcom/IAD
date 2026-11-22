@@ -123,6 +123,7 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         <div className="absolute inset-y-5 left-1/2 aspect-square -translate-x-1/2 rounded-full border border-border bg-white" />
         {theme === 'institution' ? (
           <Image
+            data-hero-detail
             src="/images/ohcs-crest.png"
             alt=""
             width={116}
@@ -152,7 +153,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <Paper x={70} y={22} rotate={-9} />
           <Paper x={86} y={28} rotate={7} />
           <Paper x={72} y={30} />
-          <BookOpen x={94} y={52} width={54} height={54} color={green} strokeWidth={1.3} />
+          <BookOpen
+            data-hero-detail
+            x={94}
+            y={52}
+            width={54}
+            height={54}
+            color={green}
+            strokeWidth={1.3}
+          />
           <Lines x={96} y={132} w={125} />
           <path d="M210 31v37l-12-7-12 7V31" fill={gold} opacity=".85" />
         </>
@@ -163,7 +172,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         <>
           <Paper x={52} y={34} w={204} h={163} rotate={-6} />
           <Paper x={62} y={24} w={204} h={163} />
-          <Newspaper x={85} y={46} width={60} height={60} color={ink} strokeWidth={1.3} />
+          <Newspaper
+            data-hero-detail
+            x={85}
+            y={46}
+            width={60}
+            height={60}
+            color={ink}
+            strokeWidth={1.3}
+          />
           <path
             d="M164 54h72M164 68h58M164 82h72"
             stroke={line}
@@ -202,7 +219,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
             )}
           </g>
           <rect x="167" y="127" width="27" height="17" rx="4" fill={green} />
-          <Bell x={227} y={151} width={39} height={39} color={gold} strokeWidth={1.5} />
+          <Bell
+            data-hero-detail
+            x={227}
+            y={151}
+            width={39}
+            height={39}
+            color={gold}
+            strokeWidth={1.5}
+          />
         </>
       );
       break;
@@ -223,6 +248,7 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
             <g key={i}>
               <rect x={x} y={y} width="54" height="54" rx="14" fill={paper} stroke={line} />
               <Building2
+                data-hero-detail={i === 0 ? true : undefined}
                 x={x + 14}
                 y={y + 14}
                 width={26}
@@ -243,7 +269,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         <>
           <circle cx="160" cy="110" r="86" fill={paper} stroke={line} />
           <circle cx="160" cy="110" r="64" fill="none" stroke={line} strokeDasharray="2 8" />
-          <Compass x={114} y={64} width={92} height={92} color={green} strokeWidth={1} />
+          <Compass
+            data-hero-detail
+            x={114}
+            y={64}
+            width={92}
+            height={92}
+            color={green}
+            strokeWidth={1}
+          />
           <path d="M160 14v13M160 193v13M64 110h13M243 110h13" stroke={gold} strokeWidth="2" />
           <ArrowUpRight x={229} y={26} width={26} height={26} color={gold} strokeWidth={1.5} />
         </>
@@ -257,7 +291,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <circle cx="99" cy="99" r="30" fill={canvas} />
           <Users x={78} y={78} width={42} height={42} color={ink} strokeWidth={1.2} />
           <Lines x={149} y={82} w={101} />
-          <BadgeCheck x={223} y={139} width={52} height={52} color={green} strokeWidth={1.3} />
+          <BadgeCheck
+            data-hero-detail
+            x={223}
+            y={139}
+            width={52}
+            height={52}
+            color={green}
+            strokeWidth={1.3}
+          />
           <path d="M63 155h81" stroke={gold} strokeWidth="3" strokeLinecap="round" />
         </>
       );
@@ -269,7 +311,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <FileCheck2 x={86} y={48} width={54} height={54} color={ink} strokeWidth={1.2} />
           <Lines x={87} y={124} w={132} />
           <circle cx="233" cy="152" r="40" fill={paper} stroke={line} />
-          <BadgeCheck x={206} y={125} width={54} height={54} color={green} strokeWidth={1.4} />
+          <BadgeCheck
+            data-hero-detail
+            x={206}
+            y={125}
+            width={54}
+            height={54}
+            color={green}
+            strokeWidth={1.4}
+          />
           <path d="M219 188l-3 20 17-8 17 8-3-20" fill="none" stroke={gold} strokeWidth="2" />
         </>
       );
@@ -287,7 +337,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <circle cx="55" cy="61" r="24" fill={paper} stroke={line} />
           <Check x={43} y={49} width={24} height={24} color={green} />
           <circle cx="240" cy="112" r="32" fill={paper} stroke={line} />
-          <Clock3 x={219} y={91} width={42} height={42} color={gold} strokeWidth={1.3} />
+          <Clock3
+            data-hero-detail
+            x={219}
+            y={91}
+            width={42}
+            height={42}
+            color={gold}
+            strokeWidth={1.3}
+          />
           <circle cx="235" cy="202" r="17" fill={paper} stroke={line} />
           <SearchCheck x={141} y={29} width={52} height={52} color={ink} strokeWidth={1.2} />
         </>
@@ -305,7 +363,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           />
           <Paper x={61} y={94} w={160} h={100} rotate={-5} />
           <path d="M62 98l78 57 79-57" fill="none" stroke={line} strokeWidth="2" />
-          <MapPin x={180} y={22} width={72} height={72} color={green} strokeWidth={1.2} />
+          <MapPin
+            data-hero-detail
+            x={180}
+            y={22}
+            width={72}
+            height={72}
+            color={green}
+            strokeWidth={1.2}
+          />
           <Mail x={36} y={48} width={30} height={30} color={gold} strokeWidth={1.4} />
           <circle cx="261" cy="165" r="17" fill={paper} stroke={line} />
           <MessageSquare x={250} y={154} width={22} height={22} color={gold} />
@@ -321,7 +387,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <rect x="145" y="119" width="140" height="73" rx="16" fill={paper} stroke={line} />
           <MessageSquare x={161} y={138} width={37} height={37} color={green} strokeWidth={1.3} />
           <path d="M215 144h45M215 158h31" stroke={line} strokeWidth="3" strokeLinecap="round" />
-          <CheckCheck x={237} y={68} width={36} height={36} color={gold} strokeWidth={1.3} />
+          <CheckCheck
+            data-hero-detail
+            x={237}
+            y={68}
+            width={36}
+            height={36}
+            color={gold}
+            strokeWidth={1.3}
+          />
         </>
       );
       break;
@@ -332,7 +406,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <FileText x={84} y={55} width={45} height={45} color={ink} strokeWidth={1.2} />
           <Lines x={87} y={122} w={103} />
           <circle cx="229" cy="118" r="54" fill={paper} stroke={line} />
-          <Scale x={193} y={82} width={72} height={72} color={gold} strokeWidth={1.2} />
+          <Scale
+            data-hero-detail
+            x={193}
+            y={82}
+            width={72}
+            height={72}
+            color={gold}
+            strokeWidth={1.2}
+          />
         </>
       );
       break;
@@ -346,7 +428,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
             strokeWidth="1.5"
           />
           <path d="M160 39l62 25v46c0 35-27 62-62 79" fill="none" stroke={green} strokeWidth="2" />
-          <LockKeyhole x={128} y={75} width={64} height={64} color={ink} strokeWidth={1.2} />
+          <LockKeyhole
+            data-hero-detail
+            x={128}
+            y={75}
+            width={64}
+            height={64}
+            color={ink}
+            strokeWidth={1.2}
+          />
           <Fingerprint x={240} y={141} width={43} height={43} color={gold} strokeWidth={1.1} />
         </>
       );
@@ -356,6 +446,7 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         <>
           <Paper x={53} y={46} w={191} h={146} />
           <MessageSquare
+            data-hero-detail
             x={174}
             y={21}
             width={93}
@@ -376,7 +467,16 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <path d="M72 159h178" stroke={line} strokeWidth="1.5" />
           <rect x="83" y="111" width="29" height="48" rx="4" fill={canvas} stroke={line} />
           <rect x="132" y="86" width="29" height="73" rx="4" fill={canvas} stroke={line} />
-          <rect x="181" y="64" width="29" height="95" rx="4" fill={green} opacity=".8" />
+          <rect
+            data-hero-detail
+            x="181"
+            y="64"
+            width="29"
+            height="95"
+            rx="4"
+            fill={green}
+            opacity=".8"
+          />
           <SearchCheck x={226} y={134} width={65} height={65} color={gold} strokeWidth={1.2} />
           <path d="M70 65h43" stroke={gold} strokeWidth="3" strokeLinecap="round" />
         </>
@@ -387,7 +487,15 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         <>
           <circle cx="160" cy="110" r="74" fill="none" stroke={line} strokeWidth="1.5" />
           <circle cx="160" cy="110" r="42" fill={paper} stroke={line} />
-          <ShieldCheck x={134} y={84} width={52} height={52} color={green} strokeWidth={1.1} />
+          <ShieldCheck
+            data-hero-detail
+            x={134}
+            y={84}
+            width={52}
+            height={52}
+            color={green}
+            strokeWidth={1.1}
+          />
           {servicePoints.map(([x, y], i) => (
             <g key={i}>
               <rect x={x} y={y} width="36" height="36" rx="10" fill={paper} stroke={line} />
@@ -416,6 +524,7 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
                 stroke={line}
               />
               <Icon
+                data-hero-detail={i === 0 ? true : undefined}
                 x={65}
                 y={38 + i * 62}
                 width={24}
@@ -442,6 +551,7 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
           <Paper x={73} y={32} w={172} h={170} />
           <rect x="119" y="19" width="80" height="28" rx="9" fill={paper} stroke={line} />
           <ClipboardCheck
+            data-hero-detail
             x={95}
             y={67}
             width={49}

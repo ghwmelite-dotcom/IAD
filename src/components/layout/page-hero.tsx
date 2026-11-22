@@ -1,5 +1,6 @@
 import { Breadcrumb } from '@/components/layout/breadcrumb';
 import { PageHeroVisual, type PageHeroTheme } from '@/components/layout/page-hero-visual';
+import { HeroIllustrationMotion } from '@/components/layout/hero-illustration-motion';
 import type { ReactNode } from 'react';
 
 interface BreadcrumbItem {
@@ -50,7 +51,9 @@ export function PageHero({
             )}
           </div>
           <div className="h-28 min-w-0 sm:h-36 md:h-56 lg:h-64">
-            <PageHeroVisual theme={theme} />
+            <HeroIllustrationMotion key={title} theme={theme}>
+              <PageHeroVisual theme={theme} />
+            </HeroIllustrationMotion>
           </div>
         </div>
         {children && <div className="mt-8">{children}</div>}

@@ -36,6 +36,7 @@ export function PageLoader() {
 
   return (
     <div
+      data-page-loader
       className="fixed inset-0 z-[9999]"
       aria-hidden="true"
       style={{

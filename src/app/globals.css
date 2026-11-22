@@ -270,6 +270,51 @@
   top: 16px;
 }
 
+/* One quiet entrance, then a subject-specific detail settles into place.
+   Transform and opacity preserve layout and avoid continuous background motion. */
+@keyframes hero-art-arrive {
+  from { opacity: 0.35; transform: translateY(6px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-detail-settle {
+  from { opacity: 0.45; transform: translateY(3px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-compass-settle {
+  from { opacity: 0.55; transform: rotate(-12deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-balance-settle {
+  0% { transform: rotate(-4deg); }
+  65% { transform: rotate(1deg); }
+  100% { transform: none; }
+}
+@keyframes hero-bar-settle {
+  from { opacity: 0.5; transform: scaleY(0.88); }
+  to { opacity: 0.8; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-illustration-motion.is-ready > * {
+    animation: hero-art-arrive 300ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .hero-illustration-motion.is-ready [data-hero-detail] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-detail-settle 300ms ease-out 80ms backwards;
+  }
+  .hero-illustration-motion.is-ready[data-motion-theme='vision'] [data-hero-detail] {
+    animation-name: hero-compass-settle;
+  }
+  .hero-illustration-motion.is-ready[data-motion-theme='events'] [data-hero-detail],
+  .hero-illustration-motion.is-ready[data-motion-theme='rights'] [data-hero-detail] {
+    animation-name: hero-balance-settle;
+  }
+  .hero-illustration-motion.is-ready[data-motion-theme='transparency'] [data-hero-detail] {
+    transform-origin: bottom;
+    animation-name: hero-bar-settle;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

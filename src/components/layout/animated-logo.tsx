@@ -29,16 +29,16 @@ export function AnimatedLogo({ variant = 'header' }: AnimatedLogoProps) {
       <span aria-hidden="true" className="h-11 w-px shrink-0 bg-brand-lime" />
       {/* A shared vector measure keeps both lines aligned as the wordmark scales. */}
       <svg
-        viewBox="0 0 324 54"
+        viewBox="0 0 324 42"
         width={324}
-        height={54}
+        height={42}
         className="block h-auto w-[clamp(172px,47vw,216px)] shrink-0 font-brand sm:w-[300px]"
         role="img"
-        aria-label={`${SITE_NAME}. Independent Assurance & Advisory.`}
+        aria-label={`${SITE_NAME}. Strengthening Governance & Accountability.`}
       >
         <text
           x="1"
-          y="21"
+          y="20"
           textLength="320"
           lengthAdjust="spacingAndGlyphs"
           fontSize="22"
@@ -49,14 +49,14 @@ export function AnimatedLogo({ variant = 'header' }: AnimatedLogoProps) {
         </text>
         <text
           x="1"
-          y="46"
+          y="36"
           textLength="320"
           lengthAdjust="spacingAndGlyphs"
           fontSize="17"
           fontWeight="400"
           className={isFooter ? 'fill-white/90' : 'fill-text-muted'}
         >
-          Independent Assurance &amp; Advisory
+          Strengthening Governance &amp; Accountability
         </text>
       </svg>
     </Link>

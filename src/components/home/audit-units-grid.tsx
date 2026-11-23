@@ -59,10 +59,11 @@ export function AuditUnitsGrid() {
     >
       <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+          <p className="mb-4 text-sm text-text-muted">Illustrative directory — example entries awaiting departmental validation.</p>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-home-canvas border border-border mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
             <span className="text-sm font-semibold text-primary tracking-wide">
-              Our Network
+              MDA Co-ordination
             </span>
           </div>
           <h2
@@ -76,7 +77,7 @@ export function AuditUnitsGrid() {
             </span>
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-            The headquarters of internal audit in the Civil Service — every MDA&apos;s Internal Audit Unit, led by its own Head of Unit, answers to the Director of Internal Audit.
+            IAD co-ordinates and monitors Internal Audit Units in MDAs, supports equitable staffing and provides training, counselling and consultancy for the Internal Audit Class.
           </p>
         </div>
 

@@ -1,3 +1,4 @@
+import { DEPARTMENT_FUNCTIONS } from '@/lib/department-content';
 import { PageHero } from '@/components/layout/page-hero';
 import type { Metadata } from 'next';
 import { Sidebar } from '@/components/layout/sidebar';
@@ -23,39 +24,8 @@ const ABOUT_SIDEBAR = [
   },
 ];
 
-const FUNCTIONS = [
-  {
-    icon: GraduationCap,
-    title: 'Training',
-    description: 'Train officers in the Internal Audit Class of the Civil Service.',
-  },
-  {
-    icon: GitBranch,
-    title: 'Co-ordination & Monitoring',
-    description: 'Co-ordinate and monitor the activities of Internal Audit Units in MDAs.',
-  },
-  {
-    icon: Users,
-    title: 'Equitable Staffing',
-    description: 'Ensure the equitable distribution of Internal Audit staff in MDAs — postings, secondment, and conversion.',
-  },
-  {
-    icon: Handshake,
-    title: 'Staffing Policy Liaison',
-    description: 'Liaise with the Internal Audit Agency to plan and implement staffing policies for MDAs.',
-  },
-  {
-    icon: ClipboardList,
-    title: 'Class Management',
-    description: 'Manage the Internal Audit Class of the Civil Service.',
-  },
-  {
-    icon: MessagesSquare,
-    title: 'Counselling & Consultancy',
-    description: 'Offer counselling and consultancy services on issues affecting Internal Auditors in the MDAs.',
-  },
-];
-
+const FUNCTION_ICONS = [GraduationCap, GitBranch, Users, Handshake, ClipboardList, MessagesSquare];
+const FUNCTIONS = DEPARTMENT_FUNCTIONS.map((fn, index) => ({ ...fn, icon: FUNCTION_ICONS[index]! }));
 
 export const metadata: Metadata = {
   title: 'Our Functions',

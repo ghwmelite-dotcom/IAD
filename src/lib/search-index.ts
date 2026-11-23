@@ -82,21 +82,21 @@ const PUBLICATION_ENTRIES: SearchEntry[] = [
 const KEY_PAGE_ENTRIES: SearchEntry[] = [
   {
     title: 'Transparency Dashboard',
-    description: 'Live public dashboard of audit findings and resolution rates across MDAs',
+    description: 'Prototype findings dashboard — demonstration data',
     href: '/transparency',
     keywords: ['dashboard', 'findings', 'resolution', 'mda', 'open data'],
     group: 'pages',
   },
   {
     title: 'IAC Registry',
-    description: 'Verified Internal Audit Class officers and their credentials',
+    description: 'Prototype Class registry — institutional validation pending',
     href: '/registry',
     keywords: ['auditor', 'credential', 'verified', 'officer', 'class', 'register'],
     group: 'pages',
   },
   {
     title: 'Verify Certificate',
-    description: 'Check the authenticity of an IAD-issued certificate',
+    description: 'Preview the certificate record checker',
     href: '/verify',
     keywords: ['certificate', 'verify code', 'authenticity', 'serial'],
     group: 'pages',
@@ -110,7 +110,7 @@ const KEY_PAGE_ENTRIES: SearchEntry[] = [
   },
   {
     title: 'Contact Us',
-    description: 'Reach the Internal Audit Department by phone, email, or visit our offices',
+    description: 'Find OHCS reception and the official contact directory',
     href: '/contact',
     keywords: ['phone', 'email', 'address', 'accra', 'office hours'],
     group: 'pages',

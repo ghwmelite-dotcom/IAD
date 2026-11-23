@@ -52,9 +52,7 @@ export default async function AuditUnitDetailPage({ params }: PageProps) {
           <div className="space-y-6 text-lg text-text-muted leading-relaxed">
             <p>{unit.description}</p>
             <p>
-              This Internal Audit Unit is co-ordinated and monitored by the Internal Audit
-              Department of the Office of the Head of the Civil Service, which also manages
-              postings, secondment, and training for its officers.
+              This is an illustrative directory entry awaiting an approved unit profile. IAD’s documented function is to co-ordinate and monitor Internal Audit Units in MDAs and support the equitable distribution and training of Internal Audit staff.
             </p>
             {/* TODO(rebrand): add unit head, contact details, and recent reports. */}
           </div>

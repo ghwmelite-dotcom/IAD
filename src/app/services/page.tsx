@@ -1,3 +1,4 @@
+import { DEPARTMENT_SERVICES } from '@/lib/department-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/page-hero';
@@ -20,7 +21,7 @@ const services = [
   },
   {
     title: 'Report Fraud / Whistleblowing',
-    description: 'Report fraud, abuse, or waste — anonymously if you wish',
+    description: 'Reporting channel preview — optional contact fields',
     href: '/services/report-fraud',
     icon: ShieldAlert,
     gradient: 'from-error to-red-400',
@@ -52,11 +53,11 @@ const services = [
 export const metadata: Metadata = {
   title: 'Our Services',
   description:
-    'Audit, advisory, and reporting channels provided by the Internal Audit Department to MDAs, public officers, and citizens.',
+    'Eight departmental services supporting OHCS management, controls, compliance and resource safeguarding, with prototype online request channels.',
   openGraph: {
     title: 'Our Services',
     description:
-      'Audit, advisory, and reporting channels provided by the Internal Audit Department to MDAs, public officers, and citizens.',
+      'Eight departmental services supporting OHCS management, controls, compliance and resource safeguarding, with prototype online request channels.',
   },
 };
 
@@ -66,12 +67,20 @@ export default function ServicesPage() {
       <PageHero
         theme="services"
         title="Our Services"
-        subtitle="The Internal Audit Department provides audit, advisory, and reporting channels to MDAs, public officers, and citizens. Select a service below to get started."
+        subtitle="Management advice, policy and contract review, special audits, compliance and resource safeguarding within OHCS. Class management and support functions extend to Internal Auditors in MDAs."
         breadcrumbs={[{ label: 'Services' }]}
         accent="green"
       />
 
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <section aria-labelledby="departmental-services" className="mb-16">
+          <h2 id="departmental-services" className="mb-8 font-display text-3xl font-bold text-text">Our Eight Departmental Services</h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {DEPARTMENT_SERVICES.map((service) => <article key={service.title} className="rounded-2xl border border-border bg-white p-6"><h3 className="mb-3 text-lg font-semibold text-primary">{service.title}</h3><p className="leading-relaxed text-text-muted">{service.description}</p></article>)}
+          </div>
+          <Link href="/about/functions" className="mt-6 inline-flex min-h-12 items-center font-semibold text-primary underline underline-offset-4">Explore our six Class management functions</Link>
+        </section>
+        <h2 className="mb-8 font-display text-3xl font-bold text-text">Online Channel Previews</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
           {services.map((service) => {
             const Icon = service.icon;

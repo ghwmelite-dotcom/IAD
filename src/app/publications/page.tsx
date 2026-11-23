@@ -14,14 +14,14 @@ export default async function PublicationsPage() {
       <PageHero
         theme="knowledge"
         title="Knowledge Hub"
-        subtitle="Manuals, templates, standards, circulars, guidelines, reports, forms and policies from the Internal Audit Department — all in one place."
+        subtitle="A resource catalogue preview supporting audit practice and officer development. Use the official OHCS downloads catalogue for published documents."
         breadcrumbs={[{ label: 'Knowledge Hub' }]}
         accent="gold"
       >
         <div className="flex flex-wrap gap-3 mt-2">
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <BookOpen className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Official documents only</span>
+            <span className="text-sm text-text-muted">Publication approval pending</span>
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <Download className="h-4 w-4 text-home-gold" aria-hidden="true" />

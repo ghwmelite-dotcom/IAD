@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = [
     `${profile.name} — ${profile.grade ?? 'Internal Audit Class officer'}`,
     profile.mda_name ? `at ${profile.mda_name}` : null,
-    'Verified officer on the Internal Audit Class Registry.',
+    'Prototype Internal Audit Class record awaiting institutional validation.',
   ]
     .filter(Boolean)
     .join(' ');

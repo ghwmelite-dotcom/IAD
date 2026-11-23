@@ -16,6 +16,12 @@ let reducedMotion = false;
 let pageHidden = false;
 beforeEach(() => {
   vi.useFakeTimers();
+  vi.stubGlobal('IntersectionObserver', class {
+    constructor(private callback: (entries: Array<{ isIntersecting: boolean }>) => void) {}
+    observe() { this.callback([{ isIntersecting: true }]); }
+    unobserve() {}
+    disconnect() {}
+  });
   reducedMotion = false;
   pageHidden = false;
   vi.stubGlobal(
@@ -57,9 +63,9 @@ describe('Hero', () => {
     expect(link.getAttribute('href')).toBe('/services/report-fraud');
   });
 
-  it('states the HQ-of-audit-units mandate', () => {
+  it('states the OHCS and Class management scope', () => {
     render(<Hero />);
-    expect(screen.getByText(/headquarters of internal audit/i)).toBeDefined();
+    expect(screen.getByText(/Supporting effective internal audit systems at OHCS/i)).toBeDefined();
   });
 
   it('renders decorative elements as aria-hidden', () => {
@@ -87,7 +93,7 @@ describe('Hero slideshow controls', () => {
     expect(screen.getByText('Photo supplied for the IAD platform')).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: 'Previous slide' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Accountability that everyone can see',
+      'Resources protected. Value strengthened.',
     );
   });
 
@@ -101,18 +107,18 @@ describe('Hero slideshow controls', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Play slideshow' }));
     act(() => vi.advanceTimersByTime(8000));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Accountability that everyone can see',
+      'Resources protected. Value strengthened.',
     );
   });
 
   it('keeps a manually selected slide in place', () => {
     render(<Hero />);
-    fireEvent.click(screen.getByRole('button', { name: 'Slide 3: Public accountability' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Slide 3: Safeguarding resources' }));
     act(() => vi.advanceTimersByTime(24000));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Accountability that everyone can see',
+      'Resources protected. Value strengthened.',
     );
-    expect(screen.getByRole('button', { name: 'Slide 3: Public accountability' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'Slide 3: Safeguarding resources' })).toHaveAttribute(
       'aria-current',
       'true',
     );

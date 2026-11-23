@@ -37,6 +37,7 @@ export function personSchema(profile: RegistryProfile, slug: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    description: 'Prototype profile; credentials and employment details await institutional validation.',
     name: profile.name,
     url: `${SITE_ORIGIN}/registry/${slug}`,
     jobTitle: profile.grade ?? 'Internal Auditor',
@@ -62,16 +63,15 @@ export function transparencyDatasetSchema(summary: TransparencySummary | null) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
-    name: 'Public Audit Findings Tracker — Aggregate Audit Statistics',
+    name: 'Prototype Audit Findings Dashboard',
     description:
-      'Aggregate statistics on audit findings raised and resolved across Ghana\'s Ministries, Departments and Agencies: totals, resolution rates, severity and category breakdowns, monthly trends, and audit-universe risk distribution. Aggregates only — no finding text or personal data.',
+      'Prototype aggregate findings views. Data displayed on this platform has not been institutionally validated as official departmental performance.',
     url: `${SITE_ORIGIN}/transparency`,
     creator: {
       '@type': 'GovernmentOrganization',
       name: SITE_NAME,
       url: SITE_ORIGIN,
     },
-    license: 'https://creativecommons.org/licenses/by/4.0/',
     isAccessibleForFree: true,
     temporalCoverage: summary?.trend.length
       ? `${summary.trend[0]!.month}/${summary.trend[summary.trend.length - 1]!.month}`
@@ -105,7 +105,7 @@ export function knowledgeHubSchema() {
     '@type': 'CollectionPage',
     name: `Knowledge Hub — ${SITE_NAME}`,
     description:
-      'Official manuals, templates, standards, circulars, guidelines, reports, forms and policies published by the Internal Audit Department for MDAs and the public.',
+      'Resource catalogue preview for internal audit practice. Publication records and download availability require departmental approval.',
     url: `${SITE_ORIGIN}/publications`,
     isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_ORIGIN },
     about: {

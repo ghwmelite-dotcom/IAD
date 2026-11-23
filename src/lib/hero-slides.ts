@@ -95,7 +95,7 @@ export function defaultHeroSlides(): HeroSlide[] {
         label: d.hero.accountabilityLabel,
         title: d.hero.accountabilityTitle,
         body: d.hero.accountabilityBody,
-        buttonText: d.nav.transparency,
+        buttonText: d.nav.mandate,
       },
       {
         label: d.hero.serviceLabel,
@@ -128,7 +128,7 @@ export function defaultHeroSlides(): HeroSlide[] {
     [
       'audit-committee-psrs.jpeg',
       'The inauguration of the Public Sector Reforms Secretariat Audit Committee in 2025',
-      '/transparency',
+      '/about',
       '2025',
       'https://iaa.gov.gh/2025/06/13/iaa-inaugurates-the-audit-committee-of-psrs/',
       65,

@@ -23,7 +23,7 @@ vi.mock('@/hooks/use-scroll-reveal', () => ({
 describe('LeadershipSpotlight', () => {
   it('renders the section heading', () => {
     render(<LeadershipSpotlight />);
-    expect(screen.getByRole('heading', { name: /Our Leadership/i })).toBeDefined();
+    expect(screen.getByRole('heading', { name: /Welcome to IAD Ghana/i })).toBeDefined();
   });
 
   it('renders the Director name', () => {
@@ -49,7 +49,7 @@ describe('LeadershipSpotlight', () => {
 
   it('renders the Director portrait', () => {
     render(<LeadershipSpotlight />);
-    expect(screen.getByAltText('Solomon Wemegah')).toBeDefined();
+    expect(screen.getByAltText('Solomon Wemegah, Director of the Internal Audit Department')).toBeDefined();
   });
 
   it('features only the IAD Director', () => {

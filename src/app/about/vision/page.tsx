@@ -1,3 +1,4 @@
+import { DEPARTMENT_VISION } from '@/lib/department-content';
 import { PageHero } from '@/components/layout/page-hero';
 import type { Metadata } from 'next';
 import { Sidebar } from '@/components/layout/sidebar';
@@ -47,8 +48,7 @@ export default function VisionPage() {
                 <Eye className="h-7 w-7 text-white" aria-hidden="true" />
               </div>
               <blockquote className="font-display text-2xl lg:text-3xl font-bold text-primary-dark leading-snug">
-                &ldquo;To serve OHCS to achieve its mandate for the Internal Audit
-                Class.&rdquo;
+                &ldquo;{DEPARTMENT_VISION}&rdquo;
               </blockquote>
             </div>
 
@@ -60,7 +60,7 @@ export default function VisionPage() {
                 Head of Civil Service achieve its mandate.
               </p>
               <p>
-                In practice, this means building a professional, well-resourced, and
+                In practice, this means building a professional and
                 equitably distributed Internal Audit Class whose work promotes
                 accountability, transparency, and value for money across Ghana&apos;s
                 Civil Service.

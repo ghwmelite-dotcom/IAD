@@ -15,7 +15,7 @@ vi.mock('@/hooks/use-scroll-reveal', () => ({
 describe('TransparencyShowcase', () => {
   it('renders the section heading', () => {
     render(<TransparencyShowcase />);
-    expect(screen.getByRole('heading', { name: /Accountability You Can See/i })).toBeDefined();
+    expect(screen.getByRole('heading', { name: /Exploring Better Digital Services/i })).toBeDefined();
   });
 
   it('renders all three Tier-1 feature cards', () => {

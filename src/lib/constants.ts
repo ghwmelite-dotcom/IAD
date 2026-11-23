@@ -1,3 +1,4 @@
+import { DEPARTMENT_DESCRIPTION } from '@/lib/department-content';
 import type { NavItem, Directorate, SubmissionStatus } from '@/types';
 
 // ─── Site Metadata ────────────────────────────────────────────────────────────
@@ -5,8 +6,7 @@ import type { NavItem, Directorate, SubmissionStatus } from '@/types';
 export const SITE_NAME = 'Internal Audit Department';
 export const SITE_SHORT_NAME = 'IAD';
 export const SITE_URL = 'https://iad.ohcsghana.org';
-export const SITE_DESCRIPTION =
-  'The Internal Audit Department of the Office of the Head of the Civil Service provides independent assurance, audit coordination, and advisory services that strengthen accountability, risk management, and compliance across Ghana\'s Civil Service.';
+export const SITE_DESCRIPTION = DEPARTMENT_DESCRIPTION;
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Mandate & Services', href: '/about', icon: 'Shield', description: 'Our mandate and the assurance services we provide' },
       { label: 'Vision', href: '/about/vision', icon: 'Eye', description: 'Serving OHCS to achieve its mandate for the Internal Audit Class' },
       { label: 'Functions', href: '/about/functions', icon: 'ClipboardCheck', description: 'What the department does for the Internal Audit Class' },
-      { label: 'Leadership', href: '/about/leadership', icon: 'Users', description: 'The Director and senior leadership of the department' },
+      { label: 'Leadership', href: '/about/leadership', icon: 'Users', description: 'The Director of the Internal Audit Department' },
       { label: 'Organisational Structure', href: '/about/structure', icon: 'GitBranch', description: 'How the Internal Audit Department is organised' },
     ],
   },
@@ -28,9 +28,9 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Transparency',
     href: '/transparency',
     children: [
-      { label: 'Audit Findings Tracker', href: '/transparency', icon: 'FileSearch', description: 'Live public dashboard of audit findings and resolution rates across MDAs' },
-      { label: 'IAC Registry', href: '/registry', icon: 'Users', description: 'Verified Internal Audit Class officers and their credentials' },
-      { label: 'Verify Certificate', href: '/verify', icon: 'Shield', description: 'Check the authenticity of an IAD-issued certificate' },
+      { label: 'Audit Findings Tracker', href: '/transparency', icon: 'FileSearch', description: 'Prototype findings dashboard — demonstration data' },
+      { label: 'IAC Registry', href: '/registry', icon: 'Users', description: 'Prototype Internal Audit Class registry — records awaiting validation' },
+      { label: 'Verify Certificate', href: '/verify', icon: 'Shield', description: 'Preview the certificate record checker' },
     ],
   },
   {
@@ -39,7 +39,7 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Special Audit Requests', href: '/services/special-audit', icon: 'FileSearch', description: 'Request a special audit or risk assessment' },
       { label: 'Consultancy', href: '/services/consultancy', icon: 'MessageSquare', description: 'Request advisory and consultancy services' },
-      { label: 'Report Fraud / Whistleblowing', href: '/services/report-fraud', icon: 'ShieldAlert', description: 'Report fraud, abuse, or waste — anonymously if you wish' },
+      { label: 'Report Fraud / Whistleblowing', href: '/services/report-fraud', icon: 'ShieldAlert', description: 'Reporting channel preview — optional contact fields' },
       { label: 'Right to Information', href: '/services/rti', icon: 'FileText', description: 'Submit RTI requests for public records' },
       { label: 'Feedback', href: '/services/feedback', icon: 'Send', description: 'Share your feedback to help us improve' },
       { label: 'Track Submission', href: '/track', icon: 'Search', description: 'Check the status of your submission' },
@@ -65,80 +65,70 @@ export const AUDIT_UNITS: Directorate[] = [
     slug: 'ministry-of-finance-iau',
     name: 'Ministry of Finance Internal Audit Unit',
     shortName: 'MoF IAU',
-    description:
-      'Provides independent assurance over financial management, budgeting, and control processes at the Ministry of Finance, safeguarding public funds and supporting compliance with applicable laws and regulations.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Wallet',
   },
   {
     slug: 'ministry-of-health-iau',
     name: 'Ministry of Health Internal Audit Unit',
     shortName: 'MoH IAU',
-    description:
-      'Delivers audit and advisory services across the Ministry of Health, reviewing controls over health sector resources, procurement, and programme delivery.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'HeartPulse',
   },
   {
     slug: 'ministry-of-education-iau',
     name: 'Ministry of Education Internal Audit Unit',
     shortName: 'MoE IAU',
-    description:
-      'Assures the economical, effective, and efficient use of education sector resources through risk-based audits, compliance reviews, and advisory support.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'GraduationCap',
   },
   {
     slug: 'ministry-of-food-agriculture-iau',
     name: 'Ministry of Food & Agriculture Internal Audit Unit',
     shortName: 'MoFA IAU',
-    description:
-      'Reviews controls over agricultural programmes, subsidies, and assets to ensure resources reach their intended purposes.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Wheat',
   },
   {
     slug: 'ministry-of-local-government-iau',
     name: 'Ministry of Local Government, Decentralisation & Rural Development Internal Audit Unit',
     shortName: 'MLGDRD IAU',
-    description:
-      'Provides assurance over decentralised administration, inter-governmental transfers, and local governance programmes.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Landmark',
   },
   {
     slug: 'ministry-of-works-housing-iau',
     name: 'Ministry of Works & Housing Internal Audit Unit',
     shortName: 'MWH IAU',
-    description:
-      'Audits infrastructure projects, contracts, and public housing programmes to strengthen value-for-money and contract compliance.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Building2',
   },
   {
     slug: 'ministry-of-transport-iau',
     name: 'Ministry of Transport Internal Audit Unit',
     shortName: 'MoT IAU',
-    description:
-      'Reviews financial, managerial, and operational activities across the transport sector to promote accountability and safeguard assets.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Truck',
   },
   {
     slug: 'ministry-of-interior-iau',
     name: 'Ministry of the Interior Internal Audit Unit',
     shortName: 'MoI IAU',
-    description:
-      'Provides assurance over security sector spending, stores, and administrative processes within the Ministry of the Interior.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Shield',
   },
   {
     slug: 'ministry-of-justice-iau',
     name: 'Ministry of Justice & Attorney-General\'s Department Internal Audit Unit',
     shortName: 'MoJAGD IAU',
-    description:
-      'Supports compliance with laws, regulations, and procedures through audits of the justice sector\'s financial and operational activities.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Scale',
   },
   {
     slug: 'ministry-of-energy-iau',
     name: 'Ministry of Energy Internal Audit Unit',
     shortName: 'MoEn IAU',
-    description:
-      'Undertakes risk assessment, special audits, and controls reviews across energy sector programmes and state agencies.',
+    description: 'Illustrative MDA directory entry. An approved current unit profile, remit and contact details have not yet been supplied.',
     icon: 'Zap',
   },
 ];

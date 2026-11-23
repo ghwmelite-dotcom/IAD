@@ -28,20 +28,20 @@ const CONTACT_CARDS = [
   },
   {
     icon: Phone,
-    label: 'Call Us',
-    value: '+233 (0)30 266 5421',
-    detail: 'Monday – Friday, 8 AM – 5 PM',
-    href: 'tel:+233302665421',
+    label: 'OHCS Reception',
+    value: '+233 (0)30 268 2340',
+    detail: 'OHCS published reception line',
+    href: 'tel:+233302682340',
     gradient: 'from-blue-500 to-indigo-600',
     bg: 'bg-blue-50',
     border: 'border-blue-200 hover:border-blue-400',
   },
   {
     icon: Mail,
-    label: 'Email Us',
-    value: 'iad@ohcs.gov.gh',
-    detail: 'We respond within 2 business days',
-    href: 'mailto:iad@ohcs.gov.gh',
+    label: 'Official Enquiries',
+    value: 'OHCS contact directory',
+    detail: 'Departmental mailbox awaiting confirmation',
+    href: 'https://ohcs.gov.gh/contact/',
     gradient: 'from-amber-500 to-yellow-600',
     bg: 'bg-amber-50',
     border: 'border-amber-200 hover:border-amber-400',
@@ -49,8 +49,8 @@ const CONTACT_CARDS = [
   {
     icon: Clock,
     label: 'Office Hours',
-    value: 'Mon – Fri, 8:00 AM – 5:00 PM',
-    detail: 'Closed on public holidays',
+    value: 'Confirm with reception',
+    detail: 'Confirm visiting hours before travelling',
     gradient: 'from-purple-500 to-violet-600',
     bg: 'bg-purple-50',
     border: 'border-purple-200 hover:border-purple-400',
@@ -207,9 +207,9 @@ export default function ContactPage() {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-display text-xl font-bold text-primary-dark mb-3">Message Sent!</h3>
+                  <h3 className="font-display text-xl font-bold text-primary-dark mb-3">Preview Complete — Message Not Sent</h3>
                   <p className="text-base text-text-muted">
-                    Thank you for your enquiry. We&apos;ll respond within 2 business days.
+                    This form demonstrates the enquiry workflow. No message has been delivered. Please use the official OHCS contact directory.
                   </p>
                 </div>
               ) : (
@@ -247,7 +247,7 @@ export default function ContactPage() {
                     </div>
                     <Button type="submit" variant="primary" size="lg" loading={submitting} className="w-full sm:w-auto">
                       <Send className="h-4 w-4" aria-hidden="true" />
-                      Send Message
+                      Preview Enquiry
                     </Button>
                   </div>
                 </form>

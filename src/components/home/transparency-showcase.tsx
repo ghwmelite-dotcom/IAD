@@ -10,28 +10,28 @@ const FEATURES = [
     icon: TrendingUp,
     title: 'Public Audit Findings Tracker',
     description:
-      'Live aggregate statistics on findings raised and resolved across every covered MDA — because accountability should be visible.',
+      'A demonstration of how approved, aggregated findings could be presented. The displayed totals are not verified departmental performance.',
     href: '/transparency',
     cta: 'Explore the dashboard',
-    tag: 'Live Data',
+    tag: 'Prototype',
   },
   {
     icon: BadgeCheck,
     title: 'Internal Audit Class Registry',
     description:
-      'The public register of verified Internal Audit Class officers — grades, MDAs, and credentials checked by the department.',
+      'A prototype directory to explore Class information. Profiles and credentials require validation and permission before official publication.',
     href: '/registry',
     cta: 'Search the registry',
-    tag: 'Verified',
+    tag: 'Prototype',
   },
   {
     icon: ShieldCheck,
     title: 'Certificate Verification',
     description:
-      'Confirm any certificate presented as issued by the department against official records — free, instant, and public.',
+      'A prototype record checker. Official issuance, record validation and certificate policy must be confirmed before production use.',
     href: '/verify',
     cta: 'Verify a certificate',
-    tag: 'Instant',
+    tag: 'Prototype',
   },
 ];
 
@@ -49,15 +49,14 @@ export function TransparencyShowcase() {
           <div>
             <p className="mb-5 flex items-center gap-3 text-sm font-semibold text-home-gold">
               <span aria-hidden="true" className="h-px w-10 bg-home-gold/50" />
-              Open by Design
+              Digital Service Previews
             </p>
             <h2 id="transparency-heading" className="max-w-2xl font-display text-3xl font-bold leading-tight text-home-ink sm:text-4xl lg:text-5xl">
-              Accountability You Can See
+              Exploring Better Digital Services
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed text-home-muted lg:pb-1 lg:text-lg">
-            Three public tools that open the department&apos;s work to every citizen —
-            no account, no gatekeeping.
+            Explore three prototype tools. Institutional validation and approval are required before these become official public services.
           </p>
         </div>
 

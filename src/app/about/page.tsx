@@ -1,12 +1,10 @@
+import { DEPARTMENT_MANDATE, DEPARTMENT_SERVICES, DEPARTMENT_FUNCTIONS } from '@/lib/department-content';
 import { PageHero } from '@/components/layout/page-hero';
 import type { Metadata } from 'next';
 import { KenteSectionDivider } from '@/components/kente/kente-section-divider';
 import Link from 'next/link';
 import {
-  Landmark,
-  ClipboardCheck,
   BadgeCheck,
-  GraduationCap,
   ShieldCheck,
   Eye,
   ClipboardList,
@@ -15,29 +13,15 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-// TODO(rebrand): replace with verified departmental figures.
 const STATS = [
-  { number: '40+', label: 'MDAs Covered', icon: Landmark },
-  { number: '10', label: 'Audit Units Coordinated', icon: GitBranch },
-  { number: '120+', label: 'Audits Completed', icon: ClipboardCheck },
-  { number: '300+', label: 'Auditors Trained', icon: GraduationCap },
-];
-
-const SERVICES = [
-  'Advises management on how to better execute their responsibilities and duties.',
-  'Reviews policy documents and contracts, and provides advice on them.',
-  'Undertakes special audits, risk assessments, and reviews of controls and administrative processes, and issues reports for management attention.',
-  'Ensures government resources are safeguarded and used judiciously to attain the Office\u2019s goals.',
-  'Ensures that the financial, managerial, and operational activities of the Office comply with applicable laws, regulations, policies, standards, and procedures.',
-  'Ensures that the assets and properties of the Office are adequately safeguarded, used judiciously, and applied to their intended purposes.',
-  'Ensures that the resources of the Office are used economically, effectively, and efficiently.',
-  'Facilitates the prevention and detection of abuse and waste.',
+  { number: String(DEPARTMENT_SERVICES.length), label: 'Departmental services', icon: ShieldCheck },
+  { number: String(DEPARTMENT_FUNCTIONS.length), label: 'Class management functions', icon: ClipboardList },
 ];
 
 const QUICK_LINKS = [
   { label: 'Our Vision', href: '/about/vision', desc: 'Serving OHCS to achieve its mandate for the Internal Audit Class', icon: Eye },
   { label: 'Our Functions', href: '/about/functions', desc: 'Training, coordination, postings, and management of the Internal Audit Class', icon: ClipboardList },
-  { label: 'Our Leadership', href: '/about/leadership', desc: 'The Director and senior leadership of the department', icon: Users },
+  { label: 'Our Leadership', href: '/about/leadership', desc: 'The Director of the Internal Audit Department', icon: Users },
   { label: 'Organisational Structure', href: '/about/structure', desc: 'How the Internal Audit Department is organised', icon: GitBranch },
 ];
 
@@ -64,7 +48,7 @@ export default function AboutPage() {
         accent="green"
       >
         {/* Stats row inside hero */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           {STATS.map((stat) => (
             <div
               key={stat.label}
@@ -95,9 +79,7 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="text-lg text-text-muted leading-relaxed mb-6">
-              The Internal Audit Department (IAD) of the Office of the Head of the Civil Service
-              exists to provide support for the development and establishment of an efficient
-              and well-functioning internal audit system and processes at the OHCS.
+              {DEPARTMENT_MANDATE}
             </p>
             <p className="text-lg text-text-muted leading-relaxed">
               Beyond the Office itself, the department manages the Internal Audit Class of the
@@ -129,7 +111,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {SERVICES.map((service, i) => (
+            {DEPARTMENT_SERVICES.map((service, i) => (
               <div
                 key={i}
                 className="flex items-start gap-4 bg-white border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors duration-300"
@@ -137,7 +119,7 @@ export default function AboutPage() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-lg">
                   <ShieldCheck className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
-                <p className="text-base text-text-muted leading-relaxed">{service}</p>
+                <div><h3 className="mb-2 font-semibold text-text">{service.title}</h3><p className="text-base text-text-muted leading-relaxed">{service.description}</p></div>
               </div>
             ))}
           </div>

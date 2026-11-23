@@ -38,6 +38,7 @@ export function ProfileDetail({ profile }: ProfileDetailProps) {
   return (
     <>
       <PageHero
+        theme="registry"
         title={profile.name}
         subtitle={profile.grade ?? undefined}
         breadcrumbs={[
@@ -48,10 +49,10 @@ export function ProfileDetail({ profile }: ProfileDetailProps) {
         accent="green"
       >
         {profile.verified && (
-          <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mt-2">
+          <div className="inline-flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2 mt-2">
             <BadgeCheck className="h-4 w-4 text-accent" aria-hidden="true" />
-            <span className="text-sm text-white/60">
-              Verified Internal Audit Class officer
+            <span className="text-sm text-text-muted">
+              Prototype verification status
             </span>
           </div>
         )}
@@ -88,16 +89,16 @@ export function ProfileDetail({ profile }: ProfileDetailProps) {
               </div>
               <div>
                 <h2 className="font-display text-xl font-bold text-primary-dark">
-                  Verified Credentials
+                  Recorded Credentials
                 </h2>
                 <p className="text-sm text-text-muted">
-                  Professional qualifications confirmed by the department.
+                  Prototype credential records awaiting institutional validation.
                 </p>
               </div>
             </div>
             {profile.credentials.length === 0 ? (
               <p className="px-6 py-6 text-sm text-text-muted">
-                No verified credentials are published for this officer yet.
+                No credential records are displayed for this prototype profile.
               </p>
             ) : (
               <div className="overflow-x-auto">

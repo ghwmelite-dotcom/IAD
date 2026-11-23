@@ -52,11 +52,11 @@ const BGS = ['bg-green-50', 'bg-blue-50', 'bg-amber-50', 'bg-rose-50', 'bg-purpl
 export const metadata: Metadata = {
   title: 'Internal Audit Units in MDAs',
   description:
-    'Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit, coordinated by the Internal Audit Department.',
+    'IAD coordinates and monitors Internal Audit Units in MDAs. This directory currently contains illustrative entries awaiting validation.',
   openGraph: {
     title: 'Internal Audit Units in MDAs',
     description:
-      'Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit, coordinated by the Internal Audit Department.',
+      'IAD coordinates and monitors Internal Audit Units in MDAs. This directory currently contains illustrative entries awaiting validation.',
   },
 };
 
@@ -66,14 +66,14 @@ export default function AuditUnitsPage() {
       <PageHero
         theme="network"
         title="Internal Audit Units in MDAs"
-        subtitle="The Internal Audit Department is the headquarters of internal audit in the Ghana Civil Service. Every Ministry, Department and Agency has an Internal Audit Unit led by its own Head of Unit — and every Head of Unit answers to the Director of Internal Audit."
+        subtitle="IAD co-ordinates and monitors Internal Audit Units in MDAs and supports the Internal Audit Class through training, staffing support, counselling and consultancy."
         breadcrumbs={[{ label: 'Audit Units' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-4 mt-2">
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-5 py-2">
             <span className="text-2xl font-bold text-text">{AUDIT_UNITS.length}</span>
-            <span className="text-sm text-text-muted">Internal Audit Units</span>
+            <span className="text-sm text-text-muted">Illustrative entries</span>
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-5 py-2">
             <span className="text-sm text-text-muted">Co-ordinated & monitored by IAD, OHCS</span>

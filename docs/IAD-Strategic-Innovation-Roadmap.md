@@ -4,7 +4,9 @@
 **Prepared for:** Internal Audit Department, Office of the Head of the Civil Service — Ghana
 **Platform:** iad-ohcs (iad.ohcsghana.org) · Next.js + Cloudflare Pages/D1/R2
 **Date:** September 2026
-**Status:** Approved direction — Tier 1 in active implementation
+**Status:** Historical ideation; implementation and approval claims below require confirmation.
+
+**Editorial note, 23 November 2026:** Use [the brief-grounded content review and innovation proposal](IAD-Content-Accuracy-and-Innovation-2026-11-23.md) for current recommendations. This historical roadmap does not establish institutional approval, validated national coverage, production readiness or guaranteed anonymity.
 
 ---
 

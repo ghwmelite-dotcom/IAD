@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: 'Knowledge Hub — Publications & Downloads',
   description:
-    'Manuals, templates, standards, circulars, guidelines, reports, forms and policies from the Internal Audit Department — searchable and free to download.',
+    'Resource catalogue preview supporting audit practice and officer development. Publication records require departmental approval.',
   openGraph: {
     title: 'Knowledge Hub — Publications & Downloads',
     description:
-      'Manuals, templates, standards, circulars, guidelines, reports, forms and policies from the Internal Audit Department.',
+      'Resource catalogue preview — publication records require departmental approval.',
   },
 };
 

@@ -42,16 +42,17 @@ export function LeadershipSpotlight() {
               the Internal Audit Department (IAD), Ghana.
             </p>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-text-muted">
-              As the headquarters of internal audit in Ghana’s Civil Service, we
-              support Internal Audit Units across Ministries, Departments and Agencies
-              to strengthen governance, improve controls and safeguard public resources.
+              We support effective internal audit systems at OHCS, advise management
+              and help safeguard the Office’s resources. We also manage the Civil
+              Service’s Internal Audit Class through training, MDA unit coordination,
+              equitable staffing support, counselling and consultancy.
             </p>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-text-muted">
               Explore our work, access resources and connect with us as we advance
               a culture of integrity, accountability and service to Ghana.
             </p>
             <div className="mt-7 border-t border-border pt-6">
-              <h3 className="font-display text-xl font-bold text-text">Solomon Wemegah <span className="font-sans text-sm font-medium text-text-muted">FCCA</span></h3>
+              <h3 className="font-display text-xl font-bold text-text">Solomon Wemegah</h3>
               <p className="mt-1 text-sm font-semibold text-primary">Director, Internal Audit Department</p>
             </div>
             <Link href="/about/leadership" className="group mt-6 inline-flex min-h-12 w-fit items-center gap-3 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">

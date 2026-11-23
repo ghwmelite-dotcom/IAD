@@ -113,10 +113,10 @@ export function CertificateVerifier() {
             </div>
             <div>
               <h3 className="font-display text-xl font-bold text-green-900">
-                Certificate is valid
+                Prototype record found
               </h3>
               <p className="text-sm text-green-700">
-                Verified against the department&apos;s records.
+                Official validity requires departmental confirmation.
               </p>
             </div>
           </div>
@@ -153,20 +153,19 @@ export function CertificateVerifier() {
               <XCircle className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
             <h3 className="font-display text-xl font-bold text-red-900">
-              Certificate not found
+              No prototype record found
             </h3>
           </div>
           <p className="text-sm text-red-800 leading-relaxed mb-4">
             No certificate matches the code{' '}
             <span className="font-mono font-semibold">{code.trim()}</span>. Check the
-            code for typing errors. If the code is correct, the certificate may not
-            have been issued by this department.
+            code for typing errors. Missing prototype data does not establish that a certificate is invalid or fraudulent.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 text-sm font-semibold text-red-800 hover:text-red-900 underline underline-offset-2"
           >
-            Contact IAD to report a suspicious certificate
+            Contact OHCS for official confirmation
           </Link>
         </div>
       )}

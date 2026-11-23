@@ -34,7 +34,7 @@ describe('Footer', () => {
 
   it('renders contact details', () => {
     render(<Footer />);
-    expect(screen.getByText(/iad@ohcs.gov.gh/)).toBeDefined();
+    expect(screen.getByRole('link', { name: 'OHCS contact directory' })).toHaveAttribute('href', 'https://ohcs.gov.gh/contact/');
     expect(screen.getByText(/\+233/)).toBeDefined();
   });
 

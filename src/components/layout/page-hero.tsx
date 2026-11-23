@@ -1,3 +1,4 @@
+import { ContentStatusNote } from '@/components/layout/content-status-note';
 import { Breadcrumb } from '@/components/layout/breadcrumb';
 import { PageHeroVisual, type PageHeroTheme } from '@/components/layout/page-hero-visual';
 import { HeroIllustrationMotion } from '@/components/layout/hero-illustration-motion';
@@ -57,6 +58,7 @@ export function PageHero({
           </div>
         </div>
         {children && <div className="mt-8">{children}</div>}
+        <ContentStatusNote theme={theme} />
       </div>
       <div
         aria-hidden="true"

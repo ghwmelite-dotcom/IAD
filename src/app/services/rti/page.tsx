@@ -35,9 +35,9 @@ const fields: Array<{
 
 const YOUR_RIGHTS = [
   { icon: FileText, title: 'Access Public Records', desc: 'Request documents, reports, and data held by any public institution.' },
-  { icon: Clock, title: '14-Day Response', desc: 'Institutions must respond to your request within 14 working days.' },
+  { icon: Clock, title: 'Official Processing', desc: 'Use the published OHCS RTI guidance for procedures, applicable timelines and any permitted extensions.' },
   { icon: Shield, title: 'No Justification Needed', desc: 'You do not need to give a reason for requesting information.' },
-  { icon: Scale, title: 'Right to Appeal', desc: 'If denied, you may appeal to the RTI Commission within 21 days.' },
+  { icon: Scale, title: 'Review & Appeal', desc: 'Consult the OHCS RTI guidance for the appropriate review and appeal procedures.' },
 ];
 
 const PROCESS = [
@@ -49,9 +49,9 @@ const PROCESS = [
 
 const FAQS = [
   { q: 'What information can I request?', a: 'Any information held by or under the control of a public institution, subject to limited exemptions for national security, personal privacy, and third-party commercial interests.' },
-  { q: 'Is there a fee?', a: 'There is no fee for submitting a request. However, reasonable reproduction costs may apply for physical copies of documents.' },
+  { q: 'Is there a fee?', a: 'Confirm any applicable charges through the official OHCS RTI channel before requesting copies.' },
   { q: 'Who can make a request?', a: 'Any person — citizen, resident, or non-resident — has the right to request information from public institutions in Ghana.' },
-  { q: 'What if my request is denied?', a: 'You may appeal to the RTI Commission within 21 days of receiving the denial. The Commission will review your case and may order disclosure.' },
+  { q: 'What if my request is denied?', a: 'Consult the official OHCS RTI guidance and the decision notice for the applicable review and appeal process.' },
 ];
 
 export default function RtiPage() {
@@ -78,7 +78,7 @@ export default function RtiPage() {
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <Clock className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">14-day response guarantee</span>
+            <span className="text-sm text-text-muted">See official OHCS RTI guidance</span>
           </div>
         </div>
       </PageHero>
@@ -93,9 +93,9 @@ export default function RtiPage() {
               <span className="text-sm font-semibold text-primary tracking-wide">Know Your Rights</span>
             </div>
             <h2 className="font-display text-3xl lg:text-4xl font-bold text-primary-dark mb-4">
-              What the Law{' '}
+              Request{' '}
               <span className="relative inline-block">
-                Guarantees
+                Guidance
                 <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-primary/15 rounded-sm -z-10" />
               </span>
             </h2>

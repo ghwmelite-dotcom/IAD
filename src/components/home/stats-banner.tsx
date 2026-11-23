@@ -5,13 +5,13 @@ import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import { cn } from '@/lib/utils';
 import { Landmark, ClipboardCheck, BadgeCheck, GraduationCap, ShieldCheck } from 'lucide-react';
 
-// TODO(rebrand): replace with verified departmental figures.
+// Themes are responsibilities, not unverified performance totals.
 const STATS = [
-  { icon: Landmark, number: '40+', label: 'MDAs Covered', gradient: 'from-primary-light to-primary' },
-  { icon: ClipboardCheck, number: '120+', label: 'Audits Completed', gradient: 'from-blue-500 to-indigo-600' },
-  { icon: BadgeCheck, number: '85%', label: 'Findings Resolved', gradient: 'from-purple-500 to-violet-600' },
-  { icon: GraduationCap, number: '300+', label: 'Auditors Trained', gradient: 'from-teal-500 to-cyan-600' },
-  { icon: ShieldCheck, number: '10', label: 'Audit Units Coordinated', gradient: 'from-rose-500 to-pink-600' },
+  { icon: Landmark, number: 'OHCS', label: 'Audit systems & processes', gradient: 'from-primary-light to-primary' },
+  { icon: ClipboardCheck, number: '8', label: 'Departmental services', gradient: 'from-blue-500 to-indigo-600' },
+  { icon: BadgeCheck, number: '6', label: 'Class management functions', gradient: 'from-purple-500 to-violet-600' },
+  { icon: GraduationCap, number: 'Skills', label: 'Training & counselling', gradient: 'from-teal-500 to-cyan-600' },
+  { icon: ShieldCheck, number: 'Value', label: 'Economy, efficiency & effectiveness', gradient: 'from-rose-500 to-pink-600' },
 ];
 
 const COUNT_DURATION_MS = 1200;
@@ -28,7 +28,7 @@ function StatCard({ stat, index }: { stat: (typeof STATS)[number]; index: number
     if (!isVisible || !node) return;
 
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (preference.matches) return;
+    if (preference.matches || !/^\d/.test(stat.number)) return;
 
     const target = Number.parseInt(stat.number, 10);
     const suffix = stat.number.replace(/^\d+/, '');
@@ -95,7 +95,7 @@ export function StatsBanner() {
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-            <span className="text-sm font-semibold text-primary tracking-wide">By the Numbers</span>
+            <span className="text-sm font-semibold text-primary tracking-wide">Our Responsibilities</span>
           </div>
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-text">
             Internal Audit at a{' '}

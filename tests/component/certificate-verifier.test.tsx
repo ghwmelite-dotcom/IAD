@@ -57,7 +57,7 @@ describe('CertificateVerifier', () => {
     fireEvent.click(screen.getByRole('button', { name: /verify certificate/i }));
 
     await waitFor(() => {
-      expect(screen.getByText('Certificate is valid')).toBeDefined();
+      expect(screen.getByText('Prototype record found')).toBeDefined();
     });
     expect(
       screen.getByText('IAD Certificate of Competence in Public Sector Auditing'),
@@ -74,9 +74,10 @@ describe('CertificateVerifier', () => {
     fireEvent.click(screen.getByRole('button', { name: /verify certificate/i }));
 
     await waitFor(() => {
-      expect(screen.getByText('Certificate not found')).toBeDefined();
+      expect(screen.getByText('No prototype record found')).toBeDefined();
     });
-    expect(screen.getByText(/Contact IAD/)).toBeDefined();
+    expect(screen.getByText(/Contact OHCS/)).toBeDefined();
+    expect(screen.getByText(/Missing prototype data does not establish/)).toBeDefined();
   });
 
   it('shows an unavailable message when the service cannot be reached', async () => {

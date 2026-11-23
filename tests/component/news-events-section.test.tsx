@@ -21,14 +21,14 @@ vi.mock('@/hooks/use-scroll-reveal', () => ({
 }));
 
 describe('NewsEventsSection', () => {
-  it('renders the Latest News heading', () => {
+  it('renders the Sample News heading', () => {
     render(<NewsEventsSection />);
-    expect(screen.getByRole('heading', { name: /Latest News/i })).toBeDefined();
+    expect(screen.getByRole('heading', { name: /Sample News/i })).toBeDefined();
   });
 
-  it('renders the Upcoming Events heading', () => {
+  it('renders the Sample Events heading', () => {
     render(<NewsEventsSection />);
-    expect(screen.getByRole('heading', { name: /Upcoming Events/i })).toBeDefined();
+    expect(screen.getByRole('heading', { name: /Sample Events/i })).toBeDefined();
   });
 
   it('renders 3 news article titles', () => {

@@ -29,7 +29,7 @@ export function NewsEventsSection() {
             </span>
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-            The latest updates and upcoming activities from the Internal Audit Department.
+            Sample news and events demonstrate the editorial layout. Confirmed departmental announcements will replace these examples.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export function NewsEventsSection() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-light to-primary flex items-center justify-center shadow-sm">
                   <Newspaper className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-primary-dark">Latest News</h3>
+                <h3 className="font-display text-2xl font-bold text-primary-dark">Sample News</h3>
               </div>
               <Link
                 href="/news"
@@ -70,7 +70,7 @@ export function NewsEventsSection() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center shadow-sm">
                   <Calendar className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-primary-dark">Upcoming Events</h3>
+                <h3 className="font-display text-2xl font-bold text-primary-dark">Sample Events</h3>
               </div>
               <Link
                 href="/events"

@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const page = Number.parseInt(n, 10);
   return {
     title: `Internal Audit Class Registry — Page ${page}`,
-    description: `Page ${page} of the public register of verified Internal Audit Class officers in Ghana's Civil Service.`,
+    description: `Page ${page} of the prototype register of Internal Audit Class officers in Ghana's Civil Service.`,
     alternates: { canonical: registryPageHref(page) },
   };
 }
@@ -51,7 +51,7 @@ export default async function RegistryPageN({ params }: PageProps) {
       <PageHero
         theme="registry"
         title="Internal Audit Class Registry"
-        subtitle={`Verified Internal Audit Class officers — page ${page} of ${pageCount(total)}.`}
+        subtitle={`Prototype Internal Audit Class records — page ${page} of ${pageCount(total)}.`}
         breadcrumbs={[
           { label: 'Transparency', href: '/transparency' },
           { label: 'Registry', href: '/registry' },
@@ -62,11 +62,11 @@ export default async function RegistryPageN({ params }: PageProps) {
         <div className="flex flex-wrap gap-3 mt-2">
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <BadgeCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Verified officers only</span>
+            <span className="text-sm text-text-muted">Platform verification status</span>
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <ShieldCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Credentials checked by the department</span>
+            <span className="text-sm text-text-muted">Institutional validation pending</span>
           </div>
         </div>
       </PageHero>

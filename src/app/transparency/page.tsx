@@ -11,11 +11,11 @@ import { DEFAULT_OG_IMAGE } from '@/lib/seo';
 export const metadata: Metadata = {
   title: 'Public Audit Findings Tracker',
   description:
-    "Live, aggregate statistics on audit findings raised and resolved across Ghana's Ministries, Departments and Agencies — resolution rates, severity and category breakdowns, 12-month trends, and a risk heat map.",
+    "Prototype audit findings dashboard showing illustrative aggregate views, pending institutional validation.",
   openGraph: {
     title: 'Public Audit Findings Tracker',
     description:
-      "Live, aggregate statistics on audit findings raised and resolved across Ghana's MDAs.",
+      "Prototype findings dashboard — data awaiting institutional validation.",
     images: [DEFAULT_OG_IMAGE],
   },
 };
@@ -30,7 +30,7 @@ export default async function TransparencyPage() {
       <PageHero
         theme="transparency"
         title="Public Audit Findings Tracker"
-        subtitle="Live, aggregate statistics on audit findings raised and resolved across Ghana's MDAs — because accountability should be visible."
+        subtitle="Prototype aggregate findings dashboard. Displayed records demonstrate the interface and are not an approved statement of departmental performance."
         breadcrumbs={[{ label: 'Transparency' }]}
         accent="gold"
       >
@@ -41,11 +41,11 @@ export default async function TransparencyPage() {
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <Landmark className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Every covered MDA, side by side</span>
+            <span className="text-sm text-text-muted">Demonstration MDA comparison</span>
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <ShieldCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Refreshed automatically</span>
+            <span className="text-sm text-text-muted">Prototype data feed</span>
           </div>
         </div>
       </PageHero>

@@ -216,10 +216,10 @@ export function Footer({ className }: { className?: string }) {
                   <div>
                     <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.phone}</p>
                     <a
-                      href="tel:+233302665421"
+                      href="tel:+233302682340"
                       className="text-base text-text-muted hover:text-primary transition-colors duration-200"
                     >
-                      +233 (0)30 266 5421
+                      +233 (0)30 268 2340
                     </a>
                   </div>
                 </li>
@@ -230,10 +230,10 @@ export function Footer({ className }: { className?: string }) {
                   <div>
                     <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.email}</p>
                     <a
-                      href="mailto:iad@ohcs.gov.gh"
+                      href="https://ohcs.gov.gh/contact/"
                       className="text-base text-text-muted hover:text-primary transition-colors duration-200"
                     >
-                      iad@ohcs.gov.gh
+                      OHCS contact directory
                     </a>
                   </div>
                 </li>

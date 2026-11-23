@@ -13,11 +13,11 @@ import { DEFAULT_OG_IMAGE } from '@/lib/seo';
 export const metadata: Metadata = {
   title: 'Verify a Certificate',
   description:
-    'Confirm that a certificate presented as issued by the Internal Audit Department is genuine. Enter the verify code printed on the certificate for an instant check against official records.',
+    'Preview a certificate record lookup. Official certificate validity requires confirmation by the department.',
   openGraph: {
     title: 'Verify a Certificate',
     description:
-      'Confirm that a certificate presented as issued by the Internal Audit Department is genuine.',
+      'Preview a certificate record lookup. Official validity requires departmental confirmation.',
     images: [DEFAULT_OG_IMAGE],
   },
 };
@@ -27,17 +27,17 @@ const VERIFY_FAQS: FaqItem[] = [
   {
     question: 'How do I verify an IAD certificate?',
     answer:
-      'Enter the verify code printed on the certificate — usually in the format IAD-CERT-YYYY-NNNN — into the checker above and press "Verify Certificate". The code is checked against the department\'s records and the result appears instantly.',
+      'Enter the verify code printed on the certificate — usually in the format IAD-CERT-YYYY-NNNN — into the checker above and press "Verify Certificate". The code is checked against records in this prototype.',
   },
   {
     question: 'What does a valid result mean?',
     answer:
-      'A valid result confirms the certificate was genuinely issued by the Internal Audit Department. The certificate title, serial number, issue date, and the officer it was awarded to all match the official record.',
+      'A valid result means a matching record exists in this prototype. It does not establish official issuance or credential validity; seek confirmation from the department.',
   },
   {
     question: 'What should I do if a code comes back "not found"?',
     answer:
-      'First check the code for typing errors and try again. If the code is correct and still returns "not found", the certificate may not have been issued by this department — treat it as a red flag and report it to the Internal Audit Department through the contact page.',
+      'Check the code for typing errors. A missing prototype record does not prove a certificate is invalid or fraudulent. Seek confirmation through official departmental channels.',
   },
 ];
 
@@ -49,14 +49,14 @@ export default function VerifyPage() {
       <PageHero
         theme="verification"
         title="Verify a Certificate"
-        subtitle="Confirm that a certificate presented as issued by the Internal Audit Department is genuine."
+        subtitle="Preview a certificate record lookup. Official validity requires departmental confirmation."
         breadcrumbs={[{ label: 'Transparency', href: '/transparency' }, { label: 'Verify Certificate' }]}
         accent="green"
       >
         <div className="flex flex-wrap gap-3 mt-2">
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <ShieldCheck className="h-4 w-4 text-home-gold" aria-hidden="true" />
-            <span className="text-sm text-text-muted">Checked against official records</span>
+            <span className="text-sm text-text-muted">Prototype record lookup</span>
           </div>
           <div className="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2">
             <Award className="h-4 w-4 text-home-gold" aria-hidden="true" />
@@ -120,13 +120,13 @@ export default function VerifyPage() {
               {
                 icon: Stamp,
                 title: 'Authenticity',
-                body: 'A valid result confirms the certificate was genuinely issued by the Internal Audit Department, with the serial and issue date on record.',
+                body: 'A matching record exists in this prototype. Official issuance and validity still require confirmation from the department.',
                 gradient: 'from-green-500 to-emerald-600',
               },
               {
                 icon: FileSearch,
                 title: 'Fraud prevention',
-                body: 'Forged certificates erode trust in the Internal Audit Class. A code that returns "not found" should be treated as a red flag and reported.',
+                body: 'A code that returns "not found" may simply be absent from this prototype. Do not infer fraud or invalidity from an incomplete record.',
                 gradient: 'from-amber-500 to-yellow-600',
               },
               {

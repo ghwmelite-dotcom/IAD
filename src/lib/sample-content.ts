@@ -5,7 +5,7 @@ import type { NewsArticle, Event } from '@/types';
 export const SAMPLE_NEWS: NewsArticle[] = [
   {
     id: 1,
-    title: 'IAD Concludes Risk-Based Audit Planning Workshop for MDA Internal Audit Units',
+    title: 'Sample: IAD Concludes Risk-Based Audit Planning Workshop for MDA Internal Audit Units',
     slug: 'risk-based-audit-planning-workshop',
     excerpt: 'Internal Audit Units from across MDAs participated in a workshop on risk-based audit planning and the annual audit planning cycle.',
     content: '',
@@ -17,7 +17,7 @@ export const SAMPLE_NEWS: NewsArticle[] = [
   },
   {
     id: 2,
-    title: 'Internal Audit Department Commences 2026 Compliance Review Programme',
+    title: 'Sample: Internal Audit Department Commences 2026 Compliance Review Programme',
     slug: 'compliance-review-2026',
     excerpt: 'The department has begun its annual programme of compliance reviews covering financial, managerial, and operational activities in MDAs.',
     content: '',
@@ -29,7 +29,7 @@ export const SAMPLE_NEWS: NewsArticle[] = [
   },
   {
     id: 3,
-    title: 'IAD and Internal Audit Agency Align on Staffing Policies for MDAs',
+    title: 'Sample: IAD and Internal Audit Agency Align on Staffing Policies for MDAs',
     slug: 'iaa-staffing-alignment',
     excerpt: 'The department met with the Internal Audit Agency to plan and implement staffing policies for Internal Audit Units across MDAs.',
     content: '',
@@ -44,7 +44,7 @@ export const SAMPLE_NEWS: NewsArticle[] = [
 export const SAMPLE_EVENTS: Event[] = [
   {
     id: 1,
-    title: 'Internal Audit Class Induction Training — Cohort 2026A',
+    title: 'Sample: Internal Audit Class Induction Training — Cohort 2026A',
     slug: 'ia-induction-2026a',
     description: '',
     location: 'Civil Service Training Centre, Accra',
@@ -56,7 +56,7 @@ export const SAMPLE_EVENTS: Event[] = [
   },
   {
     id: 2,
-    title: 'Quarterly Coordination Meeting of MDA Internal Audit Units',
+    title: 'Sample: Quarterly Coordination Meeting of MDA Internal Audit Units',
     slug: 'iau-coordination-q2',
     description: '',
     location: 'OHCS Headquarters, Accra',
@@ -68,7 +68,7 @@ export const SAMPLE_EVENTS: Event[] = [
   },
   {
     id: 3,
-    title: 'Fraud Prevention & Whistleblowing Awareness Seminar',
+    title: 'Sample: Fraud Prevention & Whistleblowing Awareness Seminar',
     slug: 'fraud-awareness-seminar',
     description: '',
     location: 'GIMPA Campus, Accra',

@@ -7,7 +7,7 @@ const LEADERS = [
     name: 'Solomon Wemegah',
     title: 'Director, Internal Audit Department',
     bio: 'Solomon Wemegah is the Director of the Internal Audit Department at the Office of the Head of the Civil Service. The department supports effective internal audit systems at OHCS and manages the Internal Audit Class of the Civil Service. Its functions include training officers, coordinating and monitoring MDA Internal Audit Units, supporting equitable staffing, liaising with the Internal Audit Agency on staffing policies, and providing counselling and consultancy to Internal Auditors in MDAs.',
-    photoUrl: '/images/leadership/solomon-wemegah.jpg',
+    photoUrl: '/images/leadership/solomon-wemegah-iaa-2026.jpeg',
   },
 
 ];
@@ -45,7 +45,7 @@ export default function LeadershipPage() {
                       src={leader.photoUrl}
                       alt={leader.name}
                       fill
-                      className="object-cover object-[50%_20%]"
+                      className="object-cover object-[42%_50%]"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (

@@ -1,9 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FileSearch, ShieldAlert, FileText, Download, ArrowRight } from 'lucide-react';
-import { useScrollReveal } from '@/hooks/use-scroll-reveal';
-import { cn } from '@/lib/utils';
+import { FileSearch, ShieldAlert, FileText, Download, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/components/layout/language-context';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -11,117 +9,36 @@ const services: {
   icon: typeof FileSearch;
   key: keyof Dictionary['quickServices']['cards'];
   href: string;
-  gradient: string;
-  bg: string;
-  border: string;
-  number: string;
 }[] = [
-  {
-    icon: FileSearch,
-    key: 'specialAudit',
-    href: '/services/special-audit',
-    gradient: 'from-primary-light to-primary',
-    bg: 'bg-green-50/70',
-    border: 'border-green-200 hover:border-green-400',
-    number: '01',
-  },
-  {
-    icon: ShieldAlert,
-    key: 'reportFraud',
-    href: '/services/report-fraud',
-    gradient: 'from-amber-400 to-yellow-500',
-    bg: 'bg-amber-50/70',
-    border: 'border-amber-200 hover:border-amber-400',
-    number: '02',
-  },
-  {
-    icon: FileText,
-    key: 'rti',
-    href: '/services/rti',
-    gradient: 'from-rose-400 to-red-500',
-    bg: 'bg-rose-50/70',
-    border: 'border-rose-200 hover:border-rose-400',
-    number: '03',
-  },
-  {
-    icon: Download,
-    key: 'publications',
-    href: '/publications',
-    gradient: 'from-sky-400 to-blue-500',
-    bg: 'bg-sky-50/70',
-    border: 'border-sky-200 hover:border-sky-400',
-    number: '04',
-  },
+  { icon: FileSearch, key: 'specialAudit', href: '/services/special-audit' },
+  { icon: ShieldAlert, key: 'reportFraud', href: '/services/report-fraud' },
+  { icon: FileText, key: 'rti', href: '/services/rti' },
+  { icon: Download, key: 'publications', href: '/publications' },
 ];
 
 export function QuickServices() {
-  const { ref, isVisible } = useScrollReveal();
   const { dict } = useLanguage();
 
   return (
-    <section
-      ref={ref}
-      aria-labelledby="services-heading"
-      className="relative py-24 lg:py-32 bg-white overflow-hidden"
-    >
-
-      <div className="relative max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-            <span className="text-sm font-semibold text-primary tracking-wide">{dict.quickServices.eyebrow}</span>
-          </div>
-          <h2
-            id="services-heading"
-            className="font-display text-4xl lg:text-5xl font-bold text-home-ink mb-5"
-          >
-            {dict.quickServices.titleA}{' '}
-            <span className="relative inline-block">
-              {dict.quickServices.titleAccent}
-              <span aria-hidden="true" className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/20 rounded-sm -z-10" />
-            </span>
-            ?
+    <section aria-labelledby="services-heading" className="bg-home-canvas pt-16 sm:pt-20 lg:pt-24" data-home-section="services">
+      <div className="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 grid items-end gap-5 lg:grid-cols-2 lg:gap-20">
+          <h2 id="services-heading" className="max-w-xl font-display text-3xl font-semibold leading-tight text-home-ink sm:text-4xl lg:text-5xl">
+            {dict.quickServices.titleA} {dict.quickServices.titleAccent}?
           </h2>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-            {dict.quickServices.subtitle}
-          </p>
+          <p className="max-w-xl text-base leading-relaxed text-home-muted lg:pb-1">{dict.quickServices.subtitle}</p>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <Link
-              key={service.href}
-              href={service.href}
-              className={cn(
-                'group/card block relative rounded-2xl border-2 p-8',
-                'hover:-translate-y-2 hover:shadow-xl',
-                'transition-all duration-400',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-                service.bg,
-                service.border,
-                isVisible && 'animate-[reveal_0.7s_cubic-bezier(0.16,1,0.3,1)_forwards]',
-                !isVisible && 'opacity-0',
-              )}
-              style={isVisible ? { animationDelay: `${index * 120}ms` } : undefined}
-            >
-              {/* Step number watermark */}
-              <span className="absolute top-4 right-5 text-5xl font-bold text-primary-dark/[0.04] font-display">{service.number}</span>
-
-              <div className={cn(
-                'w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-6 shadow-lg',
-                'group-hover/card:scale-110 transition-transform duration-300',
-                service.gradient,
-              )}>
-                <service.icon className="h-7 w-7 text-white" aria-hidden="true" />
+        <div className="grid gap-px overflow-hidden rounded-3xl border border-home-border bg-home-border sm:grid-cols-2 lg:grid-cols-4">
+          {services.map(({ icon: Icon, key, href }) => (
+            <Link key={href} href={href} className="group grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-4 bg-white p-6 transition-colors duration-200 hover:bg-home-canvas focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-primary lg:flex lg:flex-col lg:p-8">
+              <Icon className="mt-1 h-6 w-6 shrink-0 text-home-gold lg:mb-8" strokeWidth={1.5} aria-hidden="true" />
+              <div className="lg:flex-1">
+                <h3 className="mb-3 font-brand text-lg font-semibold leading-snug text-home-ink lg:text-xl">{dict.quickServices.cards[key].title}</h3>
+                <p className="text-sm leading-relaxed text-home-muted">{dict.quickServices.cards[key].description}</p>
               </div>
-
-              <h3 className="font-semibold text-xl text-primary-dark mb-3 tracking-tight group-hover/card:text-primary transition-colors">
-                {dict.quickServices.cards[service.key].title}
-              </h3>
-              <p className="text-base text-text-muted leading-relaxed mb-6">{dict.quickServices.cards[service.key].description}</p>
-
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 group-hover/card:opacity-100 transition-all duration-300 translate-y-2 group-hover/card:translate-y-0">
-                {dict.quickServices.getStarted} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <span className="mt-1 inline-flex items-center gap-3 font-brand text-sm font-semibold text-primary lg:mt-7">
+                <span className="sr-only lg:not-sr-only">{dict.quickServices.getStarted}</span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" aria-hidden="true" />
               </span>
             </Link>
           ))}

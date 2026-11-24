@@ -133,11 +133,11 @@ export function PageHeroVisual({ theme }: { theme: PageHeroTheme }) {
         ) : (
           <div className="relative h-[90%] aspect-[4/5] overflow-hidden rounded-t-full rounded-b-2xl border-4 border-white shadow-sm">
             <Image
-              src="/images/leadership/solomon-wemegah.jpg"
+              src="/images/leadership/solomon-wemegah-iaa-2026.jpeg"
               alt=""
               fill
               sizes="(max-width: 768px) 100px, 220px"
-              className="object-cover object-[50%_65%]"
+              className="object-cover object-[42%_50%]"
             />
           </div>
         )}

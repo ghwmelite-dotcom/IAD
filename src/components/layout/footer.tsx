@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -67,43 +68,242 @@ const serviceLinks: { key: keyof Dictionary['footer']['serviceLinks']; href: str
 
 export function Footer({ className }: { className?: string }) {
   const { dict } = useLanguage();
-  const footerLink = 'inline-flex min-h-11 items-center font-brand text-sm text-white/75 underline-offset-4 transition-colors duration-200 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-light';
 
   return (
-    <footer className={cn('bg-home-dark text-white', className)}>
-      <div aria-hidden="true" className="h-1 bg-[linear-gradient(90deg,var(--color-kente-red)_0%,var(--color-kente-red)_33.33%,var(--color-accent)_33.33%,var(--color-accent)_66.66%,var(--color-primary)_66.66%)]" />
-      <div className="mx-auto max-w-content px-4 pt-14 sm:px-6 lg:px-8 lg:pt-16">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-12 lg:grid-cols-12 lg:gap-8">
-          <div className="col-span-2 lg:col-span-12 xl:col-span-5 xl:pr-6">
-            <AnimatedLogo variant="footer" />
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/70">{dict.footer.description}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {socialLinks.map(({ label, href, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/75 transition-colors duration-200 hover:border-accent-light/60 hover:text-accent-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-light"><Icon className="h-4 w-4" /></a>
-              ))}
+    <footer className={cn('w-full', className)}>
+      {/* ── Thick Kente band at top ── */}
+      <div aria-hidden="true" style={{ height: 10 }}>
+        <div
+          className="h-full"
+          style={{
+            background:
+              'repeating-linear-gradient(90deg, var(--color-primary) 0px, var(--color-primary) 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)',
+          }}
+        />
+      </div>
+
+      {/* ── Main footer ── */}
+      <div className="relative overflow-hidden bg-home-dark">
+        {/* Subtle Kente mesh background */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: [
+              'repeating-linear-gradient(0deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
+              'repeating-linear-gradient(90deg, #D4A017 0px, #D4A017 1px, transparent 1px, transparent 48px)',
+            ].join(', '),
+          }}
+        />
+
+        <div className="relative max-w-content mx-auto px-6 sm:px-8 pt-16 pb-12 lg:pt-20 lg:pb-16">
+
+          {/* ── Top section: Logo + description + social ── */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 mb-14">
+            <div className="max-w-md">
+              {/* Logo + name */}
+              <div className="flex items-center gap-4 mb-5">
+                <AnimatedLogo variant="footer" />
+              </div>
+
+              {/* Description */}
+              <p className="text-white/75 text-base leading-relaxed mb-6">
+                {dict.footer.description}
+              </p>
+
+              {/* Social links — larger, with hover glow */}
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className={cn(
+                      'w-10 h-10 rounded-lg bg-white/5 border border-white/10',
+                      'flex items-center justify-center',
+                      'text-white/75 hover:text-accent hover:bg-accent/10 hover:border-accent/30',
+                      'transition-all duration-200',
+                    )}
+                  >
+                    <Icon className="h-[18px] w-[18px]" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Office hours badge */}
+            <div className="lg:text-right">
+              <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-5 py-4">
+                <Clock className="h-5 w-5 text-accent" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-semibold text-white">{dict.footer.officeHours}</p>
+                  <p className="text-sm text-white/75">{dict.footer.officeHoursValue}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="lg:col-span-3 xl:col-span-2">
-            <h3 className="mb-4 font-brand text-sm font-semibold text-white">{dict.footer.quickLinks}</h3>
-            <ul>{quickLinks.map(({ key, href }) => <li key={key}><Link href={href} className={footerLink}>{dict.footer.links[key]}</Link></li>)}</ul>
-          </div>
-          <div className="lg:col-span-3 xl:col-span-2">
-            <h3 className="mb-4 font-brand text-sm font-semibold text-white">{dict.footer.services}</h3>
-            <ul>{serviceLinks.map(({ key, href }) => <li key={key}><Link href={href} className={footerLink}>{dict.footer.serviceLinks[key]}</Link></li>)}</ul>
-          </div>
-          <div className="col-span-2 lg:col-span-6 xl:col-span-3 xl:pl-3">
-            <h3 className="mb-5 font-brand text-sm font-semibold text-white">{dict.footer.getInTouch}</h3>
-            <ul className="space-y-5">
-              <li className="flex items-start gap-3"><MapPin className="mt-1 h-4 w-4 shrink-0 text-accent-light" aria-hidden="true" /><p className="text-sm leading-relaxed text-white/70">{dict.footer.addressLine1}<br />{dict.footer.addressLine2}<br />{dict.footer.addressLine3}</p></li>
-              <li className="flex items-start gap-3"><Phone className="mt-3 h-4 w-4 shrink-0 text-accent-light" aria-hidden="true" /><div><p className="font-brand text-xs text-white/60">{dict.footer.phone}</p><a href="tel:+233302682340" className={footerLink}>+233 (0)30 268 2340</a></div></li>
-              <li className="flex items-start gap-3"><Mail className="mt-3 h-4 w-4 shrink-0 text-accent-light" aria-hidden="true" /><div><p className="font-brand text-xs text-white/60">{dict.footer.email}</p><a href="https://ohcs.gov.gh/contact/" className={footerLink}>OHCS contact directory</a></div></li>
-              <li className="flex items-start gap-3"><Clock className="mt-1 h-4 w-4 shrink-0 text-accent-light" aria-hidden="true" /><div><p className="font-brand text-xs text-white/60">{dict.footer.officeHours}</p><p className="mt-1 text-sm leading-relaxed text-white/70">{dict.footer.officeHoursValue}</p></div></li>
-            </ul>
+
+        </div>
+      </div>
+
+      {/* ── Links Section — Warm Cream Background ── */}
+      <div className="bg-white">
+        <div className="max-w-content mx-auto px-6 sm:px-8 py-14 lg:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
+                {dict.footer.quickLinks}
+              </h3>
+              <ul className="space-y-3">
+                {quickLinks.map(({ key, href }) => (
+                  <li key={key}>
+                    <Link
+                      href={href}
+                      className="text-base text-text-muted hover:text-primary hover:translate-x-1 inline-block transition-all duration-200"
+                    >
+                      {dict.footer.links[key]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Services */}
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
+                {dict.footer.services}
+              </h3>
+              <ul className="space-y-3">
+                {serviceLinks.map(({ key, href }) => (
+                  <li key={key}>
+                    <Link
+                      href={href}
+                      className="text-base text-text-muted hover:text-primary hover:translate-x-1 inline-block transition-all duration-200"
+                    >
+                      {dict.footer.serviceLinks[key]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="sm:col-span-2 lg:col-span-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-dark mb-5">
+                {dict.footer.getInTouch}
+              </h3>
+              <ul className="space-y-5">
+                <li className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.addressLabel}</p>
+                    <p className="text-base text-text-muted leading-relaxed">
+                      {dict.footer.addressLine1}<br />
+                      {dict.footer.addressLine2}<br />
+                      {dict.footer.addressLine3}
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Phone className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.phone}</p>
+                    <a
+                      href="tel:+233302682340"
+                      className="text-base text-text-muted hover:text-primary transition-colors duration-200"
+                    >
+                      +233 (0)30 268 2340
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-primary-dark mb-0.5">{dict.footer.email}</p>
+                    <a
+                      href="https://ohcs.gov.gh/contact/"
+                      className="text-base text-text-muted hover:text-primary transition-colors duration-200"
+                    >
+                      OHCS contact directory
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col gap-5 border-t border-white/15 py-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="min-w-0"><p className="font-brand text-xs leading-relaxed text-white/75">&copy; {currentYear} {dict.footer.copyright}</p><p className="mt-1 font-brand text-xs text-white/60">{dict.footer.rights}</p></div>
-          <nav aria-label="Policy links"><ul className="flex flex-wrap gap-x-5 gap-y-1">{[{ label: dict.footer.privacy, href: '/privacy' },{ label: dict.footer.accessibility, href: '/accessibility' },{ label: dict.footer.sitemap, href: '/sitemap.xml' }].map(({ label, href }) => <li key={href}><Link href={href} className={footerLink}>{label}</Link></li>)}</ul></nav>
+      </div>
+
+      {/* ── Kente Stripe Separator ── */}
+      <div aria-hidden="true" style={{ height: 5 }}>
+        <div className="h-full relative" style={{ background: 'repeating-linear-gradient(90deg, var(--color-primary) 0px, var(--color-primary) 80px, #D4A017 80px, #D4A017 160px, #B71C1C 160px, #B71C1C 240px, #212121 240px, #212121 320px)' }}>
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 55%, transparent 100%)', backgroundSize: '200% 100%', animation: 'kente-shimmer 4s ease-in-out infinite' }} />
+        </div>
+      </div>
+
+      {/* ── Bottom bar — warm cream ── */}
+      <div className="bg-surface">
+        <div className="max-w-content mx-auto px-6 sm:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+            {/* Coat of arms + copyright */}
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                {/* Gold shimmer ring */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-1 rounded-full"
+                  style={{
+                    background: 'conic-gradient(from 0deg, transparent 0%, rgba(212,160,23,0.3) 25%, transparent 50%, rgba(212,160,23,0.2) 75%, transparent 100%)',
+                    animation: 'coa-shimmer 3s linear infinite',
+                  }}
+                />
+                <div aria-hidden="true" className="absolute -inset-0.5 rounded-full bg-surface" />
+                <Image
+                  src="/images/coat-of-arms.png"
+                  alt="Ghana Coat of Arms"
+                  width={32}
+                  height={32}
+                  className="object-contain relative z-10"
+                  style={{ width: 32, height: 32 }}
+                />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary-dark">
+                  &copy; {currentYear} {dict.footer.copyright}
+                </p>
+                <p className="text-xs text-text-muted">{dict.footer.rights}</p>
+              </div>
+            </div>
+
+            {/* Policy links */}
+            <nav aria-label="Policy links">
+              <ul className="flex items-center gap-2">
+                {[
+                  { label: dict.footer.privacy, href: '/privacy' },
+                  { label: dict.footer.accessibility, href: '/accessibility' },
+                  { label: dict.footer.sitemap, href: '/sitemap.xml' },
+                ].map(({ label, href }) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="text-sm text-text-muted hover:text-primary px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-all duration-200"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>

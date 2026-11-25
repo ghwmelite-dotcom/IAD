@@ -49,8 +49,8 @@ const CONTACT_CARDS = [
   {
     icon: Clock,
     label: 'Office Hours',
-    value: 'Confirm with reception',
-    detail: 'Confirm visiting hours before travelling',
+    value: '8:30 AM – 5:00 PM',
+    detail: 'Monday – Friday',
     gradient: 'from-purple-500 to-violet-600',
     bg: 'bg-purple-50',
     border: 'border-purple-200 hover:border-purple-400',

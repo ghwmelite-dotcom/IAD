@@ -130,7 +130,7 @@ export const en = {
     description:
       "Supporting internal audit systems at OHCS and managing the Civil Service Internal Audit Class through training, MDA coordination, equitable staffing support, counselling and consultancy.",
     officeHours: 'Office Hours',
-    officeHoursValue: 'Confirm visiting hours with OHCS reception',
+    officeHoursValue: 'Monday – Friday, 8:30 AM – 5:00 PM',
     quickLinks: 'Quick Links',
     services: 'Services',
     getInTouch: 'Get in Touch',
@@ -300,7 +300,7 @@ export const fr: Dictionary = {
     description:
       'Soutenir les systèmes d’audit interne de l’OHCS et gérer la catégorie professionnelle de l’audit interne : formation, coordination des MDA, effectifs, accompagnement et conseil.',
     officeHours: 'Heures d’Ouverture',
-    officeHoursValue: 'Confirmez les horaires auprès de l’accueil OHCS',
+    officeHoursValue: 'Lundi – vendredi, 8h30 – 17h00',
     quickLinks: 'Liens Rapides',
     services: 'Services',
     getInTouch: 'Contactez-Nous',
